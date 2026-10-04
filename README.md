@@ -50,7 +50,7 @@ When the production domain is ready:
 
 One GIF at a time, up to 30 MiB and 1,000 frames. Additional safeguards: 8,192 pixels per side, 16 million pixels per frame, 128 million decoded patch pixels, and 80 million output pixels across all frames. Decoding applies transparent patches and disposal methods 2/3 and exports each full composited image as PNG. Frame timing metadata is preserved, including zero-delay frames; playback delays below 20 ms are displayed at 100 ms for a usable preview. ZIP filenames preserve original frame numbers. Original files are never modified.
 
-The UI creates and releases object URLs, supports cancellation, renders thumbnail batches, uses native accessible controls, and respects reduced-motion preferences. Resource limits reduce browser memory risk; actual capacity still depends on the device. There is no service worker or offline-install feature.
+The UI creates and releases object URLs, supports cancellation, renders thumbnail batches, uses native accessible controls, and respects reduced-motion preferences. A single ZIP export is limited to 128 MiB of PNG data; larger results can be downloaded in smaller selections. Resource limits reduce browser memory risk; actual capacity still depends on the device. There is no service worker or offline-install feature.
 
 ## Verification
 
