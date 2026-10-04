@@ -48,7 +48,7 @@ function checkInternalLinks(html, route) {
 }
 
 test('routes cover exactly ten languages and four page types without changing English URLs', () => {
-  assert.equal(ORIGIN, 'https://gifframeextractor.com');
+  assert.equal(ORIGIN, 'https://gifsplitter.com');
   assert.deepEqual(PAGE_TYPES, ['home', 'guide', 'about', 'privacy']);
   assert.equal(ROUTES.length, 40);
   assert.equal(new Set(ROUTES.map((route) => route.path)).size, 40);
@@ -100,6 +100,11 @@ for (const route of ROUTES) {
     assert.equal(textOf(titles[0][1]), seo.title);
     assert.equal(meta.find((tag) => tag.name === 'description')?.content, seo.description);
     assert.equal(meta.find((tag) => tag.name === 'robots')?.content, 'noindex, follow');
+    assert.ok(!html.includes('gifframeextractor.com'), 'the previous production domain must not appear in a generated page');
+    assert.equal(meta.find((tag) => tag.property === 'og:site_name')?.content, 'GIF Splitter');
+    assert.deepEqual(links(html).filter((link) => link.class === 'wordmark').map((link) => link.text), ['GIF Splitter.', 'GIF Splitter.']);
+    assert.ok(dictionary.ui.homeLabel.includes('GIF Splitter'));
+    assert.equal(dictionary.footer.copyright, '© 2026 GIF Splitter');
     assert.deepEqual(documentLinks.filter((tag) => tag.rel === 'canonical'), [{ rel: 'canonical', href: canonical }]);
     assert.equal(meta.find((tag) => tag.property === 'og:url')?.content, canonical);
     assert.equal(meta.find((tag) => tag.property === 'og:locale')?.content, dictionary.ogLocale);
@@ -176,10 +181,12 @@ for (const route of ROUTES) {
     assert.equal(structured.inLanguage, dictionary.htmlLang);
     assert.equal(structured.description, seo.description);
     if (type === 'home') {
+      assert.equal(structured.name, 'GIF Splitter');
       assert.equal(structured.isAccessibleForFree, true);
       assert.deepEqual(structured.featureList, dictionary.ui.capabilities);
       assert.equal(structured.offers.price, '0');
     } else {
+      assert.equal(structured.publisher.name, 'GIF Splitter');
       assert.equal(structured.name, seo.title);
       assert.equal(structured.headline, dictionary.pages[type].h1);
       assert.equal(structured.mainEntityOfPage, canonical);

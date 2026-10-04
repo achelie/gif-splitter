@@ -1,6 +1,8 @@
-# GIF Frame Extractor
+# GIF Splitter
 
-A purely static, ten-language SEO tool for **gifframeextractor.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts, file uploads, tracking scripts, or API keys are needed.
+A purely static, ten-language SEO tool with the planned production origin **https://gifsplitter.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts, file uploads, tracking scripts, or API keys are needed.
+
+The current brand is **GIF Splitter**. The primary keyword is **gif splitter**, the secondary keyword is **gif frame extractor**, and supporting phrases are **split GIF into frames** and **GIF to PNG**. The English homepage title is **GIF Splitter — Free GIF Frame Extractor Online**. Other languages retain their localized conversion and frame-extraction wording, followed by the GIF Splitter brand.
 
 ## Local development
 
@@ -25,7 +27,7 @@ English retains the original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (
 
 To edit wording, update the relevant locale JSON. Keep placeholders such as `{count}` and `{current}` unchanged. `src/site/content.js` rejects missing/empty translations, mismatched keys, arrays or placeholders, and missing plural categories during every build. Dynamic messages use `Intl.NumberFormat` and `Intl.PluralRules`; decoder errors expose stable codes while the interface selects local wording. Do not add user-visible English fallbacks to the app.
 
-Every page has a self-referencing production canonical, localized title/description/H1, Open Graph metadata, structured data and ten reciprocal hreflang links plus English `x-default`. The HTML language tags are `pt-BR` and `zh-Hant` for the corresponding regional/script editions. Research evidence and its limits are recorded in [docs/keyword-research.md](docs/keyword-research.md). Localized headings follow both GIF-to-PNG and frame-extraction intent; the research does not establish stable traffic for every phrase.
+Every page has a self-referencing production canonical, localized title/description/H1, Open Graph metadata, structured data and ten reciprocal hreflang links plus English `x-default`. The HTML language tags are `pt-BR` and `zh-Hant` for the corresponding regional/script editions. Research evidence and its limits are recorded in [docs/keyword-research.md](docs/keyword-research.md). Localized headings follow both GIF-to-PNG and frame-extraction intent. The historical research does not establish stable traffic for every phrase, and its `split gif` observations are not search-volume evidence for `gif splitter`.
 
 ## Deployment
 
@@ -39,7 +41,7 @@ This runs a fresh build and uploads only `dist/`. Wrangler needs a Cloudflare ac
 
 ### Temporary domain and SEO
 
-The initial deployment intentionally uses a Cloudflare `pages.dev` address, with no custom domain attached. Default `npm run build` emits `noindex, follow` in HTML and the `X-Robots-Tag` response header so the temporary hostname is not indexed as the final site. Canonicals, sitemap entries and social URLs use the planned `https://gifframeextractor.com` domain.
+The deployment remains at [gifframeextractor.pages.dev](https://gifframeextractor.pages.dev/), with the existing `gifframeextractor` Cloudflare Pages project and no custom domain attached. The brand change does not rename this project or bind the future production domain. Default `npm run build` emits `noindex, follow` in HTML and the `X-Robots-Tag` response header so the temporary hostname is not indexed as the final site. Canonicals, sitemap entries and social URLs use the planned `https://gifsplitter.com` origin.
 
 When the production domain is ready:
 

@@ -21,6 +21,8 @@ for (const route of ROUTES) {
   assert.equal([...html.matchAll(/<h1(?:\s|>)/g)].length, 1, route.path);
   assert.ok(html.includes(`<html lang="${l.htmlLang}">`), route.path);
   assert.ok(html.includes(`<link rel="canonical" href="${ORIGIN}${route.path}">`), route.path);
+  assert.ok(!html.includes('gifframeextractor.com'), `Previous production domain: ${route.path}`);
+  assert.ok(html.includes('<meta property="og:site_name" content="GIF Splitter">'), route.path);
   assert.ok(html.includes(`<meta name="robots" content="${production ? 'index' : 'noindex'}, follow">`), route.path);
   assert.ok(sitemap.includes(`<loc>${ORIGIN}${route.path}</loc>`), route.path);
   for (const id of LOCALES) assert.ok(html.includes(`hreflang="${locales[id].htmlLang}" href="${ORIGIN}${pagePath(id, route.type)}"`), route.path);
@@ -46,4 +48,7 @@ const robots = await readFile('dist/robots.txt', 'utf8');
 assert.ok(robots.includes(`Sitemap: ${ORIGIN}/sitemap.xml`));
 assert.ok(!robots.includes('Disallow: /'));
 await access('dist/404.html');
+const notFound = await readFile('dist/404.html', 'utf8');
+assert.ok(notFound.includes('GIF Splitter'));
+assert.ok(!notFound.includes('GIF Frame Extractor'));
 console.log('PASS: 40 built pages, unique titles/H1, canonical, reciprocal hreflang, language attributes, static links, bundled assets, sitemap and indexing mode.');

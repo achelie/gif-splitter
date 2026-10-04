@@ -1,4 +1,4 @@
-import { ORIGIN, LOCALES, PAGE_TYPES, pagePath } from './config.js';
+import { ORIGIN, BRAND_NAME, LOCALES, PAGE_TYPES, pagePath } from './config.js';
 
 export const escapeHtml = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const e = escapeHtml;
@@ -14,7 +14,7 @@ const paths = {
   chevron: '<path d="m6 9 6 6 6-6"/>',
 };
 const icon = (name, extra = '') => `<svg class="icon ${extra}" viewBox="0 0 24 24" aria-hidden="true">${paths[name]}</svg>`;
-const brand = (locale, label, withIcon = true) => `<a href="${pagePath(locale)}" class="wordmark" aria-label="${e(label)}">${withIcon ? icon('frames', 'brand-icon') : ''}<span>GIF<span class="brand-light">FrameExtractor</span><span class="brand-dot">.</span></span></a>`;
+const brand = (locale, label, withIcon = true) => `<a href="${pagePath(locale)}" class="wordmark" aria-label="${e(label)}">${withIcon ? icon('frames', 'brand-icon') : ''}<span>GIF <span class="brand-light">Splitter</span><span class="brand-dot">.</span></span></a>`;
 
 function header(locales, locale, type) {
   const l = locales[locale];
@@ -83,13 +83,13 @@ export function renderPage(locales, route, assets, { production = false } = {}) 
   const seo = l.seo[type];
   const canonical = ORIGIN + pagePath(locale, type);
   const structured = type === 'home' ? {
-    '@context': 'https://schema.org', '@type': 'WebApplication', name: 'GIF Frame Extractor', url: canonical, inLanguage: l.htmlLang,
+    '@context': 'https://schema.org', '@type': 'WebApplication', name: BRAND_NAME, url: canonical, inLanguage: l.htmlLang,
     description: seo.description, applicationCategory: 'MultimediaApplication', operatingSystem: 'Any', isAccessibleForFree: true,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, featureList: l.ui.capabilities,
   } : {
     '@context': 'https://schema.org', '@type': type === 'guide' ? 'Article' : 'WebPage', name: seo.title, headline: l.pages[type].h1,
     description: seo.description, inLanguage: l.htmlLang, url: canonical, mainEntityOfPage: canonical,
-    datePublished: '2026-10-04', dateModified: '2026-10-04', publisher: { '@type': 'Organization', name: 'GIF Frame Extractor', url: ORIGIN },
+    datePublished: '2026-10-04', dateModified: '2026-10-04', publisher: { '@type': 'Organization', name: BRAND_NAME, url: ORIGIN },
   };
   return `<!doctype html>
 <html lang="${e(l.htmlLang)}"><head>
@@ -98,7 +98,7 @@ export function renderPage(locales, route, assets, { production = false } = {}) 
   <link rel="canonical" href="${canonical}">
   ${LOCALES.map(id => `<link rel="alternate" hreflang="${e(locales[id].htmlLang)}" href="${ORIGIN}${pagePath(id, type)}">`).join('\n  ')}
   <link rel="alternate" hreflang="x-default" href="${ORIGIN}${pagePath('en', type)}"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:type" content="${type === 'guide' ? 'article' : 'website'}"><meta property="og:site_name" content="GIF Frame Extractor"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${canonical}"><meta property="og:locale" content="${e(l.ogLocale)}"><meta property="og:image" content="${ORIGIN}/og.png">
+  <meta property="og:type" content="${type === 'guide' ? 'article' : 'website'}"><meta property="og:site_name" content="${BRAND_NAME}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${canonical}"><meta property="og:locale" content="${e(l.ogLocale)}"><meta property="og:image" content="${ORIGIN}/og.png">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${e(seo.title)}"><meta name="twitter:description" content="${e(seo.description)}"><meta name="twitter:image" content="${ORIGIN}/og.png">
   ${assets.styles.map(path => `<link rel="stylesheet" href="${e(path)}">`).join('\n  ')}
   <script type="application/ld+json">${json(structured)}</script>

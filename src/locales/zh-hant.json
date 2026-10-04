@@ -4,13 +4,13 @@
   "htmlLang": "zh-Hant",
   "ogLocale": "zh_TW",
   "seo": {
-    "home": {"title": "GIF 轉 PNG｜動圖分解與影格擷取", "description": "免費將 GIF 動圖分解成 PNG 圖片。逐格預覽、擷取單張畫面，或將選取的影格與全部圖片打包成 ZIP 下載。免安裝、免註冊，檔案在瀏覽器內處理，不需上傳。"},
+    "home": {"title": "GIF 轉 PNG｜動圖分解與影格擷取 | GIF Splitter", "description": "免費將 GIF 動圖分解成 PNG 圖片。逐格預覽、擷取單張畫面，或將選取的影格與全部圖片打包成 ZIP 下載。免安裝、免註冊，檔案在瀏覽器內處理，不需上傳。"},
     "guide": {"title": "GIF 轉 PNG 教學：擷取單張圖片與下載全部影格", "description": "了解如何從 GIF 擷取靜態圖片、將動圖逐格轉成 PNG，並下載有編號的 ZIP。附透明背景、影格時間與大型檔案的處理說明。"},
-    "about": {"title": "關於 GIF Frame Extractor｜免上傳的 GIF 分解工具", "description": "認識 GIF Frame Extractor 的功能與本機處理方式。在瀏覽器內分解 GIF，將單張、選取的影格或全部畫面匯出為 PNG 與 ZIP。"},
-    "privacy": {"title": "隱私權政策｜GIF Frame Extractor", "description": "GIF 檔案只在您的裝置內處理。了解影格擷取、檔案下載、Cloudflare 網站代管，以及不設帳號、不使用追蹤指令碼的運作方式。"}
+    "about": {"title": "關於 GIF Splitter｜免上傳的 GIF 分解工具", "description": "認識 GIF Splitter 的功能與本機處理方式。在瀏覽器內分解 GIF，將單張、選取的影格或全部畫面匯出為 PNG 與 ZIP。"},
+    "privacy": {"title": "隱私權政策｜GIF Splitter", "description": "GIF 檔案只在您的裝置內處理。了解影格擷取、檔案下載、Cloudflare 網站代管，以及不設帳號、不使用追蹤指令碼的運作方式。"}
   },
   "ui": {
-    "skip": "跳至主要內容", "homeLabel": "GIF Frame Extractor 首頁", "mainNav": "主要導覽", "footerNav": "頁尾導覽", "languageNav": "選擇語言", "extract": "擷取影格", "how": "使用方式", "privacy": "隱私權", "about": "關於本站", "guide": "GIF 分解教學",
+    "skip": "跳至主要內容", "homeLabel": "GIF Splitter 首頁", "mainNav": "主要導覽", "footerNav": "頁尾導覽", "languageNav": "選擇語言", "extract": "擷取影格", "how": "使用方式", "privacy": "隱私權", "about": "關於本站", "guide": "GIF 分解教學",
     "toolLabel": "GIF 轉 PNG 與影格擷取工具", "dropTitle": "將 GIF 拖曳到這裡", "dropText": "或選擇檔案，查看每一格畫面", "choose": "選擇 GIF", "fileHint": "動態 GIF · 最大 30 MB", "outputHint": "PNG 影格 · 保留原始尺寸", "local": "GIF 檔案留在您的裝置內", "sample": "試用範例 GIF", "inputLabel": "選擇 GIF 檔案", "cancel": "取消", "progressLabel": "正在擷取 GIF 影格", "progressNote": "正依序將每一格還原成完整圖片。",
     "resultsLabel": "看見 GIF 的每一格", "resultsTitle": "擷取的影格", "another": "選擇其他 GIF", "previewAlt": "目前選取的 GIF 影格", "previous": "上一格", "next": "下一格", "play": "播放預覽", "pause": "暫停預覽", "slider": "預覽影格", "downloadFrame": "下載這一格", "frames": "影格數", "dimensions": "圖片尺寸", "duration": "播放時間", "output": "輸出格式", "downloadTitle": "留下某個瞬間，或完整的每一格。", "downloadText": "將每一格存成原始尺寸的 PNG，依序編號並打包成一個 ZIP 檔案。", "downloadAll": "下載全部影格", "localNote": "本機處理，檔案不上傳。", "allFrames": "全部影格", "selectAll": "全部選取", "deselectAll": "取消全選", "downloadSelected": "下載選取影格", "gridHint": "點選圖片即可預覽，勾選核取方塊可挑選要打包成 ZIP 的影格。", "showMore": "顯示更多影格",
     "noscript": "請啟用 JavaScript，以便在您的裝置內擷取 GIF 影格。未啟用 JavaScript 仍可閱讀使用教學。", "capabilities": ["依原始順序擷取每一格", "原始解析度 PNG", "一鍵打包 ZIP", "免註冊帳號"], "readGuide": "閱讀完整操作教學", "openTool": "開啟 GIF 影格擷取工具", "onThisPage": "本篇教學內容", "updated": "最後更新", "related": "進一步了解這個工具"
@@ -57,17 +57,17 @@
       {"heading": "為什麼要還原完整影格？", "paragraphs": ["GIF 經常只儲存每一格變動的小矩形區域，而不是整張圖片。檔案還會指定，在下一格出現之前，前面的像素應該保留、清除或還原。如果只是直接儲存這些局部區域，得到的圖片可能會缺少部分畫面。", "本工具會合成局部更新，套用這些畫面處理指示，再匯出每張 PNG。透明區域會保持透明，預覽用的棋盤格不會寫入圖片。PNG 的無損壓縮能保留解碼後的像素，但無法恢復原始檔案已經失去的細節。"]},
       {"heading": "處理大型或損壞的 GIF", "paragraphs": ["輸入上限是 30 MB、1,000 格。壓縮後的 GIF 可能展開成大量原尺寸圖片，因此也有像素量與記憶體方面的限制。若檔案太大，請嘗試較短的動畫或較小的圖片尺寸，尤其是在手機上操作時。", "每個 ZIP 最多包含 128 MB 的 PNG 資料。若全部下載超過上限，請分成較小的組合下載。您也可以取消擷取，再選擇其他檔案。如果工具回報 GIF 已損壞，請重新取得原始檔案，而不是修改副檔名。"]}
     ], "ctaTitle": "找到想留下的那一格", "ctaText": "開啟 GIF、查看影格，並下載 PNG 或依序編號的 ZIP。"},
-    "about": {"eyebrow": "專注影格擷取的瀏覽器工具", "h1": "關於 GIF Frame Extractor", "intro": "GIF Frame Extractor 將動態 GIF 分解成可用的靜態圖片。您可以挑出某個瞬間、逐格檢查動畫，或儲存整段 GIF 的完整影格序列。", "sections": [
+    "about": {"eyebrow": "專注影格擷取的瀏覽器工具", "h1": "關於 GIF Splitter", "intro": "GIF Splitter 將動態 GIF 分解成可用的靜態圖片。您可以挑出某個瞬間、逐格檢查動畫，或儲存整段 GIF 的完整影格序列。", "sections": [
       {"heading": "可以用它做什麼？", "paragraphs": ["開啟本機 GIF，查看解碼後的每一格與顯示時間，再下載單張 PNG。也能選取幾格，或把完整序列打包成 ZIP。匯出的圖片保留原始畫布尺寸，不會加上浮水印。", "工具會把 GIF 的局部影像更新合成為完整影格，方便檢查動畫步驟、挑選參考圖片，或準備要交給其他編輯器使用的素材。請使用您有權處理的檔案。"]},
       {"heading": "為什麼在本機處理？", "paragraphs": ["GIF 解碼、PNG 編碼與 ZIP 建立都在您的裝置上執行。不需要帳號或檔案上傳服務，也不會修改原始 GIF。瀏覽器能處理多大的動畫，會受裝置效能與可用記憶體影響。", "檔案上限為 30 MB、1,000 格，另有解碼後的像素量保護限制。每個 ZIP 的 PNG 資料上限為 128 MB。即使壓縮後的 GIF 很小，展開時仍可能需要大量記憶體。"]},
       {"heading": "功能與支援格式", "paragraphs": ["本站接受 GIF，輸出 PNG 圖片或 ZIP 壓縮檔。目前不提供影格編輯、影片擷取或重新製作動畫的功能。匯出為 PNG 也無法恢復 GIF 原本已經缺少的細節。", "使用教學會說明影格時間、透明背景與下載方式。隱私權頁面則說明本機檔案如何處理，以及瀏覽網站時涉及的代管資訊。"]}
     ], "ctaTitle": "看看 GIF 裡的每個畫面", "ctaText": "不需帳號或安裝，選擇一個檔案就能開始。"},
-    "privacy": {"eyebrow": "檔案留在您的裝置內", "h1": "隱私權政策", "intro": "本政策說明 GIF Frame Extractor 如何處理檔案，以及載入網站時涉及哪些資訊。本政策適用於工具及其各語言版本。", "sections": [
+    "privacy": {"eyebrow": "檔案留在您的裝置內", "h1": "隱私權政策", "intro": "本政策說明 GIF Splitter 如何處理檔案，以及載入網站時涉及哪些資訊。本政策適用於工具及其各語言版本。", "sections": [
       {"heading": "GIF 與匯出的圖片", "paragraphs": ["您選擇的 GIF 由瀏覽器讀取。解碼、影格預覽、PNG 編碼與 ZIP 建立都在您的裝置上進行。工具不會把 GIF、影格圖片或檔案名稱上傳到伺服器。", "應用程式會將工作資料保留在瀏覽器記憶體中，不會把 GIF 儲存到 Cookie、本機儲存空間或線上帳號。選擇其他 GIF 或關閉頁面後，應用程式會釋放目前的工作狀態。已下載的檔案會保留在瀏覽器或作業系統管理的儲存位置。"]},
       {"heading": "網站代管", "paragraphs": ["本站由 Cloudflare 代管並提供網頁、指令碼與圖片。載入這些資源時，會涉及一般連線資訊，例如 IP 位址、請求時間、請求的網址與瀏覽器標頭。Cloudflare 可能依自身的作業方式，在存取紀錄或安全紀錄中處理這些資訊。", "選擇試用範例時，瀏覽器會從本站下載一個範例 GIF，不會將您自己的檔案傳送到其他地方。工具不會連線至外部轉檔或翻譯服務。"]},
       {"heading": "帳號、Cookie 與追蹤", "paragraphs": ["應用程式沒有帳號系統、廣告指令碼或分析追蹤程式。不會設定應用程式 Cookie，也不會儲存語言偏好；顯示語言由網頁網址決定。", "網站代管基礎設施可能會處理提供或保護本站所需的技術資訊。這與 GIF 處理分開，GIF 仍只在您的瀏覽器內處理。"]},
       {"heading": "您的管理方式與政策更新", "paragraphs": ["您不需填寫個人基本資料即可使用工具。若要刪除已下載的檔案，請使用裝置的檔案管理功能。切換語言會前往另一個頁面，目前的 GIF 不會一起轉移到新頁面。", "若網站的資料處理方式有變更，我們會更新本政策。頁面顯示的日期代表最近一次修訂日期。關於本站與使用教學提供了工具功能及限制的進一步說明。"]}
     ], "ctaTitle": "在本機擷取 GIF 影格", "ctaText": "由瀏覽器完成處理，GIF 留在您的裝置裡。"}
   },
-  "footer": {"tagline": "從動態畫面，留下想保存的瞬間。", "copyright": "© 2026 GIF Frame Extractor"}
+  "footer": {"tagline": "從動態畫面，留下想保存的瞬間。", "copyright": "© 2026 GIF Splitter"}
 }

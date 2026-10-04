@@ -32,7 +32,7 @@ d.rounded_rectangle((60, 55, 1140, 575), radius=24, fill='#ffffff', outline='#e5
 d.rounded_rectangle((100, 96, 152, 148), radius=12, fill='#be4519')
 d.rounded_rectangle((119, 115, 141, 137), radius=4, outline='#ffffff', width=2)
 d.line((109, 127, 109, 108, 128, 108), fill='#ffffff', width=2)
-d.text((168, 103), 'GIF Frame Extractor', font=font(25, True), fill='#282824')
+d.text((168, 103), 'GIF Splitter', font=font(25, True), fill='#282824')
 d.text((100, 204), 'Every frame,', font=font(68, True), fill='#282824')
 d.text((100, 280), 'yours to keep.', font=font(68, True), fill='#be4519')
 d.text((104, 393), 'GIF to PNG. One frame or the whole story.', font=font(24), fill='#6c6c66')

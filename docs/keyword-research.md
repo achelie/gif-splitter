@@ -1,10 +1,16 @@
-# GIF Frame Extractor 多语言关键词研究记录
+# GIF Splitter 多语言关键词策略与历史研究记录
 
 观察日期：2026-10-04（Asia/Hong_Kong）。
 
-本文归档本次多语言规划期间已经完成的公开检索与 Google Trends 查询，用于说明关键词取舍及证据边界。整理文档时没有重新发起关键词调查，也没有补造搜索量、趋势分数或排名数据。
+本文记录 GIF Splitter 的当前关键词策略，并保留此前以 GIF Frame Extractor 为品牌进行的多语言规划、公开检索与 Google Trends 查询历史。改名时没有重新发起关键词调查，也没有补造搜索量、趋势分数或排名数据。
 
-## 1. 已批准的首页方向
+## 1. 当前已批准的品牌与首页方向
+
+当前品牌为 GIF Splitter，计划生产 origin 为 https://gifsplitter.com。关键词优先级为主词 gif splitter、次词 gif frame extractor、补充词 split GIF into frames 和 GIF to PNG。英文首页 title 固定为 GIF Splitter — Free GIF Frame Extractor Online；其他语言在已有本地化标题末尾追加品牌，具体见第 4 节。
+
+这是已批准的品牌与内容策略调整，不是新增的需求量研究。本文件保留的 Trends 查询没有包含 gif splitter 这个字词；已有 split gif 的趋势信号不能冒充 gif splitter 的搜索量，也不能直接证明两者需求规模相同。
+
+Cloudflare Pages 项目继续使用 gifframeextractor，临时地址仍为 https://gifframeextractor.pages.dev/。本次不绑定生产域名，默认构建保持 noindex；未来 origin 与当前托管项目名称是不同配置。
 
 每个语言版本的首页同时满足两个相邻需求：将 GIF 转为 PNG，以及从动画中提取一个、选中的或全部帧。页面以当地自然说法组织标题、说明、操作步骤和问答；不逐字翻译英文品牌词，也不把不同说法拆成内容重复的落地页。
 
@@ -12,7 +18,7 @@
 
 实际产品边界是 GIF 输入、完整 PNG 帧输出、单帧下载、选中帧或全部帧 ZIP、本地浏览器处理。页面不为覆盖关键词而承诺 JPG 输出、视频提帧、帧编辑或重新生成动画，也不使用“无限制”等与文件和内存限制不符的说法。
 
-## 2. Google Trends 查询矩阵
+## 2. 历史记录：Google Trends 查询矩阵
 
 所有下列比较均使用 Web Search（网页搜索）、全部类别，并分别查询过去 5 年（today 5-y）及过去 12 个月（today 12-m）。每行最多五个搜索字词；按下表原样保留空格、文字和重音符号。例如日语“gif分解”和“gif 分解”是两个分别比较的字词，不能合并为同一条查询记录。
 
@@ -32,15 +38,15 @@
 | 俄罗斯（RU） | 俄语 | `gif на кадры`、`разбить gif`、`gif в png`、`гиф на кадры`、`gif to png` | [过去 5 年](https://trends.google.com/trends/explore?hl=zh-CN&cat=0&date=today%205-y&geo=RU&q=gif%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D0%B4%D1%80%D1%8B,%D1%80%D0%B0%D0%B7%D0%B1%D0%B8%D1%82%D1%8C%20gif,gif%20%D0%B2%20png,%D0%B3%D0%B8%D1%84%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D0%B4%D1%80%D1%8B,gif%20to%20png) · [过去 12 个月](https://trends.google.com/trends/explore?hl=zh-CN&cat=0&date=today%2012-m&geo=RU&q=gif%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D0%B4%D1%80%D1%8B,%D1%80%D0%B0%D0%B7%D0%B1%D0%B8%D1%82%D1%8C%20gif,gif%20%D0%B2%20png,%D0%B3%D0%B8%D1%84%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D0%B4%D1%80%D1%8B,gif%20to%20png) |
 | 巴西（BR） | 葡萄牙语 | `extrair frames gif`、`separar gif`、`gif para png`、`gif to png`、`extrair imagens gif` | [过去 5 年](https://trends.google.com/trends/explore?hl=zh-CN&cat=0&date=today%205-y&geo=BR&q=extrair%20frames%20gif,separar%20gif,gif%20para%20png,gif%20to%20png,extrair%20imagens%20gif) · [过去 12 个月](https://trends.google.com/trends/explore?hl=zh-CN&cat=0&date=today%2012-m&geo=BR&q=extrair%20frames%20gif,separar%20gif,gif%20para%20png,gif%20to%20png,extrair%20imagens%20gif) |
 
-### 观察结论与证据强弱
+### 历史观察结论与证据强弱
 
-- 美国：在本轮趋势观察中，gif to png 与 split gif 有持续信号，是支持英文首页兼顾格式转换和动画拆帧的相对较强证据。这里只记录定性结论，不给出未经保存和核对的指数、均值或月搜索量。
+- 美国：在当时的趋势观察中，gif to png 与 split gif 有持续信号，是支持英文首页兼顾格式转换和动画拆帧的相对较强证据。这里只记录这些原查询词的定性结论，不给出未经保存和核对的指数、均值或月搜索量，也不将 split gif 的信号转记为新主词 gif splitter 的数据。
 - 墨西哥：gif a png 出现过多次信号，支持西语页面保留 GIF 转 PNG 的入口。这个结果不能自动代表西班牙，也不能扩展成“所有西语提帧词都有流量”。
 - 其他地区：本地提帧词整体信号稀疏，部分比较没有足够可用数据。当前证据更适合用于选择试验方向，不足以为每种语言作出稳定流量承诺。
 - 某个国家内的英语 gif to png 出现信号，只能说明该英语字词在该地区的查询表现，不能当作其本地译词的搜索证明。
 - 单个词与其他词一起比较时的弱信号，不能直接等同于独立查询时的结果。为减少这一歧义，另做了下一节的单词复核。
 
-### 额外的单个字词复核
+### 历史记录：额外的单个字词复核
 
 以下均是过去 12 个月、相同地区、Web Search 和全部类别的单词查询。正值周数仅复述当时观察到的时间线，不代表搜索人数、查询次数、平均月量或长期稳定性。
 
@@ -69,7 +75,7 @@ Google Trends 展示相对搜索兴趣，不是绝对月搜索量。本次没有
 
 搜索结果页中的工具标题说明该表达被用于承接某种意图，母语教程和真实用户提问说明该说法与需求在现实语境中存在。两者都不是 Google 搜索量证明，更不能仅按竞品页面数量声称“高流量”。
 
-### 已核对的母语用法示例
+### 历史记录：已核对的母语用法示例
 
 | 语言 | 可支持的用词或用途 | 证据与限制 |
 | --- | --- | --- |
@@ -82,24 +88,24 @@ Google Trends 展示相对搜索兴趣，不是绝对月搜索量。本次没有
 | 巴西葡语 | 从 GIF 拆出图片用于修改和再组装 | [hardMOB 用户讨论](https://www.hardmob.com.br/threads/227541-reduzindo-gifs-animadas) 中有真实用户提出这一需求。直接打开返回过 502，证据来自搜索摘要，且讨论较早；仅证明用途和表达存在。 |
 | 巴西葡语 | extrair todos os quadros de animação | [TibiaBR 的 IrfanView 教程](https://forums.tibiabr.com/threads/95809-Tutorial-Otimiza%C3%A7%C3%A3o-Gerenciamento-e-Tratamento-de-Imagens-Com-o-Irfanview) 使用 quadros，并讨论取得 sprites。它是历史用法材料，不代表当前查询量。 |
 
-以上是归档的自然用词示例，不是十种语言都有完整独立需求验证的声明。日语、繁体中文、韩语、西语、法语和意大利语的已查询字词见 Trends 矩阵；下面的页面标题属于已批准并实现的内容定位。
+以上是归档的自然用词示例，不是十种语言都有完整独立需求验证的声明。日语、繁体中文、韩语、西语、法语和意大利语的已查询字词见历史 Trends 矩阵；下面的当前页面标题属于改名后已批准的内容定位。
 
-## 4. 各语言首页标题与词义覆盖
+## 4. 当前各语言首页标题与历史标题
 
-下表按整理时 src/locales 中的 seo.home.title 记录。所有首页保留提取完整 GIF 帧的工具能力，并在标题或正文中覆盖 GIF 转 PNG。正文需要自然表达用途和操作，不反复堆砌下列词组。
+“当前首页 title”列是改名后的目标配置；“历史首页 title”列保留改名前的文字，仅用于研究记录，不应重新用于现行页面。所有首页保留提取完整 GIF 帧的工具能力，并在标题或正文中覆盖 GIF 转 PNG。非英语标题保留当地自然说法并追加 GIF Splitter 品牌。正文需要自然表达用途和操作，不反复堆砌下列词组。
 
-| Locale | 菜单标签 | 已批准的首页 title | 页面词义覆盖 |
-| --- | --- | --- | --- |
-| `en` | English | GIF Frame Extractor — Split GIF to PNG Online | GIF frame extractor；GIF to PNG；split GIF |
-| `ja` | 日本語 | GIF分解・PNG変換｜コマを抽出して一括保存 | GIF分解；GIF PNG変換；静止画・コマ抽出 |
-| `es` | Español | GIF a PNG: extraer fotogramas gratis online | GIF a PNG；extraer fotogramas；extraer imágenes |
-| `fr` | Français | GIF en PNG : décomposer un GIF en images | GIF en PNG；décomposer un GIF；extraire une image |
-| `de` | Deutsch | GIF in PNG umwandeln und Einzelbilder extrahieren | GIF in PNG；GIF in Einzelbilder zerlegen；Einzelbilder extrahieren |
-| `it` | Italiano | GIF in PNG: estrarre fotogrammi online | GIF in PNG；estrarre fotogrammi；estrarre immagini |
-| `ko` | 한국어 | GIF PNG 변환 · 움짤 프레임 추출 | GIF PNG 변환；GIF 프레임 추출；움짤 이미지 추출 |
-| `pt-br` | Português | GIF para PNG: extrair frames online grátis | GIF para PNG；extrair frames；extrair quadros |
-| `ru` | Русский | GIF в PNG — извлечь кадры онлайн | GIF в PNG；разбить GIF на кадры；извлечь кадры |
-| `zh-hant` | 繁體中文 | GIF 轉 PNG｜動圖分解與影格擷取 | GIF 轉 PNG；GIF 分解；動圖分解；影格擷取 |
+| Locale | 菜单标签 | 当前首页 title | 历史首页 title（改名前） | 当前页面词义覆盖 |
+| --- | --- | --- | --- | --- |
+| `en` | English | GIF Splitter — Free GIF Frame Extractor Online | GIF Frame Extractor — Split GIF to PNG Online | gif splitter；gif frame extractor；split GIF into frames；GIF to PNG |
+| `ja` | 日本語 | GIF分解・PNG変換｜コマを抽出して一括保存 \| GIF Splitter | GIF分解・PNG変換｜コマを抽出して一括保存 | GIF分解；GIF PNG変換；静止画・コマ抽出 |
+| `es` | Español | GIF a PNG: extraer fotogramas gratis online \| GIF Splitter | GIF a PNG: extraer fotogramas gratis online | GIF a PNG；extraer fotogramas；extraer imágenes |
+| `fr` | Français | GIF en PNG : décomposer un GIF en images \| GIF Splitter | GIF en PNG : décomposer un GIF en images | GIF en PNG；décomposer un GIF；extraire une image |
+| `de` | Deutsch | GIF in PNG umwandeln und Einzelbilder extrahieren \| GIF Splitter | GIF in PNG umwandeln und Einzelbilder extrahieren | GIF in PNG；GIF in Einzelbilder zerlegen；Einzelbilder extrahieren |
+| `it` | Italiano | GIF in PNG: estrarre fotogrammi online \| GIF Splitter | GIF in PNG: estrarre fotogrammi online | GIF in PNG；estrarre fotogrammi；estrarre immagini |
+| `ko` | 한국어 | GIF PNG 변환 · 움짤 프레임 추출 \| GIF Splitter | GIF PNG 변환 · 움짤 프레임 추출 | GIF PNG 변환；GIF 프레임 추출；움짤 이미지 추출 |
+| `pt-br` | Português | GIF para PNG: extrair frames online grátis \| GIF Splitter | GIF para PNG: extrair frames online grátis | GIF para PNG；extrair frames；extrair quadros |
+| `ru` | Русский | GIF в PNG — извлечь кадры онлайн \| GIF Splitter | GIF в PNG — извлечь кадры онлайн | GIF в PNG；разбить GIF на кадры；извлечь кадры |
+| `zh-hant` | 繁體中文 | GIF 轉 PNG｜動圖分解與影格擷取 \| GIF Splitter | GIF 轉 PNG｜動圖分解與影格擷取 | GIF 轉 PNG；GIF 分解；動圖分解；影格擷取 |
 
 葡语首版统一采用巴西用词 arquivo、baixar、salvar、celular，避免与葡萄牙常用词混杂。菜单仍为 Português，语言标识为 pt-BR；本次用巴西 BR 做 Trends 观察，没有用这些结果声称葡萄牙 PT 也已验证。
 
@@ -107,7 +113,6 @@ Google Trends 展示相对搜索兴趣，不是绝对月搜索量。本次没有
 
 ## 5. 上线后如何验证
 
-这些证据支持先上线可用、内容完整的语言版本，再用真实表现检验关键词选择。生产域名开放索引后，应按落地页、国家和查询字词观察 Search Console 的展现、点击及其变化，分别查看格式转换词和提帧词，而不是只看英文品牌词。
+这些证据支持先上线可用、内容完整的语言版本，再用真实表现检验关键词选择。生产域名开放索引后，应按落地页、国家和查询字词观察 Search Console 的展现、点击及其变化，分别查看主词 gif splitter、次词 gif frame extractor、拆帧描述词和格式转换词，而不是将不同查询统一记为品牌流量。
 
 在取得本站数据之前，不在页面、README 或对外说明中宣传“已验证高搜索量”“所有语言都有稳定流量”等结论。若某个语言缺少展现，应结合索引状态、页面可抓取性和实际查询再判断；本次 Trends 的稀疏或空数据不是删除语言版本的充分依据。
-
