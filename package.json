@@ -1,0 +1,22 @@
+{
+  "name": "gif-frame-extractor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build && node scripts/seo-build.mjs",
+    "build:production": "vite build && node scripts/seo-build.mjs --production-domain",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name gifframeextractor --branch main"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "gifuct-js": "^2.1.2"
+  },
+  "devDependencies": {
+    "vite": "^8.3.2",
+    "wrangler": "^4.147.0"
+  }
+}
