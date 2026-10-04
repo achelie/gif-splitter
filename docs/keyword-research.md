@@ -6,11 +6,13 @@
 
 ## 1. 当前已批准的品牌与首页方向
 
-当前品牌为 GIF Splitter，计划生产 origin 为 https://gifsplitter.com。关键词优先级为主词 gif splitter、次词 gif frame extractor、补充词 split GIF into frames 和 GIF to PNG。英文首页 title 固定为 GIF Splitter — Free GIF Frame Extractor Online；其他语言在已有本地化标题末尾追加品牌，具体见第 4 节。
+当前品牌为 GIF Splitter，正式站已上线，canonical origin 为 https://www.gifsplitter.com。关键词优先级为主词 gif splitter、次词 gif frame extractor、补充词 split GIF into frames 和 GIF to PNG。英文首页 title 固定为 GIF Splitter — Free GIF Frame Extractor Online；其他语言在已有本地化标题末尾追加品牌，具体见第 4 节。
 
 这是已批准的品牌与内容策略调整，不是新增的需求量研究。本文件保留的 Trends 查询没有包含 gif splitter 这个字词；已有 split gif 的趋势信号不能冒充 gif splitter 的搜索量，也不能直接证明两者需求规模相同。
 
-Cloudflare Pages 项目继续使用 gifframeextractor，临时地址仍为 https://gifframeextractor.pages.dev/。本次不绑定生产域名，默认构建保持 noindex；未来 origin 与当前托管项目名称是不同配置。
+Cloudflare Pages 项目继续使用 gifframeextractor，正式站使用 www.gifsplitter.com。默认 npm run deploy 执行正式构建、check:site --production-domain 校验及 Wrangler 部署；正式构建的 40 个内容页面允许索引，正式域名响应不含 noindex。npm run build 仍用于本地预览并保留 noindex。
+
+https://gifframeextractor.pages.dev/ 与匹配 :version.gifframeextractor.pages.dev 的部署预览地址继续直接访问，不做跳转；它们通过仅匹配这些主机名的 X-Robots-Tag: noindex, follow 响应头排除索引。apex 域名 gifsplitter.com 以 301 跳转到 www.gifsplitter.com，完整保留路径及查询参数，不给文件路径额外添加斜杠。正式站的 canonical、hreflang、sitemap 与社交 URL 均采用 www origin。
 
 每个语言版本的首页同时满足两个相邻需求：将 GIF 转为 PNG，以及从动画中提取一个、选中的或全部帧。页面以当地自然说法组织标题、说明、操作步骤和问答；不逐字翻译英文品牌词，也不把不同说法拆成内容重复的落地页。
 
@@ -92,7 +94,7 @@ Google Trends 展示相对搜索兴趣，不是绝对月搜索量。本次没有
 
 ## 4. 当前各语言首页标题与历史标题
 
-“当前首页 title”列是改名后的目标配置；“历史首页 title”列保留改名前的文字，仅用于研究记录，不应重新用于现行页面。所有首页保留提取完整 GIF 帧的工具能力，并在标题或正文中覆盖 GIF 转 PNG。非英语标题保留当地自然说法并追加 GIF Splitter 品牌。正文需要自然表达用途和操作，不反复堆砌下列词组。
+“当前首页 title”列记录改名后的现行配置；“历史首页 title”列保留改名前的文字，仅用于研究记录，不应重新用于现行页面。所有首页保留提取完整 GIF 帧的工具能力，并在标题或正文中覆盖 GIF 转 PNG。非英语标题保留当地自然说法并追加 GIF Splitter 品牌。正文需要自然表达用途和操作，不反复堆砌下列词组。
 
 | Locale | 菜单标签 | 当前首页 title | 历史首页 title（改名前） | 当前页面词义覆盖 |
 | --- | --- | --- | --- | --- |
@@ -111,8 +113,8 @@ Google Trends 展示相对搜索兴趣，不是绝对月搜索量。本次没有
 
 繁体中文内容面向繁体中文读者；本轮趋势地区为台湾 TW，没有额外声称香港或其他繁体地区的搜索需求已经验证。西语分别查询西班牙 ES 与墨西哥 MX，不把两地结果合并为一个无地区限制的结论。
 
-## 5. 上线后如何验证
+## 5. 正式站上线后的流量验证
 
-这些证据支持先上线可用、内容完整的语言版本，再用真实表现检验关键词选择。生产域名开放索引后，应按落地页、国家和查询字词观察 Search Console 的展现、点击及其变化，分别查看主词 gif splitter、次词 gif frame extractor、拆帧描述词和格式转换词，而不是将不同查询统一记为品牌流量。
+正式站已经上线并开放索引，后续仍需用真实表现检验关键词选择。取得 Search Console 数据后，应按落地页、国家和查询字词观察展现、点击及其变化，分别查看主词 gif splitter、次词 gif frame extractor、拆帧描述词和格式转换词，而不是将不同查询统一记为品牌流量。开放索引只是站点配置状态，实际搜索流量仍需后续数据验证。
 
 在取得本站数据之前，不在页面、README 或对外说明中宣传“已验证高搜索量”“所有语言都有稳定流量”等结论。若某个语言缺少展现，应结合索引状态、页面可抓取性和实际查询再判断；本次 Trends 的稀疏或空数据不是删除语言版本的充分依据。

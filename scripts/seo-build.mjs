@@ -37,6 +37,12 @@ await writeFile('dist/_headers', `/*
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
 ${production ? '' : '  X-Robots-Tag: noindex, follow\n'}
+${production ? `https://gifframeextractor.pages.dev/*
+  X-Robots-Tag: noindex, follow
+
+https://:version.gifframeextractor.pages.dev/*
+  X-Robots-Tag: noindex, follow
+` : ''}
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 `);

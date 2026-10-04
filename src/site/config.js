@@ -1,4 +1,4 @@
-export const ORIGIN = 'https://gifsplitter.com';
+export const ORIGIN = 'https://www.gifsplitter.com';
 export const BRAND_NAME = 'GIF Splitter';
 export const LOCALES = ['en', 'ja', 'es', 'fr', 'de', 'it', 'ko', 'pt-br', 'ru', 'zh-hant'];
 export const PAGE_TYPES = ['home', 'guide', 'about', 'privacy'];

@@ -48,7 +48,7 @@ function checkInternalLinks(html, route) {
 }
 
 test('routes cover exactly ten languages and four page types without changing English URLs', () => {
-  assert.equal(ORIGIN, 'https://gifsplitter.com');
+  assert.equal(ORIGIN, 'https://www.gifsplitter.com');
   assert.deepEqual(PAGE_TYPES, ['home', 'guide', 'about', 'privacy']);
   assert.equal(ROUTES.length, 40);
   assert.equal(new Set(ROUTES.map((route) => route.path)).size, 40);
@@ -101,6 +101,7 @@ for (const route of ROUTES) {
     assert.equal(meta.find((tag) => tag.name === 'description')?.content, seo.description);
     assert.equal(meta.find((tag) => tag.name === 'robots')?.content, 'noindex, follow');
     assert.ok(!html.includes('gifframeextractor.com'), 'the previous production domain must not appear in a generated page');
+    assert.ok(!html.includes('https://gifsplitter.com'), 'SEO URLs must use the final www hostname without redirects');
     assert.equal(meta.find((tag) => tag.property === 'og:site_name')?.content, 'GIF Splitter');
     assert.deepEqual(links(html).filter((link) => link.class === 'wordmark').map((link) => link.text), ['GIF Splitter.', 'GIF Splitter.']);
     assert.ok(dictionary.ui.homeLabel.includes('GIF Splitter'));

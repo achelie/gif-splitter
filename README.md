@@ -1,6 +1,6 @@
 # GIF Splitter
 
-A purely static, ten-language SEO tool with the planned production origin **https://gifsplitter.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts, file uploads, tracking scripts, or API keys are needed.
+A purely static, ten-language SEO tool live at **[www.gifsplitter.com](https://www.gifsplitter.com/)**. The canonical production origin is **https://www.gifsplitter.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts, file uploads, tracking scripts, or API keys are needed.
 
 The current brand is **GIF Splitter**. The primary keyword is **gif splitter**, the secondary keyword is **gif frame extractor**, and supporting phrases are **split GIF into frames** and **GIF to PNG**. The English homepage title is **GIF Splitter — Free GIF Frame Extractor Online**. Other languages retain their localized conversion and frame-extraction wording, followed by the GIF Splitter brand.
 
@@ -37,20 +37,26 @@ Cloudflare Pages project: `gifframeextractor`, production branch: `main`.
 npm run deploy
 ```
 
-This runs a fresh build and uploads only `dist/`. Wrangler needs a Cloudflare account with Pages write permissions. If the environment requires its existing local proxy, set `HTTP_PROXY` and `HTTPS_PROXY` for the command; no proxy is needed by the deployed site.
+The default deployment command runs a production build, validates production indexing and URLs, then uploads only `dist/`:
 
-### Temporary domain and SEO
+```sh
+npm run build:production
+npm run check:site -- --production-domain
+npx wrangler pages deploy dist --project-name gifframeextractor --branch main
+```
 
-The deployment remains at [gifframeextractor.pages.dev](https://gifframeextractor.pages.dev/), with the existing `gifframeextractor` Cloudflare Pages project and no custom domain attached. The brand change does not rename this project or bind the future production domain. Default `npm run build` emits `noindex, follow` in HTML and the `X-Robots-Tag` response header so the temporary hostname is not indexed as the final site. Canonicals, sitemap entries and social URLs use the planned `https://gifsplitter.com` origin.
+Wrangler needs a Cloudflare account with Pages write permissions. If the environment requires its existing local proxy, set `HTTP_PROXY` and `HTTPS_PROXY` for the command; no proxy is needed by the deployed site.
 
-When the production domain is ready:
+### Production domain, previews and SEO
 
-1. Attach the domain in Cloudflare Pages and finish its DNS and HTTPS setup.
-2. Run `npm run build:production` to enable indexing.
-   Validate this output with `npm run check:site -- --production-domain`.
-3. Deploy that output directly: `npx wrangler pages deploy dist --project-name gifframeextractor --branch main` (do not use `npm run deploy` for this step; it rebuilds temporary mode).
-4. Redirect the default Pages hostname to the production domain using Cloudflare's supported routing, then verify canonical URLs, headers, robots.txt and sitemap.xml on the custom domain.
-5. Submit the production sitemap to Search Console when appropriate. Deployment does not guarantee search-engine indexing or ranking.
+The production site is served at [www.gifsplitter.com](https://www.gifsplitter.com/), using the existing `gifframeextractor` Cloudflare Pages project. Canonicals, hreflang URLs, sitemap entries, structured data and social URLs use `https://www.gifsplitter.com`.
+
+- A production build marks all 40 content pages `index, follow`. Responses from the production hostname contain no `noindex` directive.
+- `npm run build` remains the local preview build and emits `noindex, follow`. Use `npm run deploy` for a checked production deployment.
+- [gifframeextractor.pages.dev](https://gifframeextractor.pages.dev/) and deployment preview hosts matching `:version.gifframeextractor.pages.dev` remain accessible without redirecting. Host-specific `X-Robots-Tag: noindex, follow` headers keep these copies out of the indexing target even when they serve a production build.
+- Requests to `gifsplitter.com` redirect to `www.gifsplitter.com` with HTTP 301. The complete path and query string are preserved, including file paths without an added trailing slash. For example, `https://gifsplitter.com/robots.txt?check=1` redirects to `https://www.gifsplitter.com/robots.txt?check=1`.
+
+After deployments, verify canonical URLs, response headers, robots.txt, sitemap.xml and apex redirects on the live hostnames. An indexable production release does not guarantee search-engine indexing or ranking.
 
 ## Included page types (each in all ten languages)
 
