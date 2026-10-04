@@ -2,7 +2,10 @@ import { ORIGIN, BRAND_NAME, LOCALES, PAGE_TYPES, pagePath } from './config.js';
 
 export const escapeHtml = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const e = escapeHtml;
+const microsoftPrivacyUrl = 'https://www.microsoft.com/en-us/privacy/privacystatement';
+const paragraph = text => e(text).replaceAll(microsoftPrivacyUrl, `<a href="${microsoftPrivacyUrl}">${microsoftPrivacyUrl}</a>`);
 const json = (value) => JSON.stringify(value).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+const articleDates = { guide: '2026-10-04', about: '2026-10-05', privacy: '2026-10-05' };
 const paths = {
   frames: '<rect x="7" y="7" width="14" height="14" rx="3"/><path d="M16 3H6a3 3 0 0 0-3 3v10m9-5 5 3-5 3z"/>',
   upload: '<path d="M12 16V3m-5 5 5-5 5 5M4 15v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/>',
@@ -36,7 +39,7 @@ function home(l) {
   const h = l.home;
   return `<main class="wrap" id="content">
   <section class="intro" aria-labelledby="main-title"><p class="eyebrow"><span class="status-dot"></span>${e(h.eyebrow)}</p><h1 id="main-title">${e(h.h1)}<span class="brand-dot">.</span></h1><p class="lede">${e(h.lede)}</p><p class="intro-description">${e(h.description)}</p></section>
-  <section id="extractor" aria-label="${e(u.toolLabel)}">
+  <section id="extractor" aria-label="${e(u.toolLabel)}" data-clarity-mask="true">
     <div id="upload-area"><div class="dropzone" id="dropzone">
       <div class="drop-art" aria-hidden="true"><div class="art-card art-back"></div><div class="art-card art-mid"></div><div class="art-card art-front">${icon('image')}</div><span class="art-plus">+</span></div>
       <h2>${e(u.dropTitle)}</h2><p>${e(u.dropText)}</p><button type="button" id="choose-file" class="button primary">${icon('upload')}${e(u.choose)}</button><p class="file-hint">${e(u.fileHint)}<span>${e(u.outputHint)}</span></p>
@@ -67,11 +70,12 @@ function home(l) {
 
 function article(l, type) {
   const p = l.pages[type];
-  const updated = new Intl.DateTimeFormat(l.htmlLang, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date('2026-10-04T00:00:00Z'));
+  const date = articleDates[type];
+  const updated = new Intl.DateTimeFormat(l.htmlLang, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`));
   return `<main class="article-main wrap" id="content"><article>
-    <p class="section-label">${e(p.eyebrow)}</p><h1>${e(p.h1)}</h1><p class="article-lead">${e(p.intro)}</p><p class="article-meta">${e(l.ui.updated)}: <time datetime="2026-10-04">${e(updated)}</time></p>
+    <p class="section-label">${e(p.eyebrow)}</p><h1>${e(p.h1)}</h1><p class="article-lead">${e(p.intro)}</p><p class="article-meta">${e(l.ui.updated)}: <time datetime="${date}">${e(updated)}</time></p>
     ${type === 'guide' ? `<nav class="article-toc" aria-label="${e(l.ui.onThisPage)}"><h2>${e(l.ui.onThisPage)}</h2><ol>${p.sections.map((section, i) => `<li><a href="#section-${i + 1}">${e(section.heading)}</a></li>`).join('')}</ol></nav>` : ''}
-    ${p.sections.map((section, i) => `<section id="section-${i + 1}"><h2>${e(section.heading)}</h2>${section.paragraphs.map(text => `<p>${e(text)}</p>`).join('')}</section>`).join('')}
+    ${p.sections.map((section, i) => `<section id="section-${i + 1}"><h2>${e(section.heading)}</h2>${section.paragraphs.map(text => `<p>${paragraph(text)}</p>`).join('')}</section>`).join('')}
     <aside class="article-cta"><h2>${e(p.ctaTitle)}</h2><p>${e(p.ctaText)}</p><a class="button primary" href="${pagePath(l.locale)}">${e(l.ui.openTool)}${icon('arrow')}</a></aside>
     <nav class="article-related" aria-label="${e(l.ui.related)}">${PAGE_TYPES.filter(item => item !== type && item !== 'home').map(item => `<a href="${pagePath(l.locale, item)}">${e(l.ui[item])}</a>`).join('')}</nav>
   </article></main>`;
@@ -89,7 +93,7 @@ export function renderPage(locales, route, assets, { production = false } = {}) 
   } : {
     '@context': 'https://schema.org', '@type': type === 'guide' ? 'Article' : 'WebPage', name: seo.title, headline: l.pages[type].h1,
     description: seo.description, inLanguage: l.htmlLang, url: canonical, mainEntityOfPage: canonical,
-    datePublished: '2026-10-04', dateModified: '2026-10-04', publisher: { '@type': 'Organization', name: BRAND_NAME, url: ORIGIN },
+    datePublished: '2026-10-04', dateModified: articleDates[type], publisher: { '@type': 'Organization', name: BRAND_NAME, url: ORIGIN },
   };
   return `<!doctype html>
 <html lang="${e(l.htmlLang)}"><head>
@@ -102,6 +106,15 @@ export function renderPage(locales, route, assets, { production = false } = {}) 
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${e(seo.title)}"><meta name="twitter:description" content="${e(seo.description)}"><meta name="twitter:image" content="${ORIGIN}/og.png">
   ${assets.styles.map(path => `<link rel="stylesheet" href="${e(path)}">`).join('\n  ')}
   <script type="application/ld+json">${json(structured)}</script>
+  ${production ? `<script id="clarity-tracking" type="text/javascript">
+    if (window.location.origin === ${json(ORIGIN)}) {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "ysiz2atokr");
+    }
+  </script>` : ''}
 </head><body data-locale="${e(locale)}" data-page="${e(type)}">
 ${header(locales, locale, type)}
 ${type === 'home' ? home(l) : article(l, type)}

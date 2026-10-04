@@ -168,9 +168,10 @@ for (const route of ROUTES) {
       }
       assert.ok(content.includes(page.ctaTitle));
       assert.ok(content.includes(page.ctaText));
-      const date = html.match(/<time datetime="2026-10-04">([^<]+)<\/time>/);
+      const modifiedDate = type === 'guide' ? '2026-10-04' : '2026-10-05';
+      const date = html.match(new RegExp(`<time datetime="${modifiedDate}">([^<]+)<\\/time>`));
       assert.ok(date);
-      assert.equal(textOf(date[1]), new Intl.DateTimeFormat(dictionary.htmlLang, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date('2026-10-04T00:00:00Z')));
+      assert.equal(textOf(date[1]), new Intl.DateTimeFormat(dictionary.htmlLang, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${modifiedDate}T00:00:00Z`)));
     }
 
     const structuredScripts = scriptContents(html, (tag) => tag.type === 'application/ld+json');

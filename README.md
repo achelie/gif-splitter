@@ -1,6 +1,6 @@
 # GIF Splitter
 
-A purely static, ten-language SEO tool live at **[www.gifsplitter.com](https://www.gifsplitter.com/)**. The canonical production origin is **https://www.gifsplitter.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts, file uploads, tracking scripts, or API keys are needed.
+A purely static, ten-language SEO tool live at **[www.gifsplitter.com](https://www.gifsplitter.com/)**. The canonical production origin is **https://www.gifsplitter.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts or file uploads are needed. The production site uses Microsoft Clarity for usage analytics.
 
 The current brand is **GIF Splitter**. The primary keyword is **gif splitter**, the secondary keyword is **gif frame extractor**, and supporting phrases are **split GIF into frames** and **GIF to PNG**. The English homepage title is **GIF Splitter — Free GIF Frame Extractor Online**. Other languages retain their localized conversion and frame-extraction wording, followed by the GIF Splitter brand.
 
@@ -57,6 +57,12 @@ The production site is served at [www.gifsplitter.com](https://www.gifsplitter.c
 - The apex redirect is managed separately in Cloudflare zone rules, outside this Pages deployment. Match only `gifsplitter.com`, use HTTP 301 with the dynamic destination `concat("https://www.gifsplitter.com", http.request.uri.path)`, and enable **Preserve query string**. The complete path must be preserved without adding a slash to files; for example, `https://gifsplitter.com/robots.txt?check=1` must redirect to `https://www.gifsplitter.com/robots.txt?check=1`. Pages deployment permissions do not grant access to edit this zone rule.
 
 After deployments, verify canonical URLs, response headers, robots.txt, sitemap.xml and apex redirects on the live hostnames. An indexable production release does not guarantee search-engine indexing or ranking.
+
+### Microsoft Clarity
+
+The shared HTML template includes project `ysiz2atokr` on all 40 production pages. A runtime origin check loads it only on `https://www.gifsplitter.com`; local builds omit the snippet, and Pages preview hosts do not load it. No private API key is required. Cloudflare's CSP allows Clarity scripts and collection requests using the [documented domains](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-csp).
+
+The extractor region uses `data-clarity-mask="true"` to mask filenames, frame previews and other content in recordings, following [Clarity's masking API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-masking). GIF processing stays in the browser. All ten privacy pages disclose Clarity. The integration does not send a consent-granted signal on the visitor's behalf; cookie behavior follows Clarity's settings and consent handling.
 
 ## Included page types (each in all ten languages)
 
