@@ -54,7 +54,7 @@ The production site is served at [www.gifsplitter.com](https://www.gifsplitter.c
 - A production build marks all 40 content pages `index, follow`. Responses from the production hostname contain no `noindex` directive.
 - `npm run build` remains the local preview build and emits `noindex, follow`. Use `npm run deploy` for a checked production deployment.
 - [gifframeextractor.pages.dev](https://gifframeextractor.pages.dev/) and deployment preview hosts matching `:version.gifframeextractor.pages.dev` remain accessible without redirecting. Host-specific `X-Robots-Tag: noindex, follow` headers keep these copies out of the indexing target even when they serve a production build.
-- Requests to `gifsplitter.com` redirect to `www.gifsplitter.com` with HTTP 301. The complete path and query string are preserved, including file paths without an added trailing slash. For example, `https://gifsplitter.com/robots.txt?check=1` redirects to `https://www.gifsplitter.com/robots.txt?check=1`.
+- The apex redirect is managed separately in Cloudflare zone rules, outside this Pages deployment. Match only `gifsplitter.com`, use HTTP 301 with the dynamic destination `concat("https://www.gifsplitter.com", http.request.uri.path)`, and enable **Preserve query string**. The complete path must be preserved without adding a slash to files; for example, `https://gifsplitter.com/robots.txt?check=1` must redirect to `https://www.gifsplitter.com/robots.txt?check=1`. Pages deployment permissions do not grant access to edit this zone rule.
 
 After deployments, verify canonical URLs, response headers, robots.txt, sitemap.xml and apex redirects on the live hostnames. An indexable production release does not guarantee search-engine indexing or ranking.
 

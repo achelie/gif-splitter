@@ -12,7 +12,7 @@
 
 Cloudflare Pages 项目继续使用 gifframeextractor，正式站使用 www.gifsplitter.com。默认 npm run deploy 执行正式构建、check:site --production-domain 校验及 Wrangler 部署；正式构建的 40 个内容页面允许索引，正式域名响应不含 noindex。npm run build 仍用于本地预览并保留 noindex。
 
-https://gifframeextractor.pages.dev/ 与匹配 :version.gifframeextractor.pages.dev 的部署预览地址继续直接访问，不做跳转；它们通过仅匹配这些主机名的 X-Robots-Tag: noindex, follow 响应头排除索引。apex 域名 gifsplitter.com 以 301 跳转到 www.gifsplitter.com，完整保留路径及查询参数，不给文件路径额外添加斜杠。正式站的 canonical、hreflang、sitemap 与社交 URL 均采用 www origin。
+https://gifframeextractor.pages.dev/ 与匹配 :version.gifframeextractor.pages.dev 的部署预览地址继续直接访问，不做跳转；它们通过仅匹配这些主机名的 X-Robots-Tag: noindex, follow 响应头排除索引。apex 域名 gifsplitter.com 的 301 跳转由 Cloudflare 区域规则单独管理，Pages 部署不会更新该规则；规则应指向 www.gifsplitter.com，完整保留路径及查询参数，不给文件路径额外添加斜杠。正式站的 canonical、hreflang、sitemap 与社交 URL 均采用 www origin。
 
 每个语言版本的首页同时满足两个相邻需求：将 GIF 转为 PNG，以及从动画中提取一个、选中的或全部帧。页面以当地自然说法组织标题、说明、操作步骤和问答；不逐字翻译英文品牌词，也不把不同说法拆成内容重复的落地页。
 
