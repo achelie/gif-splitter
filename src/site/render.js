@@ -1,9 +1,13 @@
-import { ORIGIN, BRAND_NAME, LOCALES, PAGE_TYPES, pagePath } from './config.js';
+import { ORIGIN, BRAND_NAME, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, pagePath } from './config.js';
 
 export const escapeHtml = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const e = escapeHtml;
-const microsoftPrivacyUrl = 'https://www.microsoft.com/en-us/privacy/privacystatement';
-const paragraph = text => e(text).replaceAll(microsoftPrivacyUrl, `<a href="${microsoftPrivacyUrl}">${microsoftPrivacyUrl}</a>`);
+const privacyLinks = [
+  'https://www.microsoft.com/en-us/privacy/privacystatement',
+  'https://policies.google.com/technologies/partner-sites',
+  'https://myadcenter.google.com/',
+];
+const paragraph = text => privacyLinks.reduce((html, url) => html.replaceAll(url, `<a href="${url}">${url}</a>`), e(text));
 const json = (value) => JSON.stringify(value).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
 const articleDates = { guide: '2026-10-04', about: '2026-10-05', privacy: '2026-10-05' };
 const paths = {
@@ -31,7 +35,7 @@ function header(locales, locale, type) {
 }
 
 function footer(l) {
-  return `<footer class="site-footer wrap"><div class="footer-top">${brand(l.locale, l.ui.homeLabel, false)}<p>${e(l.footer.tagline)}</p></div><div class="footer-bottom"><span>${e(l.footer.copyright)}</span><nav aria-label="${e(l.ui.footerNav)}"><a href="${pagePath(l.locale, 'guide')}">${e(l.ui.guide)}</a><a href="${pagePath(l.locale, 'about')}">${e(l.ui.about)}</a><a href="${pagePath(l.locale, 'privacy')}">${e(l.ui.privacy)}</a></nav></div></footer>`;
+  return `<footer class="site-footer wrap"><div class="footer-top">${brand(l.locale, l.ui.homeLabel, false)}<p>${e(l.footer.tagline)}</p></div><div class="footer-bottom"><span>${e(l.footer.copyright)}</span><nav aria-label="${e(l.ui.footerNav)}"><a href="${pagePath(l.locale, 'guide')}">${e(l.ui.guide)}</a><a href="${pagePath(l.locale, 'about')}">${e(l.ui.about)}</a><a href="${pagePath(l.locale, 'about')}#contact">${e(l.ui.contact)}</a><a href="${pagePath(l.locale, 'privacy')}">${e(l.ui.privacy)}</a></nav></div></footer>`;
 }
 
 function home(l) {
@@ -76,6 +80,7 @@ function article(l, type) {
     <p class="section-label">${e(p.eyebrow)}</p><h1>${e(p.h1)}</h1><p class="article-lead">${e(p.intro)}</p><p class="article-meta">${e(l.ui.updated)}: <time datetime="${date}">${e(updated)}</time></p>
     ${type === 'guide' ? `<nav class="article-toc" aria-label="${e(l.ui.onThisPage)}"><h2>${e(l.ui.onThisPage)}</h2><ol>${p.sections.map((section, i) => `<li><a href="#section-${i + 1}">${e(section.heading)}</a></li>`).join('')}</ol></nav>` : ''}
     ${p.sections.map((section, i) => `<section id="section-${i + 1}"><h2>${e(section.heading)}</h2>${section.paragraphs.map(text => `<p>${paragraph(text)}</p>`).join('')}</section>`).join('')}
+    ${type === 'about' ? `<section id="contact" aria-labelledby="contact-heading"><h2 id="contact-heading">${e(p.contact.heading)}</h2>${p.contact.paragraphs.map(text => `<p>${paragraph(text)}</p>`).join('')}<p><a class="inline-link" href="mailto:${e(PUBLIC_CONTACT_EMAIL)}">${e(PUBLIC_CONTACT_EMAIL)}</a></p></section>` : ''}
     <aside class="article-cta"><h2>${e(p.ctaTitle)}</h2><p>${e(p.ctaText)}</p><a class="button primary" href="${pagePath(l.locale)}">${e(l.ui.openTool)}${icon('arrow')}</a></aside>
     <nav class="article-related" aria-label="${e(l.ui.related)}">${PAGE_TYPES.filter(item => item !== type && item !== 'home').map(item => `<a href="${pagePath(l.locale, item)}">${e(l.ui[item])}</a>`).join('')}</nav>
   </article></main>`;

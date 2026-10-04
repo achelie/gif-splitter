@@ -64,6 +64,14 @@ The shared HTML template includes project `ysiz2atokr` on all 40 production page
 
 The extractor region uses `data-clarity-mask="true"` to mask filenames, frame previews and other content in recordings, following [Clarity's masking API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-masking). GIF processing stays in the browser. All ten privacy pages disclose Clarity. The integration does not send a consent-granted signal on the visitor's behalf; cookie behavior follows Clarity's settings and consent handling.
 
+### Contact and AdSense preparation
+
+Every language's About page includes a `#contact` section. Footer contact links stay in the current language, and the public address is `contact@gifsplitter.com`. Cloudflare Email Routing forwards that address to a verified destination; the destination is private and is not included in the website. Routing and DNS configuration do not by themselves prove message delivery.
+
+The privacy pages describe contact emails, default Clarity loading, Cloudflare Web Analytics performance measurement, and the data Google and advertising partners may process if AdSense is enabled later. The site currently has no Google ad loader, ad units or advertising CMP. Publishing disclosures does not prove regional consent compliance or Google site approval.
+
+Cloudflare injects its Web Analytics beacon on the live site. CSP permits only its script origin, `https://static.cloudflareinsights.com`; the proxied beacon submits performance data to the same-origin `/cdn-cgi/rum` endpoint. Local builds do not inject this beacon. Existing preview indexing exclusions and the AdSense seller line remain in place.
+
 ## Included page types (each in all ten languages)
 
 - `/` — interactive extraction tool, use cases, how-to steps and FAQs

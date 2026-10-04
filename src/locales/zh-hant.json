@@ -7,9 +7,10 @@
     "home": {"title": "GIF 轉 PNG｜動圖分解與影格擷取 | GIF Splitter", "description": "免費將 GIF 動圖分解成 PNG 圖片。逐格預覽、擷取單張畫面，或將選取的影格與全部圖片打包成 ZIP 下載。免安裝、免註冊，檔案在瀏覽器內處理，不需上傳。"},
     "guide": {"title": "GIF 轉 PNG 教學：擷取單張圖片與下載全部影格", "description": "了解如何從 GIF 擷取靜態圖片、將動圖逐格轉成 PNG，並下載有編號的 ZIP。附透明背景、影格時間與大型檔案的處理說明。"},
     "about": {"title": "關於 GIF Splitter｜免上傳的 GIF 分解工具", "description": "認識 GIF Splitter 的功能與本機處理方式。在瀏覽器內分解 GIF，將單張、選取的影格或全部畫面匯出為 PNG 與 ZIP。"},
-    "privacy": {"title": "隱私權政策｜GIF Splitter", "description": "GIF 仍在您的裝置內處理。了解本機檔案處理、Cloudflare 代管，以及 Microsoft Clarity 的互動分析、工作階段重播與 Cookie 使用。"}
+    "privacy": {"title":"隱私權政策｜GIF Splitter","description":"GIF 留在您的裝置內處理。了解 Cloudflare 代管與效能分析、Clarity、Cookie、聯絡郵件，以及未來可能啟用的 Google 廣告。"}
   },
   "ui": {
+    "contact": "聯絡",
     "skip": "跳至主要內容", "homeLabel": "GIF Splitter 首頁", "mainNav": "主要導覽", "footerNav": "頁尾導覽", "languageNav": "選擇語言", "extract": "擷取影格", "how": "使用方式", "privacy": "隱私權", "about": "關於本站", "guide": "GIF 分解教學",
     "toolLabel": "GIF 轉 PNG 與影格擷取工具", "dropTitle": "將 GIF 拖曳到這裡", "dropText": "或選擇檔案，查看每一格畫面", "choose": "選擇 GIF", "fileHint": "動態 GIF · 最大 30 MB", "outputHint": "PNG 影格 · 保留原始尺寸", "local": "GIF 檔案留在您的裝置內", "sample": "試用範例 GIF", "inputLabel": "選擇 GIF 檔案", "cancel": "取消", "progressLabel": "正在擷取 GIF 影格", "progressNote": "正依序將每一格還原成完整圖片。",
     "resultsLabel": "看見 GIF 的每一格", "resultsTitle": "擷取的影格", "another": "選擇其他 GIF", "previewAlt": "目前選取的 GIF 影格", "previous": "上一格", "next": "下一格", "play": "播放預覽", "pause": "暫停預覽", "slider": "預覽影格", "downloadFrame": "下載這一格", "frames": "影格數", "dimensions": "圖片尺寸", "duration": "播放時間", "output": "輸出格式", "downloadTitle": "留下某個瞬間，或完整的每一格。", "downloadText": "將每一格存成原始尺寸的 PNG，依序編號並打包成一個 ZIP 檔案。", "downloadAll": "下載全部影格", "localNote": "本機處理，檔案不上傳。", "allFrames": "全部影格", "selectAll": "全部選取", "deselectAll": "取消全選", "downloadSelected": "下載選取影格", "gridHint": "點選圖片即可預覽，勾選核取方塊可挑選要打包成 ZIP 的影格。", "showMore": "顯示更多影格",
@@ -61,11 +62,14 @@
       {"heading": "可以用它做什麼？", "paragraphs": ["開啟本機 GIF，查看解碼後的每一格與顯示時間，再下載單張 PNG。也能選取幾格，或把完整序列打包成 ZIP。匯出的圖片保留原始畫布尺寸，不會加上浮水印。", "工具會把 GIF 的局部影像更新合成為完整影格，方便檢查動畫步驟、挑選參考圖片，或準備要交給其他編輯器使用的素材。請使用您有權處理的檔案。"]},
       {"heading": "為什麼在本機處理？", "paragraphs": ["GIF 解碼、PNG 編碼與 ZIP 建立都在您的裝置上執行。不需要帳號或檔案上傳服務，也不會修改原始 GIF。瀏覽器能處理多大的動畫，會受裝置效能與可用記憶體影響。", "檔案上限為 30 MB、1,000 格，另有解碼後的像素量保護限制。每個 ZIP 的 PNG 資料上限為 128 MB。即使壓縮後的 GIF 很小，展開時仍可能需要大量記憶體。"]},
       {"heading": "功能與支援格式", "paragraphs": ["本站接受 GIF，輸出 PNG 圖片或 ZIP 壓縮檔。目前不提供影格編輯、影片擷取或重新製作動畫的功能。匯出為 PNG 也無法恢復 GIF 原本已經缺少的細節。", "使用教學會說明影格時間、透明背景與下載方式。隱私權頁面則說明本機檔案處理、Cloudflare 代管，以及使用 Microsoft Clarity 進行網站互動分析的方式。"]}
-    ], "ctaTitle": "看看 GIF 裡的每個畫面", "ctaText": "不需帳號或安裝，選擇一個檔案就能開始。"},
+    ], "contact": {"heading":"聯絡網站營運者","paragraphs":["www.gifsplitter.com 的本工具以 GIF Splitter 名稱營運。若要回報錯誤、建議功能，或詢問隱私權相關問題，請透過下方電子郵件地址聯絡網站營運者。","回報問題時，不需要寄送您的 GIF 或私人檔案。簡單描述發生的狀況、使用的瀏覽器與裝置類型，以及顯示的錯誤訊息，通常就已足夠。請勿提供與詢問無關的個人資料。"]}, "ctaTitle": "看看 GIF 裡的每個畫面", "ctaText": "不需帳號或安裝，選擇一個檔案就能開始。"},
     "privacy": {"eyebrow": "檔案留在您的裝置內", "h1": "隱私權政策", "intro": "本政策說明 GIF Splitter 如何處理檔案，以及與瀏覽及使用網站相關的資訊，適用於本工具及所有語言版本。", "sections": [
       {"heading": "GIF 與匯出的圖片", "paragraphs": ["您選擇的 GIF 由瀏覽器讀取。解碼、影格預覽、PNG 編碼與 ZIP 建立都在您的裝置上進行。工具不會把 GIF、影格圖片或檔案名稱上傳到伺服器。", "應用程式會將工作資料保留在瀏覽器記憶體中，不會把 GIF 儲存到 Cookie、本機儲存空間或線上帳號。選擇其他 GIF 或關閉頁面後，應用程式會釋放目前的工作狀態。已下載的檔案會保留在瀏覽器或作業系統管理的儲存位置。"]},
       {"heading": "網站代管", "paragraphs": ["本站由 Cloudflare 代管並提供網頁、指令碼與圖片。載入這些資源時，會涉及一般連線資訊，例如 IP 位址、請求時間、請求的網址與瀏覽器標頭。Cloudflare 可能依自身的作業方式，在存取紀錄或安全紀錄中處理這些資訊。", "選擇試用範例時，瀏覽器會從本站下載一個範例 GIF，不會將您自己的檔案傳送到其他地方。工具不會連線至外部轉檔或翻譯服務。"]},
-      {"heading": "使用分析、Cookie 與本機檔案", "paragraphs": ["www.gifsplitter.com 使用 Microsoft Clarity 的使用分析、熱圖與工作階段重播，了解訪客如何操作頁面。Clarity 會將互動資料傳送給 Microsoft，並可能依使用者同意情況與 Clarity 設定使用 Cookie。本機環境與 pages.dev 預覽不會載入 Clarity。", "GIF 解碼與匯出仍在您的裝置內進行。包含檔案名稱、預覽及擷取影格的擷取區域，已設定在 Clarity 中遮蔽。本站沒有帳號系統，也不儲存語言偏好；顯示語言由網址決定。Microsoft 隱私權聲明：https://www.microsoft.com/en-us/privacy/privacystatement"]},
+      {"heading":"使用分析、Cookie 與本機檔案","paragraphs":["www.gifsplitter.com 預設載入 Microsoft Clarity，透過使用統計、熱圖與工作階段重播分析頁面互動。Clarity 會將互動與瀏覽器資料傳送給 Microsoft，並可能依 Clarity 設定、適用的同意訊號與瀏覽器限制設定或讀取 Cookie。本機環境與 pages.dev 預覽不會載入 Clarity。","GIF 解碼與匯出仍在您的裝置內進行。包含檔案名稱、預覽及擷取影格的擷取區域，已設定在 Clarity 中遮蔽。本站沒有帳號系統，也不儲存語言偏好；顯示語言由網址決定。Microsoft 隱私權聲明：https://www.microsoft.com/en-us/privacy/privacystatement"]},
+      {"heading":"Cloudflare Web Analytics 與效能測量","paragraphs":["正式網站使用 Cloudflare Web Analytics，包括真實使用者監測（RUM）信標，測量造訪情況與頁面載入效能。網站統計包含頁面路徑、來源網站、瀏覽器與裝置類型，以及載入時間等資訊。","Cloudflare Web Analytics 不使用 Cookie 或本機儲存，也不使用瀏覽器指紋識別個別訪客。它不會接收您選取的 GIF 或擷取的圖片。這些測量與代管服務的連線紀錄及 Microsoft Clarity 分開運作。"]},
+      {"heading":"Google 廣告：目前狀態與未來使用","paragraphs":["目前本站不載入 Google AdSense 廣告程式碼，也不顯示 Google 廣告。若未來啟用 Google 廣告，Google 與其廣告合作夥伴可能設定或讀取 Cookie、使用網路信標，並處理 IP 位址及瀏覽器或裝置識別碼，用於廣告投放與成效測量、防止詐欺，以及在啟用且獲准時提供個人化廣告。","啟用廣告前，我們會更新本政策，並提供實際採用的廣告服務所需的告知與控制方式。Google 在合作夥伴網站使用資料的說明：https://policies.google.com/technologies/partner-sites。Google 廣告偏好設定：https://myadcenter.google.com/。這些 Google 設定不會管理 Cloudflare 或 Microsoft Clarity。"]},
+      {"heading":"您寄送的聯絡郵件","paragraphs":["若您寄信給網站營運者，我們會處理寄件地址及您選擇提供的郵件內容，以受理並回覆您的詢問。Cloudflare Email Routing 會將收到的聯絡郵件轉寄至收件信箱。此郵件流程與不會上傳檔案的 GIF 工具分開運作。","參與投遞的郵件服務可能處理寄件人與收件人資訊、郵件內容及附件。請只提供詢問所需的資料，並避免寄送機密檔案。若對本政策或您的資料有疑問，可使用「關於本站」頁面的聯絡地址。"]},
       {"heading": "您的管理方式與政策更新", "paragraphs": ["您不需填寫個人基本資料即可使用工具。若要刪除已下載的檔案，請使用裝置的檔案管理功能。切換語言會前往另一個頁面，目前的 GIF 不會一起轉移到新頁面。", "若網站的資料處理方式有變更，我們會更新本政策。頁面顯示的日期代表最近一次修訂日期。關於本站與使用教學提供了工具功能及限制的進一步說明。"]}
     ], "ctaTitle": "在本機擷取 GIF 影格", "ctaText": "由瀏覽器完成處理，GIF 留在您的裝置裡。"}
   },

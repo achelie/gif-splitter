@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { ORIGIN, ROUTES, LOCALES, pagePath } from '../src/site/config.js';
+import { ORIGIN, PUBLIC_CONTACT_EMAIL, ROUTES, LOCALES, pagePath } from '../src/site/config.js';
 import { loadLocales } from '../src/site/content.js';
 import { escapeHtml } from '../src/site/render.js';
 
@@ -34,6 +34,10 @@ for (const route of ROUTES) {
   for (const match of html.matchAll(/<(?:script|link|a)\b[^>]*\b(?:href|src)="([^"]+)"/g)) {
     const target = match[1];
     if (target.startsWith('https://')) continue;
+    if (target.startsWith('mailto:')) {
+      assert.equal(target, `mailto:${PUBLIC_CONTACT_EMAIL}`, `Unexpected contact address: ${route.path}`);
+      continue;
+    }
     const [path, anchor] = target.split('#');
     if (!path || pages.has(path)) {
       const destination = pages.get(path || route.path);

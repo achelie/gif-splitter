@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { loadLocales } from '../src/site/content.js';
-import { ORIGIN, LOCALES, PAGE_TYPES, ROUTES, pagePath } from '../src/site/config.js';
+import { ORIGIN, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, ROUTES, pagePath } from '../src/site/config.js';
 import { renderPage } from '../src/site/render.js';
 
 const locales = await loadLocales();
@@ -134,6 +134,8 @@ for (const route of ROUTES) {
       assert.equal(link['aria-current'], id === locale ? 'page' : undefined);
     }
     checkInternalLinks(html, route);
+    const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)[1];
+    assert.ok(links(footer).some((link) => link.href === `${expectedPath(locale, 'about')}#contact` && link.text === dictionary.ui.contact), 'every page must expose contact within its own language');
 
     const h1 = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
     assert.equal(h1.length, 1, 'a page must have a single H1');
@@ -168,6 +170,17 @@ for (const route of ROUTES) {
       }
       assert.ok(content.includes(page.ctaTitle));
       assert.ok(content.includes(page.ctaText));
+      if (type === 'about') {
+        assert.ok(tags(html, 'section').some((tag) => tag.id === 'contact'));
+        assert.ok(content.includes(page.contact.heading));
+        for (const paragraph of page.contact.paragraphs) assert.ok(content.includes(paragraph));
+        assert.deepEqual(links(main[1]).filter((link) => link.href.startsWith('mailto:')).map((link) => ({ href: link.href, text: link.text })), [{ href: `mailto:${PUBLIC_CONTACT_EMAIL}`, text: PUBLIC_CONTACT_EMAIL }]);
+      }
+      if (type === 'privacy') {
+        for (const url of ['https://www.microsoft.com/en-us/privacy/privacystatement', 'https://policies.google.com/technologies/partner-sites', 'https://myadcenter.google.com/']) {
+          assert.ok(links(main[1]).some((link) => link.href === url && link.text === url), 'privacy controls and vendor explanations must be usable links');
+        }
+      }
       const modifiedDate = type === 'guide' ? '2026-10-04' : '2026-10-05';
       const date = html.match(new RegExp(`<time datetime="${modifiedDate}">([^<]+)<\\/time>`));
       assert.ok(date);
