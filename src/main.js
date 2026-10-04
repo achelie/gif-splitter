@@ -1,7 +1,11 @@
 import { zip } from 'fflate';
 import { extractGif } from './gif-engine.js';
+import './site.js';
+import { createTranslator } from './i18n.js';
 
 const $ = (id) => document.getElementById(id);
+const messages = JSON.parse($('locale-messages').textContent);
+const { t, number } = createTranslator(messages.locale, messages);
 let gif = null;
 let sourceName = '';
 let urls = [];
@@ -22,7 +26,7 @@ function status(message = '', error = false) {
 function stopPlayback() {
   clearTimeout(playback);
   playback = null;
-  $('play-button').textContent = 'Play preview';
+  $('play-button').textContent = t('ui.play');
 }
 
 function clearFrames() {
@@ -57,19 +61,19 @@ function showFrame(index) {
   current = (index + gif.frames.length) % gif.frames.length;
   const frame = gif.frames[current];
   $('frame-preview').src = urls[current];
-  $('frame-preview').alt = `Frame ${current + 1} of ${sourceName}`;
+  $('frame-preview').alt = t('runtime.frameAlt', { current: current + 1, name: sourceName });
   $('frame-slider').value = current + 1;
-  $('current-frame-label').textContent = `Frame ${current + 1} of ${gif.frames.length}`;
-  $('current-frame-delay').textContent = `${frame.delay} ms`;
+  $('current-frame-label').textContent = t('runtime.frameLabel', { current: current + 1, total: gif.frames.length });
+  $('current-frame-delay').textContent = t('runtime.milliseconds', { value: frame.delay });
   document.querySelectorAll('.frame-card.is-current').forEach((card) => card.classList.remove('is-current'));
   const card = document.querySelector(`[data-frame="${current}"]`);
   card?.classList.add('is-current');
 }
 
 function updateSelection() {
-  $('selection-count').textContent = `${selected.size} selected`;
+  $('selection-count').textContent = t('runtime.selected', { count: selected.size });
   $('download-selected').disabled = selected.size === 0 || exporting;
-  $('select-all').textContent = selected.size === gif?.frames.length ? 'Deselect all' : 'Select all';
+  $('select-all').textContent = t(selected.size === gif?.frames.length ? 'ui.deselectAll' : 'ui.selectAll');
 }
 
 function appendCards() {
@@ -84,10 +88,10 @@ function appendCards() {
     const preview = document.createElement('button');
     preview.type = 'button';
     preview.className = 'frame-thumbnail checkerboard';
-    preview.setAttribute('aria-label', `Preview frame ${i + 1}`);
+    preview.setAttribute('aria-label', t('runtime.previewFrame', { current: i + 1 }));
     const img = document.createElement('img');
     img.src = urls[i];
-    img.alt = `GIF frame ${i + 1}`;
+    img.alt = t('runtime.thumbnailAlt', { current: i + 1 });
     img.loading = 'lazy';
     img.decoding = 'async';
     preview.append(img);
@@ -98,7 +102,7 @@ function appendCards() {
     const check = document.createElement('input');
     check.type = 'checkbox';
     check.checked = selected.has(i);
-    check.setAttribute('aria-label', `Select frame ${i + 1}`);
+    check.setAttribute('aria-label', t('runtime.selectFrame', { current: i + 1 }));
     check.addEventListener('change', () => {
       check.checked ? selected.add(i) : selected.delete(i);
       card.classList.toggle('is-selected', check.checked);
@@ -106,7 +110,7 @@ function appendCards() {
     });
     label.append(check, ` ${String(i + 1).padStart(3, '0')}`);
     const delay = document.createElement('span');
-    delay.textContent = `${gif.frames[i].delay} ms`;
+    delay.textContent = t('runtime.milliseconds', { value: gif.frames[i].delay });
     caption.append(label, delay);
     card.append(preview, caption);
     fragment.append(card);
@@ -114,7 +118,7 @@ function appendCards() {
   $('frame-grid').append(fragment);
   visibleCount = end;
   $('show-more').hidden = end >= gif.frames.length;
-  $('show-more').textContent = `Show more frames (${end} of ${gif.frames.length})`;
+  $('show-more').textContent = t('runtime.more', { visible: end, total: gif.frames.length });
   showFrame(current);
 }
 
@@ -128,14 +132,14 @@ async function openFile(file) {
   $('progress-panel').hidden = false;
   $('upload-area').hidden = true;
   $('progress').value = 0;
-  $('progress-label').textContent = 'Reading your GIF…';
+  $('progress-label').textContent = t('runtime.reading');
   try {
     const extracted = await extractGif(file, {
       signal: controller.signal,
       onProgress: ({ completed, total, percent }) => {
         if (myJob !== job) return;
         $('progress').value = percent;
-        $('progress-label').textContent = `Extracting frame ${completed} of ${total}…`;
+        $('progress-label').textContent = t('runtime.extracting', { completed, total });
       },
     });
     if (myJob !== job) return;
@@ -143,10 +147,10 @@ async function openFile(file) {
     sourceName = file.name || 'animation.gif';
     urls = gif.frames.map((frame) => URL.createObjectURL(frame.blob));
     $('file-name').textContent = sourceName;
-    $('file-summary').textContent = `${formatBytes(file.size)} · Animated GIF`;
-    $('stat-frames').textContent = gif.frames.length;
-    $('stat-size').textContent = `${gif.width} × ${gif.height}`;
-    $('stat-duration').textContent = `${Number((gif.duration / 1000).toFixed(3))} s`;
+    $('file-summary').textContent = t('runtime.fileSummary', { size: formatBytes(file.size) });
+    $('stat-frames').textContent = number(gif.frames.length);
+    $('stat-size').textContent = `${number(gif.width)} × ${number(gif.height)}`;
+    $('stat-duration').textContent = t('runtime.seconds', { value: gif.duration / 1000 });
     $('frame-slider').max = gif.frames.length;
     $('play-button').disabled = gif.frames.length < 2;
     $('results').hidden = false;
@@ -154,14 +158,14 @@ async function openFile(file) {
     document.body.classList.add('has-results');
     appendCards();
     updateSelection();
-    status(`${gif.frames.length} ${gif.frames.length === 1 ? 'frame is' : 'frames are'} ready. Your original GIF has not been changed.`);
+    status(t('runtime.ready', { count: gif.frames.length }));
     $('results-title').setAttribute('tabindex', '-1');
     $('results-title').focus({ preventScroll: true });
   } catch (error) {
     if (myJob !== job) return;
     $('upload-area').hidden = false;
-    if (error.name === 'AbortError') status('Extraction cancelled. Choose a GIF to start again.');
-    else status(error.message || 'This GIF could not be read. Please try a different file.', true);
+    if (error.name === 'AbortError') status(t('runtime.cancelled'));
+    else status(t(`errors.${Object.hasOwn(messages.errors, error.code) ? error.code : 'UNKNOWN'}`), true);
   } finally {
     if (myJob === job) {
       $('progress-panel').hidden = true;
@@ -171,7 +175,7 @@ async function openFile(file) {
 }
 
 function formatBytes(bytes) {
-  return bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${(bytes / 1024).toFixed(1)} KB`;
+  return bytes >= 1024 * 1024 ? `${number(Number((bytes / 1024 / 1024).toFixed(1)))} MB` : `${number(Number((bytes / 1024).toFixed(1)))} KB`;
 }
 
 function baseName(name) {
@@ -197,14 +201,14 @@ async function downloadZip(indices) {
   const downloadJob = job;
   const totalBytes = indices.reduce((sum, index) => sum + frames[index].blob.size, 0);
   if (totalBytes > 128 * 1024 * 1024) {
-    status('These PNGs exceed the 128 MB ZIP limit. Select fewer frames and download them in smaller batches.', true);
+    status(t('errors.ZIP_LIMIT'), true);
     return;
   }
   exporting = true;
   $('download-all').disabled = true;
   $('download-selected').disabled = true;
   $('start-over').disabled = true;
-  status(`Preparing ${indices.length} frames for download…`);
+  status(t('runtime.preparing', { count: indices.length }));
   try {
     const files = {};
     for (const index of indices) {
@@ -212,9 +216,9 @@ async function downloadZip(indices) {
     }
     const archive = await new Promise((resolve, reject) => zip(files, { level: 0 }, (error, data) => error ? reject(error) : resolve(data)));
     downloadBlob(new Blob([archive], { type: 'application/zip' }), `${prefix}-frames.zip`);
-    if (downloadJob === job) status(`Your ZIP with ${indices.length} PNG ${indices.length === 1 ? 'frame' : 'frames'} is ready. Check your browser's downloads.`);
+    if (downloadJob === job) status(t('runtime.zipReady', { count: indices.length }));
   } catch {
-    if (downloadJob === job) status('The ZIP could not be created. Try downloading fewer frames at a time.', true);
+    if (downloadJob === job) status(t('errors.ZIP_CREATE'), true);
   } finally {
     exporting = false;
     $('download-all').disabled = false;
@@ -226,18 +230,18 @@ async function downloadZip(indices) {
 $('choose-file').addEventListener('click', () => $('file-input').click());
 $('file-input').addEventListener('change', (event) => openFile(event.target.files[0]));
 $('start-over').addEventListener('click', () => { reset(); $('file-input').click(); });
-$('cancel-button').addEventListener('click', reset);
+$('cancel-button').addEventListener('click', () => { reset(); status(t('runtime.cancelled')); });
 $('sample-button').addEventListener('click', async () => {
   const sampleJob = ++job;
   $('sample-button').disabled = true;
-  status('Opening the sample GIF…');
+  status(t('runtime.openingSample'));
   try {
     const response = await fetch('/sample.gif');
     if (!response.ok) throw new Error('Sample unavailable');
     const blob = await response.blob();
     if (sampleJob === job) await openFile(new File([blob], 'little-orbit.gif', { type: 'image/gif' }));
   } catch {
-    if (sampleJob === job) status('The sample could not be loaded. You can still choose your own GIF.', true);
+    if (sampleJob === job) status(t('errors.SAMPLE_LOAD'), true);
   } finally {
     $('sample-button').disabled = false;
   }
@@ -253,7 +257,7 @@ $('dropzone').addEventListener('drop', (event) => {
   event.preventDefault();
   dragDepth = 0;
   $('dropzone').classList.remove('is-dragging');
-  if (event.dataTransfer.files.length > 1) { status('Please choose one GIF at a time.', true); return; }
+  if (event.dataTransfer.files.length > 1) { status(t('errors.MULTIPLE_FILES'), true); return; }
   openFile(event.dataTransfer.files[0]);
 });
 $('previous-frame').addEventListener('click', () => { stopPlayback(); showFrame(current - 1); });
@@ -262,7 +266,7 @@ $('frame-slider').addEventListener('input', (event) => { stopPlayback(); showFra
 $('play-button').addEventListener('click', () => {
   if (playback !== null) { stopPlayback(); return; }
   if (!gif) return;
-  $('play-button').textContent = 'Pause preview';
+  $('play-button').textContent = t('ui.pause');
   function next() {
     // Extremely short GIF delays are slowed for a usable preview; metadata stays exact.
     const delay = gif.frames[current].delay < 20 ? 100 : gif.frames[current].delay;

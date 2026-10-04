@@ -146,16 +146,16 @@ test('preserves graphic control data across multiple comment blocks', async () =
 });
 
 test('rejects non-GIF input, truncated data and zero dimensions before rendering', async () => {
-  await assert.rejects(extractGif(new Blob(['not a gif'])), /valid GIF/);
+  await assert.rejects(extractGif(new Blob(['not a gif'])), { name: 'GifError', code: 'NOT_GIF' });
   const valid = await makeGif({ frames: [{ pixels: [1, 2] }] }).arrayBuffer();
-  await assert.rejects(extractGif(new Blob([valid.slice(0, -2)])), /incomplete or damaged/);
+  await assert.rejects(extractGif(new Blob([valid.slice(0, -2)])), { name: 'GifError', code: 'INVALID_GIF' });
   const zero = new Uint8Array(valid);
   zero[6] = 0;
   await assert.rejects(extractGif(new Blob([zero])), /incomplete or damaged/);
 });
 
 test('rejects oversized files, dimensions, frame counts and total pixel budgets', async () => {
-  await assert.rejects(extractGif({ size: GIF_LIMITS.maxBytes + 1, arrayBuffer() { throw new Error('Must not read'); } }), /30 MB/);
+  await assert.rejects(extractGif({ size: GIF_LIMITS.maxBytes + 1, arrayBuffer() { throw new Error('Must not read'); } }), { name: 'GifError', code: 'FILE_SIZE' });
   await assert.rejects(extractGif(makeGif({ width: 9000, frames: [{ width: 1, pixels: [1] }] })), /dimensions are too large/);
   const tooMany = Array.from({ length: GIF_LIMITS.maxFrames + 1 }, () => ({ width: 1, pixels: [1] }));
   await assert.rejects(extractGif(makeGif({ width: 1, frames: tooMany })), /1,000 frames/);

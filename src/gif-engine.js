@@ -9,7 +9,15 @@ export const GIF_LIMITS = Object.freeze({
   maxOutputPixels: 80_000_000,
 });
 
-const invalidGif = () => new Error('This GIF is incomplete or damaged. Please try another GIF file.');
+export class GifError extends Error {
+  constructor(code, message) {
+    super(message);
+    this.name = 'GifError';
+    this.code = code;
+  }
+}
+
+const invalidGif = () => new GifError('INVALID_GIF', 'This GIF is incomplete or damaged. Please try another GIF file.');
 
 function checkAbort(signal) {
   if (signal?.aborted) throw new DOMException('Extraction was cancelled.', 'AbortError');
@@ -20,7 +28,7 @@ function checkAbort(signal) {
 function inspectGif(bytes) {
   const signature = String.fromCharCode(...bytes.subarray(0, 6));
   if (signature !== 'GIF87a' && signature !== 'GIF89a') {
-    throw new Error('Please choose a valid GIF file. Other image formats are not supported.');
+    throw new GifError('NOT_GIF', 'Please choose a valid GIF file. Other image formats are not supported.');
   }
   if (bytes.length < 14) throw invalidGif();
   const word = (at) => bytes[at] | (bytes[at + 1] << 8);
@@ -29,7 +37,7 @@ function inspectGif(bytes) {
   const pixels = width * height;
   if (!width || !height) throw invalidGif();
   if (width > GIF_LIMITS.maxDimension || height > GIF_LIMITS.maxDimension || pixels > GIF_LIMITS.maxFramePixels) {
-    throw new Error('This GIF’s dimensions are too large. Please use a GIF with at most 16 million pixels and sides up to 8,192 pixels.');
+    throw new GifError('DIMENSIONS', 'This GIF’s dimensions are too large. Please use a GIF with at most 16 million pixels and sides up to 8,192 pixels.');
   }
 
   const hasGlobalPalette = Boolean(bytes[10] & 0x80);
@@ -72,7 +80,7 @@ function inspectGif(bytes) {
       } else if (label === 0xfe || label === 0xff) {
         skipBlocks();
       } else if (label === 0x01) {
-        throw new Error('This GIF contains a plain-text rendering block that is not supported. Please use an image-only GIF.');
+        throw new GifError('UNSUPPORTED_TEXT', 'This GIF contains a plain-text rendering block that is not supported. Please use an image-only GIF.');
       } else {
         throw invalidGif();
       }
@@ -101,13 +109,13 @@ function inspectGif(bytes) {
     control = undefined;
     decodedPixels += frameWidth * frameHeight;
     if (frames.length > GIF_LIMITS.maxFrames) {
-      throw new Error('This GIF has more than 1,000 frames. Please choose a shorter GIF.');
+      throw new GifError('FRAME_LIMIT', 'This GIF has more than 1,000 frames. Please choose a shorter GIF.');
     }
     if (decodedPixels > GIF_LIMITS.maxDecodedPixels || pixels * frames.length > GIF_LIMITS.maxOutputPixels) {
-      throw new Error('This GIF needs too much browser memory to extract safely. Please choose a shorter GIF or reduce its dimensions.');
+      throw new GifError('MEMORY_LIMIT', 'This GIF needs too much browser memory to extract safely. Please choose a shorter GIF or reduce its dimensions.');
     }
   }
-  if (!frames.length) throw new Error('This GIF does not contain any image frames. Please choose another GIF.');
+  if (!frames.length) throw new GifError('NO_FRAMES', 'This GIF does not contain any image frames. Please choose another GIF.');
   return { width, height, frames };
 }
 
@@ -116,7 +124,7 @@ function makeCanvas(width, height) {
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext('2d', { willReadFrequently: true });
-  if (!context) throw new Error('Your browser could not create an image canvas. Please try a current browser.');
+  if (!context) throw new GifError('CANVAS', 'Your browser could not create an image canvas. Please try a current browser.');
   return { canvas, context };
 }
 
@@ -124,7 +132,7 @@ function encodePng(canvas) {
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob) resolve(blob);
-      else reject(new Error('Your browser could not export this frame. Please try a smaller GIF.'));
+      else reject(new GifError('PNG_EXPORT', 'Your browser could not export this frame. Please try a smaller GIF.'));
     }, 'image/png');
   });
 }
@@ -137,12 +145,12 @@ function encodePng(canvas) {
 export async function extractGif(file, { onProgress, signal } = {}) {
   checkAbort(signal);
   if (!file || typeof file.arrayBuffer !== 'function' || !file.size) {
-    throw new Error('Please choose a non-empty GIF file.');
+    throw new GifError('EMPTY_FILE', 'Please choose a non-empty GIF file.');
   }
-  if (file.size > GIF_LIMITS.maxBytes) throw new Error('This file is larger than 30 MB. Please choose a smaller GIF.');
+  if (file.size > GIF_LIMITS.maxBytes) throw new GifError('FILE_SIZE', 'This file is larger than 30 MB. Please choose a smaller GIF.');
   const buffer = await file.arrayBuffer();
   checkAbort(signal);
-  if (buffer.byteLength > GIF_LIMITS.maxBytes) throw new Error('This file is larger than 30 MB. Please choose a smaller GIF.');
+  if (buffer.byteLength > GIF_LIMITS.maxBytes) throw new GifError('FILE_SIZE', 'This file is larger than 30 MB. Please choose a smaller GIF.');
   const metadata = inspectGif(new Uint8Array(buffer));
   let gif;
   try {

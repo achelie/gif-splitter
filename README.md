@@ -1,6 +1,6 @@
 # GIF Frame Extractor
 
-A purely static, English SEO tool for **gifframeextractor.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts, file uploads, tracking scripts, or API keys are needed.
+A purely static, ten-language SEO tool for **gifframeextractor.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts, file uploads, tracking scripts, or API keys are needed.
 
 ## Local development
 
@@ -11,10 +11,21 @@ npm ci
 npm run dev
 npm test
 npm run build
+npm run check:site
 npm run preview
 ```
 
-Built with Vite, vanilla JavaScript/CSS, gifuct-js and fflate. `dist/` is the complete deployable site. All supporting pages contain static, crawlable HTML.
+Built with Vite, vanilla JavaScript/CSS, gifuct-js and fflate. `dist/` is the complete deployable site. All 40 content pages contain static, crawlable HTML; JavaScript powers extraction and enhances the language menu, not page translation.
+
+## Languages and content
+
+English retains the original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (`/fr/`), German (`/de/`), Italian (`/it/`), Korean (`/ko/`), Brazilian Portuguese (`/pt-br/`), Russian (`/ru/`) and Traditional Chinese for Taiwan (`/zh-hant/`) use language prefixes. Each has the same four page types below. The language menu links to the equivalent page type and never redirects by IP or browser language. Changing language navigates to a new page and does not retain a selected GIF or store a language preference.
+
+`src/locales/*.json` contains complete plain-text content: metadata, static pages, controls, accessibility labels, status and errors. `src/site/render.js` is the shared HTML template; `src/site/config.js` owns routes and the canonical origin. The Vite development middleware renders these templates locally. During builds, `scripts/seo-build.mjs` uses Vite's manifest to reference the hashed JavaScript/CSS and writes all 40 HTML files, the sitemap, robots.txt and Cloudflare headers.
+
+To edit wording, update the relevant locale JSON. Keep placeholders such as `{count}` and `{current}` unchanged. `src/site/content.js` rejects missing/empty translations, mismatched keys, arrays or placeholders, and missing plural categories during every build. Dynamic messages use `Intl.NumberFormat` and `Intl.PluralRules`; decoder errors expose stable codes while the interface selects local wording. Do not add user-visible English fallbacks to the app.
+
+Every page has a self-referencing production canonical, localized title/description/H1, Open Graph metadata, structured data and ten reciprocal hreflang links plus English `x-default`. The HTML language tags are `pt-BR` and `zh-Hant` for the corresponding regional/script editions. Research evidence and its limits are recorded in [docs/keyword-research.md](docs/keyword-research.md). Localized headings follow both GIF-to-PNG and frame-extraction intent; the research does not establish stable traffic for every phrase.
 
 ## Deployment
 
@@ -34,11 +45,12 @@ When the production domain is ready:
 
 1. Attach the domain in Cloudflare Pages and finish its DNS and HTTPS setup.
 2. Run `npm run build:production` to enable indexing.
+   Validate this output with `npm run check:site -- --production-domain`.
 3. Deploy that output directly: `npx wrangler pages deploy dist --project-name gifframeextractor --branch main` (do not use `npm run deploy` for this step; it rebuilds temporary mode).
 4. Redirect the default Pages hostname to the production domain using Cloudflare's supported routing, then verify canonical URLs, headers, robots.txt and sitemap.xml on the custom domain.
 5. Submit the production sitemap to Search Console when appropriate. Deployment does not guarantee search-engine indexing or ranking.
 
-## Included pages
+## Included page types (each in all ten languages)
 
 - `/` — interactive extraction tool, use cases, how-to steps and FAQs
 - `/how-to-extract-gif-frames/` — practical extraction guide
@@ -54,6 +66,8 @@ The UI creates and releases object URLs, supports cancellation, renders thumbnai
 
 ## Verification
 
-`npm test` uses small, real GIF byte sequences and a pixel-aware canvas double to verify transparency, frame patches, disposal modes, delays, invalid files, limits and cancellation. Browser QA additionally verifies real canvas PNG encoding, sample extraction, selection, ZIP contents, file errors and mobile layout.
+`npm test` uses small, real GIF byte sequences and a pixel-aware canvas double to verify transparency, frame patches, disposal modes, delays, invalid files, limits and cancellation. It also checks language schemas, plural rules, every static template, reciprocal language links, metadata, structured data and escaping. `npm run check:site` audits the actual built output, including all routes, bundled assets, internal links and sitemap/header indexing mode.
+
+Browser QA verifies each language's sample extraction, frame counts, progress, error messages and equivalent-page navigation; it also covers PNG and ZIP downloads, real canvas pixels, cancellation, disabled JavaScript and mobile layouts. Local screenshots and download artifacts belong under the ignored `output/playwright/` directory.
 
 `scripts/make-assets.py` optionally regenerates the original sample animation and social image with Pillow and Windows Segoe UI fonts. Generated assets are committed; Python is not needed to build or run the site.

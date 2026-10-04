@@ -1,26 +1,35 @@
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { ORIGIN, ROUTES } from '../src/site/config.js';
+import { loadLocales } from '../src/site/content.js';
+import { renderPage } from '../src/site/render.js';
 
 const production = process.argv.includes('--production-domain');
-const origin = 'https://gifframeextractor.com';
-async function setRobots(dir) {
-  for (const entry of await readdir(dir, { withFileTypes: true })) {
-    const path = join(dir, entry.name);
-    if (entry.isDirectory()) await setRobots(path);
-    else if (entry.name.endsWith('.html') && entry.name !== '404.html') {
-      let html = await readFile(path, 'utf8');
-      const tag = `<meta name="robots" content="${production ? 'index, follow' : 'noindex, follow'}">`;
-      html = /<meta\s+name="robots"[^>]*>/i.test(html)
-        ? html.replace(/<meta\s+name="robots"[^>]*>/i, tag)
-        : html.replace('</head>', `${tag}</head>`);
-      await writeFile(path, html);
-    }
+const locales = await loadLocales();
+const manifest = JSON.parse(await readFile('dist/.vite/manifest.json', 'utf8'));
+function assetsFor(entry) {
+  const styles = new Set();
+  const visited = new Set();
+  function visit(key) {
+    if (visited.has(key)) return;
+    visited.add(key);
+    const chunk = manifest[key];
+    if (!chunk) throw new Error(`Missing Vite entry: ${key}`);
+    chunk.imports?.forEach(visit);
+    chunk.css?.forEach(file => styles.add(`/${file}`));
   }
+  visit(entry);
+  return { scripts: [`/${manifest[entry].file}`], styles: [...styles] };
 }
-await setRobots('dist');
-await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`);
-const pages = ['/', '/how-to-extract-gif-frames/', '/about/', '/privacy/'];
-await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((path) => `  <url><loc>${origin}${path}</loc></url>`).join('\n')}\n</urlset>\n`);
+const appAssets = assetsFor('src/main.js');
+const siteAssets = assetsFor('src/site.js');
+for (const route of ROUTES) {
+  const dir = join('dist', route.path.slice(1));
+  await mkdir(dir, { recursive: true });
+  await writeFile(join(dir, 'index.html'), renderPage(locales, route, route.type === 'home' ? appAssets : siteAssets, { production }));
+}
+await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${ROUTES.map(({ path }) => `  <url><loc>${ORIGIN}${path}</loc></url>`).join('\n')}\n</urlset>\n`);
 await writeFile('dist/_headers', `/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -31,4 +40,4 @@ ${production ? '' : '  X-Robots-Tag: noindex, follow\n'}
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 `);
-console.log(`SEO build: ${production ? 'production domain (indexable)' : 'temporary Cloudflare address (noindex)'}; canonical ${origin}`);
+console.log(`Generated ${ROUTES.length} static pages in ${Object.keys(locales).length} languages; ${production ? 'production domain (indexable)' : 'temporary Cloudflare address (noindex)'}; canonical ${ORIGIN}`);
