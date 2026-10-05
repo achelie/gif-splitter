@@ -4,7 +4,7 @@
   "htmlLang": "de",
   "ogLocale": "de_DE",
   "seo": {
-    "home": {"title": "GIF in PNG umwandeln und Einzelbilder extrahieren | GIF Splitter", "description": "GIF kostenlos in PNG umwandeln: Einzelbilder ansehen, einen Frame speichern oder ausgewählte und alle Bilder als ZIP laden. Ohne Upload, direkt im Browser."},
+    "home": {"title": "GIF Splitter — GIF in PNG zerlegen, kostenlos online", "description": "Zerlege animierte GIFs kostenlos in PNG-Bilder. Sieh dir die Frames an und lade ein Bild oder ein ZIP herunter. Dein GIF bleibt auf deinem Gerät."},
     "guide": {"title": "GIF in Einzelbilder zerlegen und als PNG speichern – Anleitung", "description": "So speicherst du ein Standbild aus einem GIF oder alle Frames als nummerierte PNGs im ZIP. Mit Hinweisen zu Transparenz, Anzeigedauer und großen Dateien."},
     "about": {"title": "Über GIF Splitter | GIFs lokal im Browser zerlegen", "description": "Erfahre, wie GIF Splitter Animationen auf deinem Gerät dekodiert und welche Möglichkeiten es zum Speichern von PNG-Bildern und ZIP-Archiven gibt."},
     "privacy": {"title":"Datenschutz | GIF Splitter","description":"Deine GIFs bleiben auf deinem Gerät. Informationen zu Cloudflare, Ladeleistung, Clarity, Cookies, Kontakt-E-Mails und möglichen künftigen Google-Anzeigen."}
@@ -28,27 +28,86 @@
     "INVALID_GIF": "Dieses GIF ist unvollständig oder beschädigt. Bitte versuche es mit einer anderen GIF-Datei.", "NOT_GIF": "Bitte wähle eine gültige GIF-Datei. Andere Bildformate werden nicht unterstützt.", "DIMENSIONS": "Die Abmessungen dieses GIFs sind zu groß. Verwende ein GIF mit höchstens 16 Millionen Pixeln und maximal 8.192 Pixeln pro Seite.", "UNSUPPORTED_TEXT": "Dieses GIF enthält einen Block zur Darstellung von Klartext, der nicht unterstützt wird. Bitte verwende ein GIF, das nur Bilddaten enthält.", "FRAME_LIMIT": "Dieses GIF enthält mehr als 1.000 Einzelbilder. Bitte wähle ein kürzeres GIF.", "MEMORY_LIMIT": "Dieses GIF benötigt zu viel Arbeitsspeicher im Browser. Bitte wähle ein kürzeres GIF oder reduziere seine Abmessungen.", "NO_FRAMES": "Dieses GIF enthält keine Einzelbilder. Bitte wähle ein anderes GIF.", "CANVAS": "Dein Browser konnte keine Zeichenfläche für das Bild erstellen. Bitte versuche es mit einem aktuellen Browser.", "PNG_EXPORT": "Dein Browser konnte dieses Einzelbild nicht exportieren. Bitte versuche es mit einem kleineren GIF.", "EMPTY_FILE": "Bitte wähle eine GIF-Datei, die nicht leer ist.", "FILE_SIZE": "Diese Datei ist größer als 30 MB. Bitte wähle ein kleineres GIF.", "UNKNOWN": "Dieses GIF konnte nicht gelesen werden. Bitte versuche es mit einer anderen Datei.", "ZIP_LIMIT": "Diese PNGs überschreiten das ZIP-Limit von 128 MB. Wähle weniger Einzelbilder und lade sie in kleineren Gruppen herunter.", "ZIP_CREATE": "Das ZIP-Archiv konnte nicht erstellt werden. Versuche, weniger Einzelbilder auf einmal herunterzuladen.", "SAMPLE_LOAD": "Das Beispiel konnte nicht geladen werden. Du kannst weiterhin ein eigenes GIF auswählen.", "MULTIPLE_FILES": "Bitte wähle jeweils nur ein GIF aus."
   },
   "home": {
-    "eyebrow": "Kostenloses GIF-Tool im Browser", "h1": "GIF in PNG umwandeln und Einzelbilder extrahieren", "lede": "Finde genau das Bild, das du brauchst.", "description": "Zerlege ein animiertes GIF in Einzelbilder. Speichere einen Frame als PNG oder lade ausgewählte und alle Bilder als ZIP herunter. Dein GIF bleibt dabei auf deinem Gerät.",
-    "how": {"label": "Vom GIF zum Standbild", "title": "In drei Schritten zum passenden PNG.", "intro": "Ein Reaktionsbild speichern, eine Anleitung bebildern oder eine Animation genauer untersuchen: In der Einzelbildansicht findest du auch Momente, die beim Abspielen zu schnell vorbeiziehen.", "steps": [
-      {"title": "GIF vom Gerät auswählen", "text": "Ziehe deine GIF-Datei auf die Seite oder öffne sie über die Dateiauswahl. Sie wird direkt im Browser gelesen. Du brauchst weder ein Konto noch eine Installation."},
-      {"title": "Einzelbilder durchsehen", "text": "Gehe Bild für Bild durch die Animation oder spiele die Vorschau ab. Zu jedem Frame siehst du die im GIF gespeicherte Anzeigedauer. So kannst du ähnliche Bilder gezielt vergleichen."},
-      {"title": "Als PNG oder ZIP speichern", "text": "Lade das angezeigte Einzelbild als PNG herunter. Für mehrere Bilder markierst du die gewünschte Auswahl oder speicherst die komplette, nummerierte Bildfolge in einem ZIP-Archiv."}
-    ]},
-    "features": {"title": "Vollständige Einzelbilder in Originalgröße.", "description": "PNG-Dateien zum Ansehen, Auswählen und Weiterbearbeiten.", "items": [
-      {"title": "Die ganze Szene pro Frame", "text": "GIFs speichern oft nur die veränderten Bildbereiche. Das Tool setzt diese Änderungen unter Berücksichtigung der Lösch- und Wiederherstellungsregeln zusammen. Jeder PNG-Export zeigt dadurch das vollständige sichtbare Einzelbild."},
-      {"title": "Transparenz bleibt erhalten", "text": "Transparente Bereiche des dekodierten Bildes bleiben im PNG transparent. Das Schachbrett in der Vorschau macht sie sichtbar und erscheint nicht in der heruntergeladenen Datei."},
-      {"title": "Ohne Upload und Wasserzeichen", "text": "Dein Browser extrahiert die Frames und erstellt PNGs und ZIP-Dateien auf deinem Gerät. Das ursprüngliche GIF bleibt unverändert, und die Bilder erhalten kein Wasserzeichen."}
-    ]},
-    "faq": {"label": "Häufige Fragen", "title": "GIF in Einzelbilder zerlegen: Was du wissen solltest.", "intro": "Antworten zu PNG-Ausgabe, Transparenz und dem Speichern einzelner Frames.", "items": [
-      {"q": "Wie kann ich ein GIF in PNG umwandeln?", "a": "Wähle das GIF aus und warte, bis seine Einzelbilder erscheinen. Öffne das gewünschte Bild in der Vorschau und lade es als PNG herunter. Wenn du alle Frames brauchst, speichere die gesamte Bildfolge als ZIP mit einzelnen PNG-Dateien."},
-      {"q": "Wie speichere ich nur ein einzelnes Bild aus einem GIF?", "a": "Klicke auf das passende Vorschaubild und nutze den Download für dieses Einzelbild. Für mehrere bestimmte Frames markierst du ihre Kontrollkästchen und lädst die Auswahl als ZIP herunter. Die Dateinamen behalten die ursprünglichen Bildnummern."},
-      {"q": "Bewegt sich das PNG nach dem Herunterladen noch?", "a": "Nein. Jedes PNG enthält genau ein Standbild. Auch das ZIP enthält einzelne Bilder und keine neue Animation. Um daraus später wieder ein GIF zu erstellen, benötigst du einen geeigneten Bild- oder Animationseditor."},
-      {"q": "Bleiben Bildqualität und transparenter Hintergrund erhalten?", "a": "Die PNGs behalten die Originalabmessungen und die dekodierten Pixelfarben. PNG komprimiert verlustfrei, und transparente Bereiche bleiben transparent. Farben oder Details, die schon bei der Erstellung des GIFs verloren gingen, lassen sich dadurch nicht zurückholen."},
-      {"q": "Wird mein GIF auf einen Server hochgeladen?", "a": "Nein. Das Zerlegen in Frames und das Erstellen der Downloads erfolgen in deinem Browser. Nur wenn du das optionale Beispiel öffnest, wird dessen GIF von dieser Website heruntergeladen. Deine eigenen Dateien werden nicht an einen Server gesendet."},
-      {"q": "Ist das Tool kostenlos und welche Grenzen gelten?", "a": "Die Nutzung ist kostenlos, ohne Konto und ohne Wasserzeichen. Du kannst jeweils ein GIF mit bis zu 30 MB und 1.000 Einzelbildern öffnen. Zusätzliche Pixelgrenzen schützen den Arbeitsspeicher, weshalb sehr große Animationen auch unter 30 MB abgelehnt werden können. Pro ZIP sind bis zu 128 MB PNG-Daten möglich; wähle bei Bedarf kleinere Gruppen."},
-      {"q": "Warum sehen mehrere extrahierte Einzelbilder gleich aus?", "a": "Eine Animation kann Bilder wiederholen oder nur einen kleinen Bereich verändern. Da jedes PNG die vollständig zusammengesetzte Szene zeigt, können Frames gleich oder sehr ähnlich aussehen. Ihre gespeicherte Anzeigedauer kann sich trotzdem unterscheiden."},
-      {"q": "Kann ich GIF-Einzelbilder auch auf dem Handy speichern?", "a": "Ja, mit einem modernen Browser und aktiviertem JavaScript. Wähle ein GIF auf deinem Gerät und lade ein PNG oder ZIP herunter. Große Animationen benötigen mehr Arbeitsspeicher. Ein ZIP öffnest du anschließend in der Dateien-App oder mit einem Archivprogramm."}
-    ]}
+    "eyebrow": "GIFs kostenlos online zerlegen",
+    "h1": "GIF Splitter — GIF in PNG-Einzelbilder zerlegen",
+    "lede": "Speichere einen Moment oder die vollständige Bildfolge.",
+    "description": "Mit diesem GIF-Frame-Extractor zerlegst du ein animiertes GIF in einzelne PNG-Bilder. Sieh dir jeden Frame an, wähle die benötigten Bilder und lade ein PNG oder ein nummeriertes ZIP-Archiv herunter. Dein GIF und die exportierten Bilder bleiben auf deinem Gerät.",
+    "how": {
+      "label": "Vom GIF zum Standbild",
+      "title": "So verwendest du GIF Splitter",
+      "intro": "Ein GIF besteht aus einer Folge von Standbildern und Angaben zu ihrer jeweiligen Anzeigedauer. Durch das Zerlegen kannst du ein klares Vorschaubild für eine Anleitung wählen, ein Reaktionsbild speichern oder eine Veränderung in der Animation untersuchen. Verwende die ursprüngliche GIF-Datei, damit das Tool die tatsächlich enthaltenen Einzelbilder lesen kann.",
+      "steps": [
+        {
+          "title": "GIF zum Zerlegen auswählen",
+          "text": "Ziehe ein GIF auf das Tool oder wähle eines auf deinem Gerät. Öffne jeweils nur eine Datei mit bis zu 30 MB und 1.000 Einzelbildern. Die Extraktion läuft in deinem Browser, und die Fortschrittsanzeige zeigt, wie viele Bilder fertig sind. Wenn du zunächst die Bedienung kennenlernen möchtest, probiere das Beispiel-GIF aus, bevor du deine eigene Datei öffnest."
+        },
+        {
+          "title": "Einzelbilder ansehen und auswählen",
+          "text": "Spiele die Animation ab, um die gewünschte Szene zu finden, und vergleiche dann benachbarte Einzelbilder mit den Pfeilen oder dem Schieberegler. Klicke auf ein Vorschaubild, um es größer anzuzeigen. Bildnummer und gespeicherte Anzeigedauer helfen dir bei der Orientierung. Markiere die Kontrollkästchen der Bilder für ein ZIP. Mit „Weitere Einzelbilder anzeigen“ blendest du bei langen Bildfolgen zusätzliche Vorschaubilder ein."
+        },
+        {
+          "title": "PNG-Einzelbilder herunterladen",
+          "text": "„Dieses Einzelbild herunterladen“ speichert das Bild, das gerade in der Vorschau angezeigt wird. „Auswahl herunterladen“ erstellt ein ZIP mit den markierten Bildern; „Alle Einzelbilder herunterladen“ enthält die gesamte Bildfolge. Die PNGs behalten ihre ursprünglichen Bildnummern. Dadurch erkennst du auch bei einer Teilauswahl, wo jedes Bild im GIF vorkam. Entpacke das ZIP mit der Dateiverwaltung deines Geräts, bevor du die einzelnen PNGs in einem anderen Editor öffnest."
+        }
+      ]
+    },
+    "features": {
+      "title": "Vollständige PNG-Einzelbilder mit den Originalabmessungen",
+      "description": "Beim Zerlegen eines GIFs sollen Bilder entstehen, die auch einzeln verständlich sind. Jeder Export zeigt das vollständige sichtbare Einzelbild mit den ursprünglichen Abmessungen der GIF-Bildfläche, egal ob du einen Moment oder mehrere Bilder speicherst.",
+      "items": [
+        {
+          "title": "Vollständige Bilder aus Teiländerungen",
+          "text": "Viele GIFs speichern für das nächste Einzelbild nur ein kleines Rechteck mit geänderten Pixeln. Würde nur dieses Rechteck gespeichert, fehlte ein Teil des Bildes. Das Tool setzt diese Änderungen zusammen und befolgt die GIF-Anweisungen zum Beibehalten, Löschen oder Wiederherstellen vorheriger Pixel. So erhältst du für jeden Animationsschritt ein vollständiges Bild anstelle isolierter Bildausschnitte."
+        },
+        {
+          "title": "PNG-Ausgabe mit Transparenz",
+          "text": "Transparente Bereiche bleiben im exportierten PNG transparent. Das Schachbrett in der Vorschau hilft, sie von weißen oder dunklen Pixeln zu unterscheiden, und wird nicht mit heruntergeladen. Die PNG-Komprimierung bewahrt die dekodierten Pixel ohne zusätzlichen Qualitätsverlust. Farben oder Details, die bereits im ursprünglichen GIF fehlen, kann sie nicht wiederherstellen."
+        },
+        {
+          "title": "Lokale Verarbeitung ohne Wasserzeichen",
+          "text": "Dein Browser liest das ausgewählte GIF, setzt die Einzelbilder zusammen und bereitet PNG- oder ZIP-Downloads auf deinem Gerät vor. Das Tool verändert die Originaldatei nicht und fügt kein Wasserzeichen hinzu. Nach dem Speichern deiner Bilder kannst du ein anderes GIF öffnen. Lade alles herunter, was du behalten möchtest, bevor du die Seite verlässt, denn die aktuelle Extraktion liegt im Arbeitsspeicher des Browsers."
+        }
+      ]
+    },
+    "faq": {
+      "label": "Häufige Fragen",
+      "title": "Häufige Fragen zu GIF Splitter",
+      "intro": "Antworten zum Extrahieren eines Bildes, zum Erhalt der Einzelbilder, zu größeren GIFs und zu Downloads auf dem Handy.",
+      "items": [
+        {
+          "q": "Wie zerlege ich ein GIF in Einzelbilder?",
+          "a": "Wähle ein GIF auf deinem Gerät und warte, bis die Liste der Einzelbilder erscheint. Die Ergebnisse zeigen die Anzahl der Bilder, die Abmessungen der Bildfläche und die gespeicherte Dauer. „Alle Einzelbilder herunterladen“ erstellt ein ZIP mit nummerierten PNGs in der ursprünglichen Reihenfolge. Für eine Anleitung oder eine Übersicht kannst du nur die Bilder markieren, die die benötigten Schritte zeigen, und diese Auswahl herunterladen."
+        },
+        {
+          "q": "Erstellt GIF Splitter kürzere animierte GIFs?",
+          "a": "Dieses Tool zerlegt ein GIF in statische PNG-Einzelbilder. Es schneidet die Animation nicht in kürzere GIF-Clips, teilt sie nicht in animierte Kacheln und erstellt keine neue Animationsdatei. Ein ZIP enthält separate Bilder; beim Öffnen wird keine Animation abgespielt. Um die Bildfolge neu zusammenzusetzen oder zu bearbeiten, entpacke die PNGs und verwende einen anderen Animationseditor. Die gespeicherte Anzeigedauer jedes Bildes kannst du hier ansehen, aber die heruntergeladenen PNGs speichern keine Animationszeiten."
+        },
+        {
+          "q": "Kann ich ein einzelnes Bild aus einem GIF extrahieren?",
+          "a": "Ja. Zeige den gewünschten Moment in der Vorschau an und wähle „Dieses Einzelbild herunterladen“, um ein PNG zu speichern, ohne die ganze Animation herunterzuladen. Ein Klick auf ein Vorschaubild ändert die Vorschau; sein Kontrollkästchen bestimmt, ob es in das ZIP der Auswahl aufgenommen wird. Für mehrere Bilder markierst du ihre Kästchen und wählst „Auswahl herunterladen“. Die Dateinamen behalten die ursprünglichen Bildnummern, damit du die heruntergeladenen Bilder ihrer Position im GIF zuordnen kannst."
+        },
+        {
+          "q": "Bleiben Bildqualität und Transparenz in den PNGs erhalten?",
+          "a": "Der GIF-Frame-Extractor exportiert das dekodierte Bild mit den ursprünglichen Abmessungen der GIF-Bildfläche. Er verkleinert es nicht auf die Größe der Vorschau oder des Vorschaubilds. PNG komprimiert verlustfrei, sodass beim Export kein weiterer Komprimierungsverlust entsteht und transparente Bereiche transparent bleiben. Ein GIF kann bereits eine eingeschränkte Farbpalette oder weniger Details haben; die Umwandlung in PNG macht diese Änderungen nicht rückgängig. Das Ergebnis ist ein Standbild des vollständig zusammengesetzten Frames, ohne das Schachbrett der Vorschau oder ein hinzugefügtes Wasserzeichen."
+        },
+        {
+          "q": "Lädt GIF Splitter meine Dateien auf einen Server hoch?",
+          "a": "Nein. Dein ausgewähltes GIF, sein Dateiname und die extrahierten Bilder werden lokal verarbeitet und nicht an einen Konvertierungsserver gesendet. Auch die PNG-Kodierung und die ZIP-Erstellung erfolgen in deinem Browser. Das optionale Beispiel lädt ein GIF von dieser Website herunter. Beim Laden der Website entstehen weiterhin Anfragen an den Hostinganbieter. Die produktive Website nutzt außerdem Analysedienste für Besuche und Interaktionen. Die Datenschutzerklärung beschreibt diese Dienste getrennt von der lokalen Dateiverarbeitung. Downloads werden dort gespeichert, wo dein Browser oder Gerät sie üblicherweise ablegt."
+        },
+        {
+          "q": "Ist GIF Splitter kostenlos und welche Grenzen gelten?",
+          "a": "Die Nutzung ist kostenlos, ohne Konto und ohne hinzugefügtes Wasserzeichen. Öffne jeweils ein GIF mit bis zu 30 MB und 1.000 Einzelbildern. Pixel- und Speichergrenzen können auch Animationen unter 30 MB ablehnen: Hunderte vollständige Bilder benötigen nach dem Dekodieren viel mehr Platz. Jedes ZIP unterstützt bis zu 128 MB PNG-Daten. Überschreitet ein Download diese Grenze, wähle weniger Bilder und speichere kleinere Gruppen. Scheitert schon die Extraktion an Größen- oder Speichergrenzen, probiere ein kürzeres GIF oder eine Version mit kleineren Abmessungen."
+        },
+        {
+          "q": "Warum sehen manche extrahierten Einzelbilder gleich aus?",
+          "a": "Eine Animation kann ein Bild wiederholen, nur einen kleinen Bereich ändern oder ähnliche Bilder mit verschiedenen Anzeigedauern verwenden. Die exportierten PNGs enthalten vollständige sichtbare Einzelbilder einschließlich beibehaltener Pixel. Deshalb können aufeinanderfolgende Bilder gleich aussehen. Vergleiche die größere Vorschau und prüfe die jeweilige Dauer, bevor du Bilder auswählst. Das Tool behält die ursprüngliche Bildfolge bei und entfernt keine wiederholten Frames. In der Wiedergabe der Vorschau werden Zeiten unter 20 Millisekunden auf 100 Millisekunden gesetzt; die angezeigte Dauer bleibt der im GIF gespeicherte Wert."
+        },
+        {
+          "q": "Kann ich ein GIF auf dem Handy zerlegen?",
+          "a": "Ja. Verwende einen aktuellen Browser mit aktiviertem JavaScript, wähle ein GIF auf deinem Gerät und lade ein PNG oder ZIP herunter. Die Dateiauswahl des Browsers bestimmt, auf welche Ordner oder Bildquellen du zugreifen kannst. Öffne ZIP-Downloads mit der Dateien-App deines Geräts oder einem Archivprogramm. Große Animationen benötigen mehr Arbeitsspeicher, besonders auf dem Handy. Bei einer Größen- oder Speicherfehlermeldung verwende ein kürzeres oder kleineres GIF. Lass die Seite geöffnet, bis die Extraktion und der Download abgeschlossen sind."
+        }
+      ]
+    }
   },
   "pages": {
     "guide": {"eyebrow": "GIF in PNG umwandeln – Schritt für Schritt", "h1": "So speicherst du Einzelbilder aus einem GIF", "intro": "Ein animiertes GIF besteht aus einer Folge von Einzelbildern. Mit dem Tool auf dieser Website kannst du daraus ein bestimmtes Standbild auswählen oder die gesamte Animation als einzelne PNG-Dateien speichern. Diese Anleitung erklärt Auswahl, Vorschau und Download.", "sections": [

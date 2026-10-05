@@ -38,7 +38,7 @@ function clearFrames() {
   current = 0;
   visibleCount = 0;
   $('frame-grid').replaceChildren();
-  $('frame-preview').removeAttribute('src');
+  $('frame-preview-slot').replaceChildren();
   $('results').hidden = true;
   $('upload-area').hidden = false;
   $('capabilities').hidden = false;
@@ -90,6 +90,8 @@ function appendCards() {
     preview.className = 'frame-thumbnail checkerboard';
     preview.setAttribute('aria-label', t('runtime.previewFrame', { current: i + 1 }));
     const img = document.createElement('img');
+    img.width = gif.width;
+    img.height = gif.height;
     img.src = urls[i];
     img.alt = t('runtime.thumbnailAlt', { current: i + 1 });
     img.loading = 'lazy';
@@ -146,6 +148,12 @@ async function openFile(file) {
     gif = extracted;
     sourceName = file.name || 'animation.gif';
     urls = gif.frames.map((frame) => URL.createObjectURL(frame.blob));
+    const preview = document.createElement('img');
+    preview.id = 'frame-preview';
+    preview.width = gif.width;
+    preview.height = gif.height;
+    preview.alt = t('runtime.frameAlt', { current: 1, name: sourceName });
+    $('frame-preview-slot').append(preview);
     $('file-name').textContent = sourceName;
     $('file-summary').textContent = t('runtime.fileSummary', { size: formatBytes(file.size) });
     $('stat-frames').textContent = number(gif.frames.length);

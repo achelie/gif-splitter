@@ -6,7 +6,7 @@
 
 ## 1. 当前已批准的品牌与首页方向
 
-当前品牌为 GIF Splitter，正式站已上线，canonical origin 为 https://www.gifsplitter.com。关键词优先级为主词 gif splitter、次词 gif frame extractor、补充词 split GIF into frames 和 GIF to PNG。英文首页 title 固定为 GIF Splitter — Free GIF Frame Extractor Online；其他语言在已有本地化标题末尾追加品牌，具体见第 4 节。
+当前品牌为 GIF Splitter，正式站已上线，canonical origin 为 https://www.gifsplitter.com。关键词优先级为主词 gif splitter、次词 gif frame extractor、补充词 split GIF into frames 和 GIF to PNG。英文首页 title 为 GIF Splitter — Free Online GIF Frame Extractor，H1 为 GIF Splitter — Split GIFs into PNG Frames；其他语言以品牌开头，采用自然的本地化分解和帧提取表述，具体见第 4 节。
 
 这是已批准的品牌与内容策略调整，不是新增的需求量研究。本文件保留的 Trends 查询没有包含 gif splitter 这个字词；已有 split gif 的趋势信号不能冒充 gif splitter 的搜索量，也不能直接证明两者需求规模相同。
 
@@ -94,20 +94,20 @@ Google Trends 展示相对搜索兴趣，不是绝对月搜索量。本次没有
 
 ## 4. 当前各语言首页标题与历史标题
 
-“当前首页 title”列记录改名后的现行配置；“历史首页 title”列保留改名前的文字，仅用于研究记录，不应重新用于现行页面。所有首页保留提取完整 GIF 帧的工具能力，并在标题或正文中覆盖 GIF 转 PNG。非英语标题保留当地自然说法并追加 GIF Splitter 品牌。正文需要自然表达用途和操作，不反复堆砌下列词组。
+“当前首页 title”列记录现行首页 SEO 修改方案的配置；“历史首页 title”列保留改名前的文字，仅用于研究记录，不应重新用于现行页面。所有首页保留提取完整 GIF 帧的工具能力，并在标题或正文中覆盖 GIF 转 PNG。非英语标题以 GIF Splitter 品牌开头，再用当地自然说法说明功能。正文需要自然表达用途和操作，不反复堆砌下列词组。
 
 | Locale | 菜单标签 | 当前首页 title | 历史首页 title（改名前） | 当前页面词义覆盖 |
 | --- | --- | --- | --- | --- |
-| `en` | English | GIF Splitter — Free GIF Frame Extractor Online | GIF Frame Extractor — Split GIF to PNG Online | gif splitter；gif frame extractor；split GIF into frames；GIF to PNG |
-| `ja` | 日本語 | GIF分解・PNG変換｜コマを抽出して一括保存 \| GIF Splitter | GIF分解・PNG変換｜コマを抽出して一括保存 | GIF分解；GIF PNG変換；静止画・コマ抽出 |
-| `es` | Español | GIF a PNG: extraer fotogramas gratis online \| GIF Splitter | GIF a PNG: extraer fotogramas gratis online | GIF a PNG；extraer fotogramas；extraer imágenes |
-| `fr` | Français | GIF en PNG : décomposer un GIF en images \| GIF Splitter | GIF en PNG : décomposer un GIF en images | GIF en PNG；décomposer un GIF；extraire une image |
-| `de` | Deutsch | GIF in PNG umwandeln und Einzelbilder extrahieren \| GIF Splitter | GIF in PNG umwandeln und Einzelbilder extrahieren | GIF in PNG；GIF in Einzelbilder zerlegen；Einzelbilder extrahieren |
-| `it` | Italiano | GIF in PNG: estrarre fotogrammi online \| GIF Splitter | GIF in PNG: estrarre fotogrammi online | GIF in PNG；estrarre fotogrammi；estrarre immagini |
-| `ko` | 한국어 | GIF PNG 변환 · 움짤 프레임 추출 \| GIF Splitter | GIF PNG 변환 · 움짤 프레임 추출 | GIF PNG 변환；GIF 프레임 추출；움짤 이미지 추출 |
-| `pt-br` | Português | GIF para PNG: extrair frames online grátis \| GIF Splitter | GIF para PNG: extrair frames online grátis | GIF para PNG；extrair frames；extrair quadros |
-| `ru` | Русский | GIF в PNG — извлечь кадры онлайн \| GIF Splitter | GIF в PNG — извлечь кадры онлайн | GIF в PNG；разбить GIF на кадры；извлечь кадры |
-| `zh-hant` | 繁體中文 | GIF 轉 PNG｜動圖分解與影格擷取 \| GIF Splitter | GIF 轉 PNG｜動圖分解與影格擷取 | GIF 轉 PNG；GIF 分解；動圖分解；影格擷取 |
+| `en` | English | GIF Splitter — Free Online GIF Frame Extractor | GIF Frame Extractor — Split GIF to PNG Online | gif splitter；gif frame extractor；split GIF into frames；GIF to PNG |
+| `ja` | 日本語 | GIF Splitter — GIFを分解してPNGに変換｜無料 | GIF分解・PNG変換｜コマを抽出して一括保存 | GIF分解；GIF PNG変換；静止画・コマ抽出 |
+| `es` | Español | GIF Splitter — Extraer fotogramas GIF a PNG gratis | GIF a PNG: extraer fotogramas gratis online | GIF a PNG；extraer fotogramas；extraer imágenes |
+| `fr` | Français | GIF Splitter — Extraire gratuitement les images d’un GIF | GIF en PNG : décomposer un GIF en images | GIF en PNG；décomposer un GIF；extraire une image |
+| `de` | Deutsch | GIF Splitter — GIF in PNG zerlegen, kostenlos online | GIF in PNG umwandeln und Einzelbilder extrahieren | GIF in PNG；GIF in Einzelbilder zerlegen；Einzelbilder extrahieren |
+| `it` | Italiano | GIF Splitter — Estrarre fotogrammi GIF in PNG gratis | GIF in PNG: estrarre fotogrammi online | GIF in PNG；estrarre fotogrammi；estrarre immagini |
+| `ko` | 한국어 | GIF Splitter — GIF 프레임을 PNG로 추출 \| 무료 온라인 | GIF PNG 변환 · 움짤 프레임 추출 | GIF PNG 변환；GIF 프레임 추출；움짤 이미지 추출 |
+| `pt-br` | Português | GIF Splitter — Extrair frames GIF em PNG grátis | GIF para PNG: extrair frames online grátis | GIF para PNG；extrair frames；extrair quadros |
+| `ru` | Русский | GIF Splitter — Разбить GIF на кадры PNG бесплатно | GIF в PNG — извлечь кадры онлайн | GIF в PNG；разбить GIF на кадры；извлечь кадры |
+| `zh-hant` | 繁體中文 | GIF Splitter — 免費 GIF 分解與 PNG 影格擷取 | GIF 轉 PNG｜動圖分解與影格擷取 | GIF 轉 PNG；GIF 分解；動圖分解；影格擷取 |
 
 葡语首版统一采用巴西用词 arquivo、baixar、salvar、celular，避免与葡萄牙常用词混杂。菜单仍为 Português，语言标识为 pt-BR；本次用巴西 BR 做 Trends 观察，没有用这些结果声称葡萄牙 PT 也已验证。
 

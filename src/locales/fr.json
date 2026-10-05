@@ -4,7 +4,7 @@
   "htmlLang": "fr",
   "ogLocale": "fr_FR",
   "seo": {
-    "home": {"title": "GIF en PNG : décomposer un GIF en images | GIF Splitter", "description": "Décomposez un GIF en images PNG. Enregistrez une image, choisissez-en plusieurs ou téléchargez toute la séquence en ZIP. Gratuit, sans envoi de vos fichiers."},
+    "home": {"title": "GIF Splitter — Extraire gratuitement les images d’un GIF", "description": "Extrayez gratuitement les images PNG d’un GIF animé. Prévisualisez et téléchargez une image ou un ZIP. Votre GIF reste sur votre appareil."},
     "guide": {"title": "Comment décomposer un GIF et enregistrer ses images en PNG", "description": "Récupérez une image fixe d’un GIF ou tous ses éléments en PNG dans un ZIP numéroté. Guide sur la transparence, la durée des images et les fichiers volumineux."},
     "about": {"title": "À propos de GIF Splitter | Un outil local", "description": "Découvrez les fonctions de GIF Splitter : décodage du GIF sur votre appareil, aperçu image par image et export en PNG ou en archive ZIP."},
     "privacy": {"title":"Politique de confidentialité | GIF Splitter","description":"Vos GIF restent sur votre appareil. Informations sur Cloudflare, les performances, Clarity, les cookies, les courriels et les éventuelles annonces Google."}
@@ -28,27 +28,86 @@
     "INVALID_GIF": "Ce GIF est incomplet ou endommagé. Essayez un autre fichier GIF.", "NOT_GIF": "Choisissez un fichier GIF valide. Les autres formats d’image ne sont pas pris en charge.", "DIMENSIONS": "Les dimensions de ce GIF sont trop grandes. Utilisez un GIF de 16 millions de pixels au maximum, sans dépasser 8 192 pixels par côté.", "UNSUPPORTED_TEXT": "Ce GIF contient un bloc de rendu de texte brut qui n’est pas pris en charge. Utilisez un GIF composé uniquement d’images.", "FRAME_LIMIT": "Ce GIF contient plus de 1 000 images. Choisissez une animation plus courte.", "MEMORY_LIMIT": "Ce GIF nécessite trop de mémoire dans le navigateur. Choisissez un GIF plus court ou de dimensions inférieures.", "NO_FRAMES": "Ce GIF ne contient aucune image à extraire. Choisissez un autre GIF.", "CANVAS": "Votre navigateur n’a pas pu créer de zone de dessin pour l’image. Essayez un navigateur à jour.", "PNG_EXPORT": "Votre navigateur n’a pas pu exporter cette image. Essayez un GIF plus petit.", "EMPTY_FILE": "Choisissez un fichier GIF qui n’est pas vide.", "FILE_SIZE": "Ce fichier dépasse 30 Mo. Choisissez un GIF plus petit.", "UNKNOWN": "Impossible de lire ce GIF. Essayez un autre fichier.", "ZIP_LIMIT": "Ces PNG dépassent la limite de 128 Mo par ZIP. Sélectionnez moins d’images et téléchargez-les par petits groupes.", "ZIP_CREATE": "Impossible de créer le ZIP. Essayez de télécharger moins d’images à la fois.", "SAMPLE_LOAD": "Impossible de charger l’exemple. Vous pouvez toujours choisir votre propre GIF.", "MULTIPLE_FILES": "Choisissez un seul GIF à la fois."
   },
   "home": {
-    "eyebrow": "Outil GIF gratuit en ligne", "h1": "Décomposer un GIF en images PNG", "lede": "Retrouvez chaque image de votre animation.", "description": "Transformez un GIF animé en images fixes. Parcourez les images, enregistrez celle qui vous intéresse ou téléchargez la séquence entière en ZIP, directement dans votre navigateur.",
-    "how": {"label": "Du GIF animé à l’image fixe", "title": "Récupérez les images d’un GIF en trois étapes.", "intro": "Pour enregistrer une réaction, choisir une vignette de tutoriel ou observer un mouvement image par image, il est plus pratique de décomposer le GIF. Vous pouvez garder un seul instant ou toute la suite d’images.", "steps": [
-      {"title": "Ouvrez votre GIF", "text": "Déposez le fichier sur la page ou choisissez-le sur votre appareil. Il est lu dans votre navigateur, sans compte à créer ni logiciel à installer."},
-      {"title": "Parcourez les images", "text": "Avancez d’une image à l’autre ou lancez l’aperçu animé pour repérer un passage. La durée enregistrée dans le GIF est indiquée pour chaque image."},
-      {"title": "Enregistrez des PNG ou un ZIP", "text": "Téléchargez l’image affichée en PNG, cochez celles à conserver ou récupérez toutes les images dans une archive ZIP numérotée."}
-    ]},
-    "features": {"title": "Des images entières, aux dimensions d’origine.", "description": "Chaque PNG correspond à l’image visible pendant la lecture du GIF.", "items": [
-      {"title": "Les images sont reconstituées", "text": "Un GIF peut ne stocker que les zones qui changent. L’outil rassemble ces mises à jour et applique les consignes d’effacement ou de restauration pour exporter chaque image complète."},
-      {"title": "La transparence est conservée", "text": "Les zones transparentes restent transparentes dans le PNG. Le damier de l’aperçu aide à les repérer ; il ne fait pas partie de l’image téléchargée."},
-      {"title": "Traitement local, sans filigrane", "text": "Votre navigateur décode le GIF et prépare les téléchargements sur votre appareil. Le fichier d’origine reste intact et aucun filigrane n’est ajouté aux images."}
-    ]},
-    "faq": {"label": "Questions pratiques", "title": "Décomposer un GIF et télécharger ses images.", "intro": "Ce qu’il faut savoir sur les PNG, les archives ZIP et vos fichiers.", "items": [
-      {"q": "Comment récupérer une image d’un GIF en PNG ?", "a": "Choisissez le GIF et attendez que ses images s’affichent. Cliquez sur celle que vous souhaitez conserver, puis téléchargez-la en PNG. Pour transformer l’ensemble du GIF en une séquence d’images fixes, téléchargez toutes les images dans un ZIP."},
-      {"q": "Le fichier PNG sera-t-il encore animé ?", "a": "Non. Chaque PNG est une image fixe correspondant à une étape du GIF. Le ZIP contient des PNG séparés, pas un PNG animé ni un nouveau GIF. Vous pouvez utiliser un autre éditeur pour assembler ces images en une animation."},
-      {"q": "Puis-je extraire une seule image ou en choisir plusieurs ?", "a": "Oui. Cliquez sur une image pour l’afficher et la télécharger seule. Pour en récupérer plusieurs, cochez leurs cases et téléchargez la sélection. Dans le ZIP, les noms de fichiers gardent les numéros d’origine afin de préserver l’ordre de la séquence."},
-      {"q": "La conversion GIF en PNG réduit-elle la qualité ?", "a": "Les PNG gardent les dimensions du GIF et les couleurs de ses pixels décodés. Leur compression est sans perte. Elle ne peut toutefois pas restituer les couleurs ou les détails déjà perdus lors de la création du GIF."},
-      {"q": "Mon GIF est-il envoyé sur un serveur ?", "a": "Non. L’extraction et la création du ZIP ont lieu dans votre navigateur. Le seul GIF téléchargé depuis ce site est l’exemple, si vous choisissez de l’essayer. Vos fichiers personnels ne sont pas envoyés à un serveur."},
-      {"q": "L’outil est-il gratuit et quelles sont ses limites ?", "a": "Il est gratuit, sans compte et sans filigrane. Vous pouvez ouvrir un GIF à la fois, jusqu’à 30 Mo et 1 000 images. Les protections liées aux pixels décodés peuvent refuser une animation volumineuse même sous 30 Mo. Chaque ZIP accepte jusqu’à 128 Mo de données PNG ; réduisez la sélection si nécessaire."},
-      {"q": "Pourquoi certaines images semblent-elles identiques ?", "a": "Une animation peut répéter une image ou ne modifier qu’une petite zone. Chaque PNG montre l’image complète après reconstitution : certaines peuvent donc se ressembler parfaitement. Leur durée d’affichage d’origine peut néanmoins être différente."},
-      {"q": "Puis-je enregistrer les images sur mon téléphone ?", "a": "Oui, dans un navigateur récent avec JavaScript activé. Choisissez un GIF sur votre appareil, puis téléchargez le PNG ou le ZIP. Les grandes animations demandent davantage de mémoire. Pour ouvrir le ZIP, utilisez l’application de gestion de fichiers de votre appareil ou un utilitaire d’archives."}
-    ]}
+    "eyebrow": "Décomposer un GIF gratuitement en ligne",
+    "h1": "GIF Splitter — Décomposer un GIF en images PNG",
+    "lede": "Enregistrez un instant ou la séquence complète.",
+    "description": "Cet extracteur transforme un GIF animé en images PNG individuelles. Prévisualisez chaque image, choisissez celles dont vous avez besoin et téléchargez un PNG ou une archive ZIP numérotée. Votre GIF et les images exportées restent sur votre appareil.",
+    "how": {
+      "label": "Du GIF animé à l’image fixe",
+      "title": "Comment utiliser GIF Splitter",
+      "intro": "Un GIF est une suite d’images fixes accompagnées d’instructions qui définissent leur durée d’affichage. Le décomposer permet de choisir une vignette nette pour un tutoriel, d’enregistrer une réaction ou d’examiner une modification dans une animation. Partez du fichier GIF d’origine pour que l’outil puisse lire les images qu’il contient réellement.",
+      "steps": [
+        {
+          "title": "Choisissez un GIF à décomposer",
+          "text": "Déposez un GIF sur l’outil ou choisissez-en un sur votre appareil. Ouvrez un seul fichier à la fois, jusqu’à 30 Mo et 1 000 images. L’extraction s’effectue dans votre navigateur et l’indicateur de progression montre combien d’images sont prêtes. Pour découvrir les commandes, vous pouvez essayer le GIF d’exemple avant d’ouvrir votre propre fichier."
+        },
+        {
+          "title": "Prévisualisez et sélectionnez les images",
+          "text": "Lisez l’animation pour repérer la scène souhaitée, puis utilisez les flèches ou le curseur pour comparer les images voisines. Cliquez sur une vignette pour l’afficher en plus grand. Le numéro et la durée d’affichage enregistrée vous aident à vous repérer. Cochez les images à inclure dans un ZIP ; utilisez « Afficher plus d’images » pour accéder aux vignettes suivantes d’une longue séquence."
+        },
+        {
+          "title": "Téléchargez les images PNG",
+          "text": "« Télécharger cette image » enregistre l’image actuellement affichée dans l’aperçu. « Télécharger la sélection » crée un ZIP des images cochées, tandis que « Télécharger toutes les images » inclut la séquence entière. Les PNG gardent leurs numéros d’origine : même une sélection partielle permet de retrouver la place de chaque image. Décompressez le ZIP avec le gestionnaire de fichiers de votre appareil avant d’ouvrir les PNG dans un autre éditeur."
+        }
+      ]
+    },
+    "features": {
+      "title": "Des images PNG complètes aux dimensions d’origine",
+      "description": "Décomposer un GIF doit donner des images compréhensibles individuellement. Chaque export représente l’image visible complète aux dimensions du canevas d’origine du GIF, que vous enregistriez un seul instant ou un ensemble d’images.",
+      "items": [
+        {
+          "title": "Des images complètes à partir de mises à jour partielles",
+          "text": "De nombreux GIF ne stockent qu’un petit rectangle de pixels modifiés pour l’image suivante. Enregistrer ce rectangle seul laisserait une partie de l’image manquante. L’outil assemble ces mises à jour et suit les instructions du GIF pour conserver, effacer ou restaurer les pixels précédents. Chaque étape de l’animation devient ainsi une image complète plutôt qu’un ensemble de fragments isolés."
+        },
+        {
+          "title": "Des PNG qui conservent la transparence",
+          "text": "Les zones transparentes restent transparentes dans le PNG exporté. Le damier de l’aperçu aide à les distinguer des pixels blancs ou sombres et ne fait pas partie du téléchargement. La compression PNG conserve les pixels décodés sans ajouter de perte de qualité. Elle ne peut pas restituer les couleurs ou les détails qui manquaient déjà dans le GIF d’origine."
+        },
+        {
+          "title": "Traitement local, sans filigrane",
+          "text": "Votre navigateur lit le GIF sélectionné, reconstitue les images et prépare les téléchargements PNG ou ZIP sur votre appareil. L’outil laisse le fichier d’origine intact et n’ajoute aucun filigrane. Vous pouvez ouvrir un autre GIF après avoir enregistré vos images. Téléchargez ce que vous souhaitez conserver avant de quitter la page, car l’extraction en cours est stockée dans la mémoire du navigateur."
+        }
+      ]
+    },
+    "faq": {
+      "label": "Questions pratiques",
+      "title": "Questions fréquentes sur GIF Splitter",
+      "intro": "Des réponses sur l’extraction d’une image, la conservation des images, les GIF volumineux et les téléchargements sur téléphone.",
+      "items": [
+        {
+          "q": "Comment décomposer un GIF en images ?",
+          "a": "Choisissez un GIF sur votre appareil et attendez que la liste des images apparaisse. Les résultats indiquent le nombre d’images, les dimensions du canevas et la durée enregistrée. « Télécharger toutes les images » fournit un ZIP de PNG numérotés dans leur ordre d’origine. Pour un tutoriel ou une planche de référence, cochez uniquement les images qui montrent les étapes utiles et téléchargez cette sélection."
+        },
+        {
+          "q": "GIF Splitter permet-il de créer des GIF animés plus courts ?",
+          "a": "Cet outil sépare un GIF en images PNG fixes. Il ne découpe pas l’animation en clips GIF plus courts, ne la divise pas en tuiles animées et ne crée pas de nouveau fichier animé. Un ZIP contient des images séparées ; l’ouvrir ne lance pas l’animation. Pour reconstituer ou modifier la séquence, décompressez les PNG et utilisez un autre éditeur d’animation. Vous pouvez consulter ici la durée d’affichage enregistrée de chaque image, mais les PNG téléchargés ne contiennent pas les temps de lecture de l’animation."
+        },
+        {
+          "q": "Puis-je extraire une seule image d’un GIF ?",
+          "a": "Oui. Affichez l’instant souhaité dans l’aperçu, puis choisissez « Télécharger cette image » pour enregistrer un PNG sans télécharger toute l’animation. Cliquer sur une vignette change l’aperçu ; sa case détermine si elle figure dans le ZIP de la sélection. Pour enregistrer plusieurs images ensemble, cochez leurs cases et choisissez « Télécharger la sélection ». Les noms des fichiers gardent les numéros d’origine, ce qui permet de retrouver la position des images dans le GIF."
+        },
+        {
+          "q": "Les PNG conservent-ils la qualité et la transparence ?",
+          "a": "L’extracteur exporte l’image décodée aux dimensions du canevas d’origine du GIF, sans la réduire à la taille de la vignette ou de l’aperçu. La compression PNG est sans perte : l’export n’ajoute donc aucune perte liée à la compression et les zones transparentes restent transparentes. Un GIF peut déjà avoir une palette de couleurs limitée ou moins de détails ; sa conversion en PNG ne corrige pas ces changements. Le résultat est une image fixe reconstituée, sans damier d’aperçu ni filigrane ajouté."
+        },
+        {
+          "q": "GIF Splitter envoie-t-il mes fichiers sur un serveur ?",
+          "a": "Non. Le GIF sélectionné, son nom et les images extraites sont traités localement, sans être envoyés à un serveur de conversion. La création des PNG et du ZIP s’effectue aussi dans votre navigateur. L’exemple facultatif télécharge un GIF depuis ce site. Le chargement du site implique toutefois des requêtes vers l’hébergeur, et le site en production utilise des services de mesure des visites et des interactions. La politique de confidentialité explique ces services séparément du traitement local des fichiers. Les téléchargements sont enregistrés à l’emplacement habituel de votre navigateur ou appareil."
+        },
+        {
+          "q": "GIF Splitter est-il gratuit et quelles sont ses limites ?",
+          "a": "Il est gratuit, sans compte et sans filigrane ajouté. Ouvrez un GIF à la fois, jusqu’à 30 Mo et 1 000 images. Les limites de pixels et de mémoire peuvent refuser une animation inférieure à 30 Mo : des centaines d’images complètes occupent beaucoup plus d’espace une fois décodées. Chaque ZIP accepte jusqu’à 128 Mo de données PNG. Si un téléchargement dépasse cette limite, sélectionnez moins d’images et enregistrez-les par petits groupes. Si l’extraction elle-même échoue à cause des limites de taille ou de mémoire, essayez un GIF plus court ou de dimensions plus petites."
+        },
+        {
+          "q": "Pourquoi certaines images extraites semblent-elles identiques ?",
+          "a": "Une animation peut répéter une image, modifier une toute petite zone ou utiliser des images similaires avec des durées d’affichage différentes. Les PNG exportés contiennent les images visibles complètes, y compris les pixels conservés : des images successives peuvent donc paraître identiques. Comparez l’aperçu agrandi et vérifiez chaque durée avant de choisir les images à conserver. L’outil garde la séquence d’origine sans supprimer les images répétées. Dans la lecture de l’aperçu, les durées inférieures à 20 millisecondes sont portées à 100 millisecondes ; la valeur affichée reste celle enregistrée dans le GIF."
+        },
+        {
+          "q": "Puis-je décomposer un GIF sur mon téléphone ?",
+          "a": "Oui. Utilisez un navigateur récent avec JavaScript activé, choisissez un GIF sur votre appareil et téléchargez un PNG ou un ZIP. Le sélecteur de fichiers du navigateur détermine les dossiers ou sources d’images accessibles. Ouvrez les ZIP téléchargés avec l’application de gestion de fichiers de votre appareil ou un utilitaire d’archives. Les grandes animations demandent plus de mémoire, surtout sur téléphone. En cas d’erreur de taille ou de mémoire, utilisez un GIF plus court ou plus petit. Gardez la page ouverte jusqu’à la fin de l’extraction et du téléchargement."
+        }
+      ]
+    }
   },
   "pages": {
     "guide": {"eyebrow": "Guide pratique du GIF vers PNG", "h1": "Comment décomposer un GIF en images", "intro": "Un GIF animé affiche une succession d’images. Le décomposer permet d’enregistrer un arrêt sur image précis, d’observer une animation pas à pas ou de récupérer tous ses éléments pour un autre logiciel. Voici comment procéder avec l’outil de ce site.", "sections": [

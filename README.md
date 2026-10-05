@@ -2,7 +2,7 @@
 
 A purely static, ten-language SEO tool live at **[www.gifsplitter.com](https://www.gifsplitter.com/)**. The canonical production origin is **https://www.gifsplitter.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts or file uploads are needed. The production site uses Microsoft Clarity for usage analytics.
 
-The current brand is **GIF Splitter**. The primary keyword is **gif splitter**, the secondary keyword is **gif frame extractor**, and supporting phrases are **split GIF into frames** and **GIF to PNG**. The English homepage title is **GIF Splitter — Free GIF Frame Extractor Online**. Other languages retain their localized conversion and frame-extraction wording, followed by the GIF Splitter brand.
+The current brand is **GIF Splitter**. The primary keyword is **gif splitter**, the secondary keyword is **gif frame extractor**, and supporting phrases are **split GIF into frames** and **GIF to PNG**. The English homepage title is **GIF Splitter — Free Online GIF Frame Extractor**, and its H1 is **GIF Splitter — Split GIFs into PNG Frames**. Other languages lead with the GIF Splitter brand and use natural local wording for conversion and frame extraction.
 
 ## Local development
 
@@ -28,6 +28,8 @@ English retains the original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (
 To edit wording, update the relevant locale JSON. Keep placeholders such as `{count}` and `{current}` unchanged. `src/site/content.js` rejects missing/empty translations, mismatched keys, arrays or placeholders, and missing plural categories during every build. Dynamic messages use `Intl.NumberFormat` and `Intl.PluralRules`; decoder errors expose stable codes while the interface selects local wording. Do not add user-visible English fallbacks to the app.
 
 Every page has a self-referencing production canonical, localized title/description/H1, Open Graph metadata, structured data and ten reciprocal hreflang links plus English `x-default`. The HTML language tags are `pt-BR` and `zh-Hant` for the corresponding regional/script editions. Research evidence and its limits are recorded in [docs/keyword-research.md](docs/keyword-research.md). Localized headings follow both GIF-to-PNG and frame-extraction intent. The historical research does not establish stable traffic for every phrase, and its `split gif` observations are not search-volume evidence for `gif splitter`.
+
+Homepages explain frame selection, individual PNG and numbered ZIP downloads, full-frame reconstruction, transparency, browser memory limits and mobile use. The English `home` dictionary contains approximately 1,218 words; translations preserve the information without imposing an English word-count or keyword-density target. The homepage H1 has no decorative trailing period. Frame previews are created only after decoding, with the GIF's actual width and height set before loading their image source; thumbnails use the same original dimensions and retain their fixed display containers.
 
 ## Deployment
 

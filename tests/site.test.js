@@ -139,11 +139,13 @@ for (const route of ROUTES) {
 
     const h1 = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
     assert.equal(h1.length, 1, 'a page must have a single H1');
-    assert.equal(textOf(h1[0][1]), type === 'home' ? `${dictionary.home.h1}.` : dictionary.pages[type].h1);
+    assert.equal(textOf(h1[0][1]), type === 'home' ? dictionary.home.h1 : dictionary.pages[type].h1);
     const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/);
     assert.ok(main, 'main content must be rendered before JavaScript runs');
     const content = textOf(main[1]);
     if (type === 'home') {
+      assert.ok(tags(html, 'div').some((tag) => tag.id === 'frame-preview-slot' && tag.class === 'frame-stage checkerboard'));
+      assert.equal(tags(html, 'img').length, 0, 'preview images must be created only after their GIF dimensions are known');
       assert.ok(content.includes(dictionary.home.description));
       assert.ok(content.includes(dictionary.home.how.intro));
       for (const item of [...dictionary.home.how.steps, ...dictionary.home.features.items]) {

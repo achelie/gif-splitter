@@ -42,7 +42,7 @@ function home(l) {
   const u = l.ui;
   const h = l.home;
   return `<main class="wrap" id="content">
-  <section class="intro" aria-labelledby="main-title"><p class="eyebrow"><span class="status-dot"></span>${e(h.eyebrow)}</p><h1 id="main-title">${e(h.h1)}<span class="brand-dot">.</span></h1><p class="lede">${e(h.lede)}</p><p class="intro-description">${e(h.description)}</p></section>
+  <section class="intro" aria-labelledby="main-title"><p class="eyebrow"><span class="status-dot"></span>${e(h.eyebrow)}</p><h1 id="main-title">${e(h.h1)}</h1><p class="lede">${e(h.lede)}</p><p class="intro-description">${e(h.description)}</p></section>
   <section id="extractor" aria-label="${e(u.toolLabel)}" data-clarity-mask="true">
     <div id="upload-area"><div class="dropzone" id="dropzone">
       <div class="drop-art" aria-hidden="true"><div class="art-card art-back"></div><div class="art-card art-mid"></div><div class="art-card art-front">${icon('image')}</div><span class="art-plus">+</span></div>
@@ -54,7 +54,7 @@ function home(l) {
     <section id="results" class="results" aria-labelledby="results-title" hidden>
       <div class="results-toolbar"><div><p class="section-label">${e(u.resultsLabel)}</p><h2 id="results-title">${e(u.resultsTitle)}</h2></div><button type="button" class="button" id="start-over">${e(u.another)}</button></div>
       <div class="workspace"><div class="preview-panel">
-        <div class="frame-stage checkerboard"><img id="frame-preview" alt="${e(u.previewAlt)}"></div>
+        <div id="frame-preview-slot" class="frame-stage checkerboard"></div>
         <div class="playback-controls"><button id="previous-frame" type="button" class="icon-button" aria-label="${e(u.previous)}">←</button><button id="play-button" type="button" class="button small">${e(u.play)}</button><button id="next-frame" type="button" class="icon-button" aria-label="${e(u.next)}">→</button></div>
         <label class="scrubber-label" for="frame-slider"><span id="current-frame-label"></span><span id="current-frame-delay"></span></label><input id="frame-slider" type="range" min="1" value="1" max="1" aria-label="${e(u.slider)}">
         <button type="button" class="button download-frame" id="download-frame">${icon('download')}${e(u.downloadFrame)}<span class="format-label">PNG</span></button>
