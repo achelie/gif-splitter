@@ -2,7 +2,7 @@
 
 日期：2026-10-05（Asia/Hong_Kong）。目标：[www.gifsplitter.com](https://www.gifsplitter.com/)。本报告覆盖审计技能 A–I 的全部 73 个 ADS 检查项；ADS 编号是审计清单编号，并非 Google 官方政策编号。
 
-**结论：页面与投放准备代码及本地验收已完成，本站仍在 Google 审核中。** 正在审核来自用户确认，不等于 Ready、拒审或投放许可。本轮默认 `ADSENSE_MODE=off`；不重复提交审核、不启用广告。站长确认 Cloudflare Free 并授权 GitHub 推送及部署后，off 改为纯静态 Pages，不依赖 Functions 配额。最新 **154/154** 测试、80 页静态生产构建、生产模式站点检查、80 页本地 HTTP/静态 CSP 与十语言实际拆帧/下载验收通过；公开发布按该静态方案进行，完成后另记生产证据。
+**结论：页面与投放准备代码、静态生产发布及验收已完成，本站仍在 Google 审核中。** 正在审核来自用户确认，不等于 Ready、拒审或投放许可。本轮保持 `ADSENSE_MODE=off`；不重复提交审核、不启用广告。站长确认 Cloudflare Free 并授权 GitHub 推送及部署后，off 改为纯静态 Pages，不依赖 Functions 配额。最新 **154/154** 测试、80 页静态生产构建与生产模式站点检查通过；源码 `c5f1a88` 已发布，80 条正式路由、静态 CSP、十语言实际拆帧及下载、生产 beacon 均完成本轮验收，证据范围见 E14。账号、实际流量和地区同意等待验项仍独立保留。
 
 ## 1. 新版交付与证据边界
 
@@ -20,17 +20,18 @@
 | --- | --- |
 | E1 | [历史准备复审](<E:/code/sy/git frame/docs/adsense-readiness-audit-2026-10-05.md>)保存的年龄、单账号、自有域名与无自点/刷量声明，以及 Cloudflare DNS/邮件规则操作证据。声明只证明站长确认，不能替代实际流量或账号映射。用户本轮另确认本站正在审核。 |
 | E2 | [路由与日期配置](<E:/code/sy/git frame/src/site/config.js>)：十语言、八模板、80 条稳定路径；既有内容初发 2026-10-04，新内容初发及本轮修订 2026-10-05。 |
-| E3 | [英文内容](<E:/code/sy/git frame/src/locales/en.json>)及另外九份 locale：四篇指南、Terms、About/Contact、隐私三模式；结构通过各 locale 的校验。该证据是本地内容，不是新生产页面已可访问。 |
+| E3 | [英文内容](<E:/code/sy/git frame/src/locales/en.json>)及另外九份 locale：四篇指南、Terms、About/Contact、隐私三模式；结构通过各 locale 的校验。该项是源码与内容证据，生产页面可访问性另由 E14 证明。 |
 | E4 | [构建广告守卫](<E:/code/sy/git frame/src/site/ad-policy.js>)、[广告运行逻辑](<E:/code/sy/git frame/src/advertising.js>)：off 默认；缺必要声明不能构建 live；暂停、TCF、拒绝、撤回、失败与一次性广告注册控制。 |
 | E5 | [页面渲染](<E:/code/sy/git frame/src/site/render.js>)：Privacy 排除 Clarity/ad/CMP；手动 beacon；广告只在指南；本地化设置和真实 mailto；标签/布局/SEO。实际区域同意与邮箱送达不由模板证明。 |
 | E6 | [原创示例定义](<E:/code/sy/git frame/src/site/examples.js>)、[生成器](<E:/code/sy/git frame/scripts/make-guide-examples.mjs>)与 [GIF 测试](<E:/code/sy/git frame/tests/gif-engine.test.js>)：**gif-engine 12 项、edge-worker 3 项，共 15 项通过**，不把全部 15 项称作原创 fixture 测试；时间、disposal、内存保护另有真实浏览器验证见 E12。 |
 | E7 | [广告测试](<E:/code/sy/git frame/tests/advertising.test.js>)：主执行流程已确认 **24/24 项测试通过**，包括健康 CMP 中用户慢阅读、已请求广告后撤回 API 消失时关闭；属于模拟 API 与应用状态验证，不证明 Google CMP 真实发布、认证、地区行为或批准。 |
-| E8 | E1 历史生产记录：40/40 路由、旧 sitemap、旧版浏览器与部署通过；这些结果仅属于旧 40 页版本。新版 80 页已完成本地运行验收，但新生产发布与公开 HTTP 仍未确认。 |
+| E8 | E1 历史生产记录：40/40 路由、旧 sitemap、旧版浏览器与部署通过；这些结果仅属于旧 40 页版本。新版 80 页的生产发布与公开 HTTP 证据见 E14，不用旧版结果代替。 |
 | E9 | [后台配置与验收步骤](<E:/code/sy/git frame/docs/adsense-console-setup.md>)：待站长核验的实际账号、CMP、Auto Ads、地区、广告单元、Clarity 与邮件流程；是操作说明，不是完成证据。 |
 | E10 | 本报告末尾列出的 Google、Microsoft、Cloudflare 官方来源；现行官方要求优先于旧清单快照或外部预检的 AI 点评。 |
-| E11 | 主执行流程最新结果：所有 Terms 与 CMP 补强完成后 **152/152 测试通过**，off 最终生产构建 80 页与生产模式 check:site 通过；本地 Wrangler worker 编译成功。80 路由本地 HTTP 200，80 个不同 nonce 与标签/CSP 一致；真实 PNG/ZIP 下载解包通过。该结果不等于新版生产发布。 |
+| E11 | **改为纯静态 off 前的历史 nonce/Worker 阶段**：所有 Terms 与 CMP 补强后 **152/152 测试通过**，当时生产构建 80 页与生产模式 check:site 通过；本地 Wrangler worker 编译成功。80 路由本地 HTTP 200，80 个不同 nonce 与标签/CSP 一致；真实 PNG/ZIP 下载解包通过。这不是本次静态生产发布配置；最终静态证据见 E13、E14。 |
 | E12 | 主执行流程真实浏览器：桌面 1280 检视通过；十语言 transparency 在 390×844 无溢出、八 TOC 链接、SVG 可解码；禁用 JS 的 timing/繁中 Terms/Privacy 可读无溢出；原创 timing/disposal/内存保护、繁中样例及状态通过，所验场景无 console/page errors。 |
 | E13 | Free 静态发布前实际验证：**154/154**；consent nonce 构建/check 后直接切 off，确认无 Worker/routes 遗留；80 页静态 HTTP/CSP/SHA-256/404/缓存通过；十语言 390×844 样例均 24 帧、桌面三下载正常，PNG/ZIP 解包与 480×300 尺寸正确；三页无 JS 可读；所验本地场景无 CSP/console/page errors、无 Google 网络请求。 |
+| E14 | **最终源码与生产验收**：主体整改提交 `5219f6b`，最终源码 `c5f1a880d6428ffc58868e2a195f350d7b90679e`；Cloudflare 部署 `71a66249-0579-424b-b8fe-77c1add80ed7` 于 2026-10-05 20:31:15（香港；UTC 12:31:15）成功，[部署地址](https://71a66249.gifframeextractor.pages.dev/)。正式 www **80/80 路由 HTTP 200**、自 canonical/对应 hreflang、80 URL sitemap、robots 与原 seller 的 ads.txt 200；80 页静态 CSP 的 SHA-256 与实际脚本精确匹配，十 Privacy 无 Google；真实 404、资源 immutable、主/版本 pages.dev noindex、apex 301 保留路径与查询均复核通过。最终真实浏览器重跑：十语言首页 390×844 各 24 帧、各一个 Clarity 与一个 Cloudflare beacon；PNG、24 项全 ZIP、2 项选取 ZIP 三下载成功，三页无 JS 正文可读，独立新会话 Privacy 无 Clarity/Google；所验场景 `errors=[]`、`consoleErrors=[]`、Google 请求 0，实际同源 RUM POST **12 次 204**。beacon 使用原 token 及 SDK 的 `send.to` 指向本站 `/cdn-cgi/rum`，没有新 token 或新增代理。以上不证明 EEA/UK/瑞士实际同意、CMP 发布或 Google Ready。 |
 
 ### 已交付的准确示例
 
@@ -47,13 +48,14 @@
 | GIF 与 edge-worker 测试 | gif-engine 12 项、edge-worker 3 项，共 15 项通过；包含原有引擎/新例子与 worker 验证。 | 不是 15 项全部原创 fixture，也不是设备 benchmark。 |
 | 广告应用测试 | **24/24 通过**，包含慢阅读及撤回 API 消失场景。 | CMP 发布、真实地区同意或实际广告投放。 |
 | 全量测试、生产构建、站点检查 | **Pass：154/154；off 纯静态生产构建 80 页；生产模式 check:site 通过。** 主执行流程确认。 | 构建不能证明 Google 批准或生产部署。 |
-| 本地 worker HTTP/CSP/缓存 | **Pass（本地）：80 路由 200，80 个不同 nonce，标签/CSP 一致，无遗留 placeholder；HTML no-store/no-transform，资源 immutable，ads.txt 200，真实 404/noindex。** | 本地 worker 不是新版生产 HTTP 取证。 |
+| 历史本地 worker HTTP/CSP/缓存 | **Pass（改为纯静态前，本地）：80 路由 200，80 个不同 nonce，标签/CSP 一致，无遗留 placeholder；HTML no-store/no-transform，资源 immutable，ads.txt 200，真实 404/noindex。** | 属于 E11 历史阶段；当前生产 off 使用静态 SHA-256 CSP，不执行该 Worker。 |
 | 真实 GIF/PNG/ZIP | **Pass（本地真实下载）：24 帧/480×300；PNG 7,418 B；全 ZIP 178,730 B/24 entries；选择第 1/3 帧 ZIP 14,960 B/2 entries；解包签名、尺寸与编号正确。** | 不将局部下载验收泛化为地区同意或广告。 |
 | 桌面/移动十语言 | **Pass（本地）：桌面 1280 检视通过；十语言 transparency 在 390×844 均无溢出、八 TOC 链接、SVG 可解码。** | 不泛化为所有设备或所有页面均有截图。 |
 | 无 JavaScript 正文 | **Pass（本地选定页面）：timing、繁中 Terms、Privacy 分别有 8,497/1,427/5,384 字符可读，无溢出。** | 不代表无 JS 可使用拆帧工具；工具仍需 JS。 |
 | 原创例子与本地化 | **Pass（真实浏览器）：timing 四帧延迟 0/10/20/80 ms，原始总 0.11 s；disposal 2 为红/透明/蓝、3 为红/红/蓝；memory-limit 报错且无帧；繁中样例 24 帧及本地化状态正确。所验场景无 console/page errors。** | 不证明 CMP 实际同意、生产第三方加载或计时性能。 |
 | 十 Privacy/off 与模式准备 | **Pass（本地 HTTP/模板/模拟）：80 HTTP 检查确认 off 无 Google，十 Privacy 无 Clarity/ad/CMP；consent/live 模板与状态测试通过。** | 不证明后台发布、真实地区 CMP 或实际广告投放。 |
-| 新版提交、部署、80 路由生产复核 | 未取得本轮完成证据。 | 不宣称本轮已发布；不触发重新审核。 |
+| 新版提交、部署、80 路由生产复核 | **Pass（E14）：源码 c5f1a88、最终部署 71a66249 成功；www 80/80 HTTP 200、canonical/hreflang、80 sitemap、robots/ads.txt、静态 CSP/immutable、404、预览 noindex 与 apex 301 均通过。** | 不代表 Google 已收录、Ready 或批准投放；不触发重新审核。 |
+| 最终生产浏览器与 beacon | **Pass（E14 所验场景）：十语言首页各 24 帧及一个 Clarity/CF beacon，三下载和三页无 JS 正文通过；新会话 Privacy 无 Clarity/Google，errors/consoleErrors 为空、Google 请求 0，RUM POST 12 次 204。最终下载复核：全 ZIP 178,730 B/24 entries、所选 ZIP 14,960 B/第 1、3 帧，全部 PNG 签名正确且为 480×300；详见[发布记录](<E:/code/sy/git frame/docs/release-2026-10-05.md>)。** | 不泛化为所有设备、实际地区同意或 CMP 已发布。 |
 
 ## 2. 按严重程度复检与后台待验
 
@@ -61,7 +63,7 @@
 
 **High：** 原报告缺少第三方广告 Cookie 的说明已在本地十语言补齐；当前 off 文案明确未加载广告，consent 文案说明暂停请求但可能发送连接/识别信息，live 文案使用实际教程页投放的现在时。Google links 是实际可点击外链。CMP 发布、认证和地区实测、Auto Ads、真实 unit、账号与 seller 映射、实际来源流量及 Clarity 区域同意仍未关闭。
 
-**Medium：** 四篇成型指南、Terms、技术说明、更正说明、页脚知识入口已交付；新版本地静态输出、HTTP/CSP/缓存、下载、桌面及十语言移动检查通过。真实公开部署及第三方网络仍需生产复核。域名邮件规则配置不证明实际收件，送达继续待站长测试。
+**Medium：** 四篇成型指南、Terms、技术说明、更正说明、页脚知识入口已交付；新版静态生产发布、80 路由 HTTP/CSP/缓存、十语言样例、下载与生产 beacon 检查通过，范围见 E14。真实区域同意仍需独立核验。域名邮件规则配置不证明实际收件，送达继续待站长测试。
 
 | 独立后台/运营事项 | 状态 | 核验方法与证据边界 |
 | --- | --- | --- |
@@ -111,36 +113,36 @@ Pass 仅在写明的证据范围成立；本地通过不自动成为生产通过
 | --- | --- | --- | --- |
 | ADS-ELIG-01 | Pass | E1：保存的成年申请人声明，当前无矛盾。 | 申请人变化时重新核对。 |
 | ADS-ELIG-02 | Pass | E1：沿用现有单一发布商账号声明。 | 不另建重复账号；本站后台映射单独核验。 |
-| ADS-ELIG-03 | Pass | E2–E7：当前公开内容与代码未发现已确认适用违规；非 Google 批准。 | 保留账号及地区 Unknown，取得新版生产证据。 |
+| ADS-ELIG-03 | Pass | E2–E7、E14：当前公开内容、代码及所验生产行为未发现已确认适用违规；非 Google 批准。 | 保留账号及地区 Unknown，后续变更重新复核。 |
 | ADS-ELIG-04 | N/A | E2：独立静态域名站，非 Blogger/YouTube hosted 流程。 | 沿用普通网站流程。 |
 | ADS-OWN-01 | Pass | E2、E4、E5：可编辑 head 与构建，具部署验证路径。 | 按后台实际验证方式维护。 |
 | ADS-OWN-02 | Pass | E1：自有域名声明及 Cloudflare DNS/邮件规则操作证据。 | 域名控制不替代 Google 审核。 |
-| ADS-OWN-03 | Pass | E2、E5、E11、E12：本地 HTML/JS、真实 GIF/PNG/ZIP、十语言移动及选定无 JS 正文正常。 | 新版生产行为待部署后复核。 |
+| ADS-OWN-03 | Pass | E2、E5、E12–E14：静态 HTML/JS、真实 GIF/PNG/ZIP、十语言生产样例及选定无 JS 正文正常。 | 后续脚本/发布变更重新复核，地区同意单独取证。 |
 | ADS-SITE-01 | Unknown | 用户确认本站正在审核；未取得 Ready 后台证据。 | 现有 Sites 看精确域名状态，不重提交、不投放。 |
 | ADS-SITE-02 | Pass | E1、E4：已有公开 ads.txt，模板也支持代码；仅验证能力。 | 后台按实际方式确认验证成功。 |
-| ADS-TXT-01 | Pass | E1、E4：Google seller 行与现有公开配置一致，旧生产可读。 | 新版复核 GET；实际账号映射在独立待验及 PUB-09。 |
-| ADS-TXT-02 | Pass | E1：根路径已有 ads.txt，未撤除。 | 保持可访问，账号变化时维护。 |
+| ADS-TXT-01 | Pass | E1、E4、E14：Google seller 行保留现有公开配置，最终生产 GET 200。 | 实际账号映射在独立待验及 PUB-09，不用公开一致代替后台核验。 |
+| ADS-TXT-02 | Pass | E1、E14：根路径 ads.txt 保留，最终生产可访问。 | 保持可访问，账号变化时维护。 |
 | ADS-CONTENT-01 | Pass | E2、E3、E6：真实工具、扩展指南及可验证原创示例。 | 核对新版渲染和真实功能，不承诺审核结果。 |
 | ADS-CONTENT-02 | Pass | E3、E6：内容来自本站解释与生成例子，非外部 feed/复制媒体。 | 新外部素材核权利与增值。 |
 | ADS-CONTENT-03 | Pass | E3：工具说明、四完整指南、信任页，无新增空分类。 | 新版静态与浏览器正文复检。 |
-| ADS-CONTENT-04 | Pass | E2、E3、E6：页面有完整用途与功能，无占位建设文案。 | 发布后复核，不用路线数量代替内容。 |
+| ADS-CONTENT-04 | Pass | E2、E3、E6、E14：页面有完整用途与功能，80 页已公开，无占位建设文案。 | 内容变更后复核，不用路线数量代替内容。 |
 | ADS-CONTENT-05 | Pass | E4、E5：off 无广告/付费推广；live 只准备一个指南位。 | 真实投放重新看全页/首屏占比。 |
 | ADS-CONTENT-06 | Pass | E2、E3：十种既有支持语言均有正文。 | 新语言核官方列表，CMP 语言另查。 |
 | ADS-CONTENT-07 | N/A | E5：没有公开评论或 UGC，用户 GIF 仅本地处理。 | 新增公开投稿前建立审核。 |
 | ADS-CONTENT-08 | Pass | E2、E3：独立教程用途及完整翻译，未发现关键词堆砌/doorway。 | 不为凑页数增加无价值文章。 |
-| ADS-UX-01 | Pass | E5、E11、E12：导航/知识/页脚与站点检查通过；十语言移动八 TOC、SVG、无溢出。 | 新版生产导航复核；本地覆盖范围见 E12。 |
+| ADS-UX-01 | Pass | E5、E12–E14：导航/知识/页脚与站点检查通过；本地十语言移动八 TOC/SVG，生产十语言首页样例通过。 | 后续导航与布局变化复核；各阶段覆盖范围见 E12–E14。 |
 | ADS-UX-02 | Pass | E3、E5：用途、能力、限制与相关文章入口清楚。 | 复核实际显示与返回工具。 |
 | ADS-UX-03 | Pass | E4、E5：真实选檔/预览/下载；广告与操作区隔。 | 未来 live 检查真实广告无假下载混淆。 |
-| ADS-UX-04 | Pass | E4、E5、E12：下载由用户触发，无强制外跳/恶意设置逻辑；所验场景无 console/page errors。 | 生产第三方与网络仍需部署后验证。 |
-| ADS-UX-05 | Pass | E3、E5：About/Contact、Privacy、Terms 完整；邮件规则历史就绪。 | 邮箱送达 Unknown；新版链接需验收。 |
+| ADS-UX-04 | Pass | E4、E5、E12、E14：下载由用户触发，无强制外跳/恶意设置逻辑；最终所验生产场景 errors/consoleErrors 为空。 | 第三方或脚本变化后复核，地区同意保持独立待验。 |
+| ADS-UX-05 | Pass | E3、E5、E14：About/Contact、Privacy、Terms 完整且新版路径公开；直接 mailto，邮件规则历史就绪。 | 邮箱实际送达继续 Unknown。 |
 | ADS-UX-06 | Pass | E4、E5：off 无广告，未来指南位有标签和独立区域。 | 真实填充后复核布局与误点。 |
-| ADS-CRAWL-01 | Unknown | E8 旧 40 生产路由 200；E11 新 80 路由仅本地 worker 200，新增 40 URL 尚未发布。 | 该项关注实际公开站点；完成发布前条件后部署，核对全部 80 正式 URL。 |
-| ADS-CRAWL-02 | Pass | E8：旧 robots/模拟 Google UA 可达，无登录墙；新代码保留公开路径。 | 新版/WAF 复核；模拟 UA 不是 Google 已抓取。 |
-| ADS-CRAWL-03 | Pass | E2、E5：页面/正文静态 GET，不依赖 POST。 | 新版路由公开访问检查。 |
-| ADS-CRAWL-04 | Pass | E8：历史 www 直达、apex 保留路径/查询；无会话依赖。 | 新 edge-worker 跳转/返回码生产重验。 |
-| ADS-CRAWL-05 | Pass | E2、E5：稳定 locale/type 路径与自 canonical，无个人会话 URL。 | 新 sitemap/canonical/hreflang 验证。 |
-| ADS-CRAWL-06 | Pass | E1、E8：历史 DNS/TLS/托管当次可用；E11 本地 worker 可响应。 | 新版生产及实际 Functions 套餐/余量仍待验，非长期 uptime 保证。 |
-| ADS-CRAWL-07 | Pass | E11 80 页构建与站点检查通过；E8 旧 40 sitemap 已公开。 | 生产 sitemap 80 URL 待验，不承诺 Google 收录。 |
+| ADS-CRAWL-01 | Pass | E14：最终新版 www 80/80 正式路由 HTTP 200，真实不存在路径返回 404，无公开访问阻断。 | URL、托管或发布变化后重验；本次可达不保证长期 uptime。 |
+| ADS-CRAWL-02 | Pass | E8、E14：robots 可达，保留公开抓取路径与 sitemap，无登录墙。 | WAF/robots 变化时复核；可访问不等于 Google 已抓取。 |
+| ADS-CRAWL-03 | Pass | E2、E5、E14：80 页及正文通过静态 GET 公开访问，不依赖 POST。 | URL 或发布变化后重新检查。 |
+| ADS-CRAWL-04 | Pass | E14：www 直接 200，apex 301 保留路径与查询，无会话依赖。 | 重定向规则变化后重验。 |
+| ADS-CRAWL-05 | Pass | E2、E5、E14：稳定 locale/type 路径、自 canonical/对应 hreflang 与生产 sitemap，无个人会话 URL。 | 路由/域名变化后复核。 |
+| ADS-CRAWL-06 | Pass | E14：最终生产 DNS/TLS/托管可响应，80 路由 HTTP 复核通过；当前 off 为不执行 Functions 的静态发布。 | 非长期 uptime 保证；未来 Worker 另核额度。 |
+| ADS-CRAWL-07 | Pass | E13、E14：80 页构建检查及公开 sitemap 80 URL、robots 引用一致。 | 不承诺 Google 已收录；路由增减后更新并重验。 |
 | ADS-PROG-01 | Pass | E1：用户确认无自点或机器人/重复人工制造展示点击。 | 声明非后台实证；未来测试不点击广告。 |
 | ADS-PROG-02 | Pass | E3、E5：无鼓励广告点击、奖励或诱导箭头文案。 | 投放后继续保持中性。 |
 | ADS-PROG-03 | N/A | E4：off 无实际广告；E5 为将来标签与独立区域。 | live 检查 Advertisements/对应译文及误点。 |
@@ -172,7 +174,7 @@ Pass 仅在写明的证据范围成立；本地通过不自动成为生产通过
 | ADS-REST-06 | Pass | E3：免费工具，无赌博或付费随机玩法。 | 新收费机制复检。 |
 | ADS-REST-07 | Pass | E3：无处方药、非法药房/补充剂或被下架应用推广。 | 新内容复检。 |
 | ADS-REST-08 | N/A | E4：无实际广告或视频广告库存；GIF 预览不等于广告视频。 | 投放后核遮挡、视频控件与自动播放。 |
-| ADS-PRIV-01 | Pass | E3、E5、E12：十语言准确披露与本地模式模板通过；十 Privacy 无 Clarity/ad/CMP，选定无 JS 政策可读。 | 生产与真实第三方数据处理一致性待部署/地区验证。 |
+| ADS-PRIV-01 | Pass | E3、E5、E12、E14：十语言披露与模式模板通过；生产十 Privacy 无 Google，独立新会话 Privacy 无 Clarity/Google，选定无 JS 政策可读；RUM 实际 POST 204。 | 实际地区同意与第三方设置仍需独立验证，变化时更新披露。 |
 | ADS-PRIV-02 | Pass | E3：第三方/Google Cookie、web beacon、IP/标识与退出披露齐备。 | live 与实际伙伴保持一致，区域控制仍 Unknown。 |
 | ADS-PRIV-03 | N/A | E4：off 无 Google 广告请求；GIF/文件名不加入广告流程。 | 真实接入查 URL/事件/请求 PII 和文件数据。 |
 | ADS-PRIV-04 | Unknown | E4、E7 本地守卫已测；官方 CMP 发布与区域、Clarity 同意未确认。 | 按 E9 实测 EEA/UK/瑞士全部选择、存储、请求与撤回。 |
@@ -188,13 +190,13 @@ Pass 仅在写明的证据范围成立；本地通过不自动成为生产通过
 以下验收按顺序进行，未取得证据的方框保持未勾选：
 
 - [x] 最终全量测试 154/154、off 80 页纯静态生产构建及生产模式站点检查实际通过；由主执行流程记录输出。
-- [ ] 80 个正式 URL 200，自 canonical、对应 hreflang、robots/sitemap 80 URL、ads.txt 200；预览 noindex、真实 404、apex 路径/查询正确。
+- [x] E14：80 个正式 URL 200，自 canonical、对应 hreflang、robots/sitemap 80 URL、ads.txt 200；主/版本预览 noindex、真实 404、apex 路径/查询正确。
 - [x] 本地站点检查与桌面 1280、十语言 transparency 的 390×844/八 TOC/SVG 检查通过；选定无 JS 正文可读无溢出。范围见 E12，不代替生产全站复核。
-- [x] 原创 fixture 测试通过；原样例及本地真实 PNG/所选 ZIP/全 ZIP 下载、解包、字节、尺寸、编号通过。
+- [x] 原创 fixture 测试通过；本地真实 PNG/所选 ZIP/全 ZIP 下载、解包、字节、尺寸、编号通过；最终生产十语言样例各 24 帧及三下载成功（E14），最后一轮下载字节、PNG 签名/480×300 与 ZIP 项数/第 1、3 帧复核通过，详见[发布记录](<E:/code/sy/git frame/docs/release-2026-10-05.md>)。
 - [x] 本地 80 HTTP 及模式模板确认十 Privacy 无 Clarity、广告或 CMP，off 无 Google；nonce/CSP/缓存检查通过。
 - [x] 本地模板/模拟测试：consent 暂停且无广告位；接受/拒绝/撤回/失败/重复回调不绕过或重复请求。官方 CMP 实际地区验收仍未完成。
-- [ ] 生产手动 Cloudflare beacon/第三方网络确认无重复及 CSP 错误；本地浏览器无错误不替代第三方生产验证。
-- [x] 站长确认 Free 后采用不执行 Functions 的静态 off 方案，本地真实静态功能验收完成；当前发布无需等待 Functions 余量。正式生产与地区证据分别核验。
+- [x] E14 最终生产重跑：十语言首页各一个 Clarity 与一个 Cloudflare beacon；errors/consoleErrors 为空、Google 请求 0，同源 RUM POST 12 次 204。此取证不替代实际地区同意验证。
+- [x] 站长确认 Free 后采用不执行 Functions 的静态 off 方案，本地及 E14 正式生产验收完成；本次发布不依赖 Functions 余量。地区证据仍独立待验。
 - [ ] 账号映射、本站 Ready、CMP 发布/认证、真实 slot、Auto Ads 关闭及实际地区验收有独立证据；此前保持 off。
 - [ ] 流量与 Clarity 区域行为、联系邮箱实际送达由站长核验，不将声明/代码/配置 ready 当作全部完成。
 - [ ] 未来 Google-enabled Worker 的实际 Functions 余量及 fail-closed 设置另行核实；本次静态 off 不适用。
@@ -212,8 +214,8 @@ Pass 仅在写明的证据范围成立；本地通过不自动成为生产通过
 完整性统计（以技能 `adsense-requirements.md` A–I 的要求表为源，排除 J 节示例）：
 
 - 要求 ID：73；本报告唯一状态行：73。
-- Pass：52；Fail：0；Unknown：5；N/A：16。
+- Pass：53；Fail：0；Unknown：4；N/A：16。
 - 缺失、多余、重复 ID：none；非法状态：none。
-- 程序核对：Pass。更新后重新提取技能 A–I 的 73 个要求及报告唯一状态表；自动计数为 52/0/5/16，缺失、多余、重复、非法状态均为空，UTF-8 无替换字符。状态按证据调整，不沿用历史计数。
+- 程序核对：Pass。更新后重新提取技能 A–I 的 73 个要求及报告唯一状态表；自动计数为 53/0/4/16，缺失、多余、重复、非法状态均为空，UTF-8 无替换字符。状态按证据调整，不沿用历史计数。
 
-剩余五个 ADS Unknown 与后台独立待验项均保留行动；N/A 的未来实施不预认可。Free 纯静态 off 已完成本地功能验收并获授权发布；生产部署与公开 HTTP/浏览器证据另记。不改变本站审核中的事实，也不替用户重新提交审核。
+剩余四个 ADS Unknown（本站审核、实际流量、账号完整映射、同意管理）与后台独立待验项均保留行动；N/A 的未来实施不预认可。Free 纯静态 off 已完成授权发布及 E14 的生产 HTTP/浏览器验收。不改变本站审核中的事实，也不替用户重新提交审核或启用广告。

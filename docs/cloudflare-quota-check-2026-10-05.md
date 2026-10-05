@@ -30,3 +30,7 @@
 在同账号控制台读取 Workers & Pages 的 Free/Paid 明确标识，并读取 Billing → Billable Usage 中当前账期（或 Free 当日）的请求数、CPU 用量及超额费用。Free 余量按 `max(0, 100000 − 当日同账号请求数)` 计算；Paid 包含量的余额与额外计费分别记录，不称其为每日硬上限。[用量页面说明](https://developers.cloudflare.com/billing/manage/billable-usage/)
 
 这组证据留给未来 `consent`/`live` nonce Worker 启用前核验。当前静态 off 版本用 `_headers` 中 SHA-256 CSP 授权现有分析 bootstrap，不生成 `_worker.js` 或 `_routes.json`，不加载 Google 标签，不必新增高权限凭据或付费升级。
+
+## 发布结果
+
+本次纯静态 Free 方案已推送 GitHub `main` 并在香港时间 20:31:15 完成正式部署。源码 `c5f1a880d6428ffc58868e2a195f350d7b90679e`；80/80 正式页面、十语种真实拆帧与三种下载、静态 CSP、真实 404、预览 noindex 及站点文件复核通过。实际浏览器没有 Google 请求或脚本/CSP 错误；原 Cloudflare beacon 使用本站管理的 RUM 接口，上报 204，无重复注入。见[完整发布记录](release-2026-10-05.md)。
