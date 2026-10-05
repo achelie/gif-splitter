@@ -5,6 +5,7 @@ import { loadLocales } from './src/site/content.js';
 import { renderPage } from './src/site/render.js';
 
 export default defineConfig({
+  html: { cspNonce: '__CSP_NONCE__' },
   build: {
     manifest: true,
     rollupOptions: { input: { app: resolve('src/main.js'), site: resolve('src/site.js') } },

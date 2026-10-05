@@ -4,9 +4,12 @@ import { join } from 'node:path';
 import { ORIGIN, PUBLIC_CONTACT_EMAIL, ROUTES, LOCALES, pagePath } from '../src/site/config.js';
 import { loadLocales } from '../src/site/content.js';
 import { escapeHtml } from '../src/site/render.js';
+import { adPolicyFromEnv } from '../src/site/ad-policy.js';
+import { prepareStaticHtml } from './static-security.mjs';
 
 const locales = await loadLocales();
 const production = process.argv.includes('--production-domain');
+const useEdgeWorker = adPolicyFromEnv().mode !== 'off';
 const pages = new Map(await Promise.all(ROUTES.map(async route => [route.path, await readFile(join('dist', route.path.slice(1), 'index.html'), 'utf8')])));
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
@@ -38,16 +41,18 @@ for (const route of ROUTES) {
       assert.equal(target, `mailto:${PUBLIC_CONTACT_EMAIL}`, `Unexpected contact address: ${route.path}`);
       continue;
     }
-    const [path, anchor] = target.split('#');
-    if (!path || pages.has(path)) {
-      const destination = pages.get(path || route.path);
+    const resolved = new URL(target, ORIGIN + route.path);
+    const path = resolved.pathname;
+    const anchor = resolved.hash.slice(1);
+    if (pages.has(path)) {
+      const destination = pages.get(path);
       if (anchor) assert.ok(destination.includes(`id="${anchor}"`), `Broken anchor: ${route.path} → ${target}`);
     } else {
       assert.ok(path.startsWith('/'), `Unexpected relative URL: ${target}`);
       await access(join('dist', path.slice(1)));
     }
   }
-  const ld = html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s);
+  const ld = html.match(/<script\b[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/s);
   assert.equal(JSON.parse(ld[1]).inLanguage, l.htmlLang);
 }
 const headers = await readFile('dist/_headers', 'utf8');
@@ -83,4 +88,25 @@ const notFound = await readFile('dist/404.html', 'utf8');
 assert.ok(notFound.includes('GIF Splitter'));
 assert.ok(!notFound.includes('GIF Frame Extractor'));
 assert.ok(/<meta\s+name="robots"\s+content="noindex"\s*>/.test(notFound), '404 must remain noindex');
-console.log('PASS: 40 built pages, unique titles/H1, canonical, reciprocal hreflang, language attributes, static links, bundled assets, sitemap and indexing mode.');
+for (const line of headers.split(/\r?\n/)) assert.ok(line.length <= 2000, 'Pages header line exceeds 2000 characters');
+assert.ok(headerRules.size <= 100, 'Pages header rule limit exceeded');
+if (useEdgeWorker) {
+  await access('dist/_worker.js');
+  const workerRoutes = JSON.parse(await readFile('dist/_routes.json', 'utf8'));
+  assert.ok(workerRoutes.exclude.includes('/assets/*'));
+  assert.ok(workerRoutes.exclude.includes('/ads.txt'));
+} else {
+  for (const file of ['dist/_worker.js', 'dist/_routes.json']) {
+    await assert.rejects(access(file), error => error.code === 'ENOENT', `Static off build must not contain ${file}`);
+  }
+  const cspLines = (headerRules.get('/*') || []).filter(line => line.startsWith('Content-Security-Policy:'));
+  assert.equal(cspLines.length, 1, 'Static pages need one CSP');
+  assert.ok(cspLines[0].includes("script-src 'self'"));
+  assert.ok(!cspLines[0].includes("'strict-dynamic'") && !cspLines[0].includes("'nonce-"));
+  for (const [path, html] of pages) {
+    assert.ok(!html.includes('__CSP_NONCE__'), `Static nonce placeholder: ${path}`);
+    assert.ok(!html.includes('id="advertising-config"'), `Google configuration in off build: ${path}`);
+    for (const hash of prepareStaticHtml(html).hashes) assert.ok(cspLines[0].includes(hash), `Unapproved inline script: ${path}`);
+  }
+}
+console.log(`PASS: ${ROUTES.length} built pages, unique titles/H1, canonical, reciprocal hreflang, language attributes, static links, bundled assets, sitemap, ${useEdgeWorker ? 'nonce edge worker' : 'static CSP without Functions'} and indexing mode.`);

@@ -4,28 +4,163 @@
   "htmlLang": "it",
   "ogLocale": "it_IT",
   "seo": {
-    "home": {"title": "GIF Splitter — Estrarre fotogrammi GIF in PNG gratis", "description": "Estrai gratis i fotogrammi PNG di una GIF animata. Guarda l’anteprima e scarica un’immagine o uno ZIP. Il file resta sul tuo dispositivo."},
-    "guide": {"title": "Come estrarre fotogrammi da una GIF e salvarli in PNG", "description": "Guida per salvare un fermo immagine da una GIF o tutti i fotogrammi in uno ZIP numerato. Come gestire trasparenza, durata e file di grandi dimensioni."},
-    "about": {"title": "Informazioni su GIF Splitter | Elaborazione locale", "description": "Scopri come funziona GIF Splitter: decodifica delle GIF sul dispositivo, anteprima dei fotogrammi ed esportazione di immagini PNG e archivi ZIP."},
-    "privacy": {"title":"Informativa sulla privacy | GIF Splitter","description":"Le GIF restano sul tuo dispositivo. Informazioni su Cloudflare, prestazioni, Clarity, cookie, email di contatto ed eventuali annunci Google futuri."}
+    "home": {
+      "title": "GIF Splitter — Estrarre fotogrammi GIF in PNG gratis",
+      "description": "Estrai gratis i fotogrammi PNG di una GIF animata. Guarda l’anteprima e scarica un’immagine o uno ZIP. Il file resta sul tuo dispositivo."
+    },
+    "guide": {
+      "title": "Come estrarre fotogrammi da una GIF e salvarli in PNG",
+      "description": "Guida per salvare un fermo immagine da una GIF o tutti i fotogrammi in uno ZIP numerato. Come gestire trasparenza, durata e file di grandi dimensioni."
+    },
+    "about": {
+      "title": "Informazioni su GIF Splitter | Elaborazione locale",
+      "description": "Scopri come funziona GIF Splitter: decodifica delle GIF sul dispositivo, anteprima dei fotogrammi ed esportazione di immagini PNG e archivi ZIP."
+    },
+    "privacy": {
+      "title": "Informativa sulla privacy | GIF Splitter",
+      "description": "Le GIF restano sul tuo dispositivo. Informazioni su Cloudflare, prestazioni, Clarity, cookie, email di contatto ed eventuali annunci Google futuri."
+    },
+    "transparency": {
+      "title": "Trasparenza GIF e metodi di disposal: esportare PNG completi",
+      "description": "Comprendi pixel trasparenti, aggiornamenti parziali e metodi di disposal 2 e 3. Verifica i PNG completi con esempi riproducibili."
+    },
+    "timing": {
+      "title": "Tempi dei fotogrammi GIF: ritardi registrati e sequenze PNG",
+      "description": "Scopri come funzionano i ritardi GIF, perché cambia la velocità di anteprima e cosa conservano i PNG. Esempio con ritardi di 0, 10, 20 e 80 ms."
+    },
+    "troubleshooting": {
+      "title": "Problemi con GIF grandi ed esportazione | GIF Splitter",
+      "description": "Individua errori di formato, limiti di memoria e pixel, animazioni troppo lunghe e problemi ZIP. Soluzioni pratiche per estrarre fotogrammi localmente."
+    },
+    "terms": {
+      "title": "Condizioni di utilizzo | GIF Splitter",
+      "description": "Leggi le condizioni di GIF Splitter: responsabilità sui file sorgente, elaborazione locale, download, limiti del servizio e segnalazione dei problemi."
+    }
   },
   "ui": {
     "contact": "Contatti",
-    "skip": "Vai al contenuto", "homeLabel": "Pagina iniziale di GIF Splitter", "mainNav": "Navigazione principale", "footerNav": "Navigazione a piè di pagina", "languageNav": "Scegli la lingua", "extract": "Estrai fotogrammi", "how": "Come funziona", "privacy": "Privacy", "about": "Informazioni", "guide": "Guida all’estrazione dei fotogrammi",
-    "toolLabel": "Strumento per convertire GIF in PNG ed estrarre fotogrammi", "dropTitle": "Trascina qui la tua GIF", "dropText": "oppure scegli un file per vedere i fotogrammi", "choose": "Scegli una GIF", "fileHint": "GIF animata · Fino a 30 MB", "outputHint": "Fotogrammi PNG · Dimensioni originali", "local": "La GIF resta sul tuo dispositivo", "sample": "Prova una GIF di esempio", "inputLabel": "Scegli un file GIF", "cancel": "Annulla", "progressLabel": "Estrazione dei fotogrammi della GIF", "progressNote": "Ricostruzione delle immagini complete, un fotogramma alla volta.",
-    "resultsLabel": "Le immagini della tua GIF", "resultsTitle": "Fotogrammi estratti", "another": "Scegli un’altra GIF", "previewAlt": "Fotogramma selezionato della GIF", "previous": "Fotogramma precedente", "next": "Fotogramma successivo", "play": "Riproduci anteprima", "pause": "Metti in pausa l’anteprima", "slider": "Fotogramma dell’anteprima", "downloadFrame": "Scarica questo fotogramma", "frames": "Fotogrammi", "dimensions": "Dimensioni", "duration": "Durata", "output": "Formato", "downloadTitle": "Salva un fermo immagine o l’intera sequenza.", "downloadText": "Scarica tutti i fotogrammi come PNG a dimensioni originali, numerati in un unico archivio ZIP.", "downloadAll": "Scarica tutti i fotogrammi", "localNote": "Elaborazione locale. Nessun file inviato.", "allFrames": "Tutti i fotogrammi", "selectAll": "Seleziona tutto", "deselectAll": "Deseleziona tutto", "downloadSelected": "Scarica la selezione", "gridHint": "Fai clic su un’immagine per visualizzarla. Usa le caselle per scegliere i fotogrammi da includere nello ZIP.", "showMore": "Mostra altri fotogrammi",
-    "noscript": "Attiva JavaScript per estrarre i fotogrammi della GIF sul tuo dispositivo. La guida è disponibile anche senza JavaScript.", "capabilities": ["Tutti i fotogrammi, in ordine", "PNG alla risoluzione originale", "Download ZIP con un clic", "Nessun account richiesto"], "readGuide": "Leggi la guida passo passo", "openTool": "Apri GIF Splitter", "onThisPage": "In questa guida", "updated": "Ultimo aggiornamento", "related": "Altre informazioni sullo strumento"
+    "skip": "Vai al contenuto",
+    "homeLabel": "Pagina iniziale di GIF Splitter",
+    "mainNav": "Navigazione principale",
+    "footerNav": "Navigazione a piè di pagina",
+    "languageNav": "Scegli la lingua",
+    "extract": "Estrai fotogrammi",
+    "how": "Come funziona",
+    "privacy": "Privacy",
+    "about": "Informazioni",
+    "guide": "Guida all’estrazione dei fotogrammi",
+    "toolLabel": "Strumento per convertire GIF in PNG ed estrarre fotogrammi",
+    "dropTitle": "Trascina qui la tua GIF",
+    "dropText": "oppure scegli un file per vedere i fotogrammi",
+    "choose": "Scegli una GIF",
+    "fileHint": "GIF animata · Fino a 30 MB",
+    "outputHint": "Fotogrammi PNG · Dimensioni originali",
+    "local": "La GIF resta sul tuo dispositivo",
+    "sample": "Prova una GIF di esempio",
+    "inputLabel": "Scegli un file GIF",
+    "cancel": "Annulla",
+    "progressLabel": "Estrazione dei fotogrammi della GIF",
+    "progressNote": "Ricostruzione delle immagini complete, un fotogramma alla volta.",
+    "resultsLabel": "Le immagini della tua GIF",
+    "resultsTitle": "Fotogrammi estratti",
+    "another": "Scegli un’altra GIF",
+    "previewAlt": "Fotogramma selezionato della GIF",
+    "previous": "Fotogramma precedente",
+    "next": "Fotogramma successivo",
+    "play": "Riproduci anteprima",
+    "pause": "Metti in pausa l’anteprima",
+    "slider": "Fotogramma dell’anteprima",
+    "downloadFrame": "Scarica questo fotogramma",
+    "frames": "Fotogrammi",
+    "dimensions": "Dimensioni",
+    "duration": "Durata",
+    "output": "Formato",
+    "downloadTitle": "Salva un fermo immagine o l’intera sequenza.",
+    "downloadText": "Scarica tutti i fotogrammi come PNG a dimensioni originali, numerati in un unico archivio ZIP.",
+    "downloadAll": "Scarica tutti i fotogrammi",
+    "localNote": "Elaborazione locale. Nessun file inviato.",
+    "allFrames": "Tutti i fotogrammi",
+    "selectAll": "Seleziona tutto",
+    "deselectAll": "Deseleziona tutto",
+    "downloadSelected": "Scarica la selezione",
+    "gridHint": "Fai clic su un’immagine per visualizzarla. Usa le caselle per scegliere i fotogrammi da includere nello ZIP.",
+    "showMore": "Mostra altri fotogrammi",
+    "noscript": "Attiva JavaScript per estrarre i fotogrammi della GIF sul tuo dispositivo. La guida è disponibile anche senza JavaScript.",
+    "capabilities": [
+      "Tutti i fotogrammi, in ordine",
+      "PNG alla risoluzione originale",
+      "Download ZIP con un clic",
+      "Nessun account richiesto"
+    ],
+    "readGuide": "Leggi la guida passo passo",
+    "openTool": "Apri GIF Splitter",
+    "onThisPage": "In questa guida",
+    "updated": "Ultimo aggiornamento",
+    "related": "Altre informazioni sullo strumento",
+    "terms": "Condizioni di utilizzo",
+    "transparency": "Trasparenza e fotogrammi completi",
+    "timing": "Tempi dei fotogrammi GIF",
+    "troubleshooting": "Problemi con GIF grandi",
+    "knowledgeTitle": "Comprendi la tua GIF prima di esportarla",
+    "knowledgeIntro": "Guide pratiche su trasparenza, tempi dei fotogrammi e limiti che incidono sui download PNG e ZIP.",
+    "advertisements": "Pubblicità",
+    "privacySettings": "Impostazioni di privacy pubblicitaria",
+    "privacyUnavailable": "Le impostazioni sulla privacy pubblicitaria non sono al momento disponibili. Riprova più tardi.",
+    "privacyPending": "Caricamento delle impostazioni sulla privacy pubblicitaria…",
+    "privacyUpdated": "Le impostazioni sulla privacy pubblicitaria sono state aggiornate."
   },
   "runtime": {
-    "reading": "Lettura della GIF…", "extracting": "Estrazione del fotogramma {completed} di {total}…", "frameLabel": "Fotogramma {current} di {total}", "frameAlt": "Fotogramma {current} di {name}", "previewFrame": "Visualizza il fotogramma {current}", "selectFrame": "Seleziona il fotogramma {current}", "thumbnailAlt": "Fotogramma {current} della GIF", "milliseconds": "{value} ms", "seconds": "{value} s", "fileSummary": "{size} · GIF", "more": "Mostra altri fotogrammi ({visible} di {total})",
-    "selected": {"one": "{count} selezionato", "other": "{count} selezionati", "many": "{count} selezionati"},
-    "ready": {"one": "{count} fotogramma pronto. La GIF originale non è stata modificata.", "other": "{count} fotogrammi pronti. La GIF originale non è stata modificata.", "many": "{count} fotogrammi pronti. La GIF originale non è stata modificata."},
-    "preparing": {"one": "Preparazione di {count} fotogramma per il download…", "other": "Preparazione di {count} fotogrammi per il download…", "many": "Preparazione di {count} fotogrammi per il download…"},
-    "zipReady": {"one": "Lo ZIP con {count} fotogramma PNG è pronto. Controlla i download del browser.", "other": "Lo ZIP con {count} fotogrammi PNG è pronto. Controlla i download del browser.", "many": "Lo ZIP con {count} fotogrammi PNG è pronto. Controlla i download del browser."},
-    "cancelled": "Estrazione annullata. Scegli una GIF per ricominciare.", "openingSample": "Apertura della GIF di esempio…"
+    "reading": "Lettura della GIF…",
+    "extracting": "Estrazione del fotogramma {completed} di {total}…",
+    "frameLabel": "Fotogramma {current} di {total}",
+    "frameAlt": "Fotogramma {current} di {name}",
+    "previewFrame": "Visualizza il fotogramma {current}",
+    "selectFrame": "Seleziona il fotogramma {current}",
+    "thumbnailAlt": "Fotogramma {current} della GIF",
+    "milliseconds": "{value} ms",
+    "seconds": "{value} s",
+    "fileSummary": "{size} · GIF",
+    "more": "Mostra altri fotogrammi ({visible} di {total})",
+    "selected": {
+      "one": "{count} selezionato",
+      "other": "{count} selezionati",
+      "many": "{count} selezionati"
+    },
+    "ready": {
+      "one": "{count} fotogramma pronto. La GIF originale non è stata modificata.",
+      "other": "{count} fotogrammi pronti. La GIF originale non è stata modificata.",
+      "many": "{count} fotogrammi pronti. La GIF originale non è stata modificata."
+    },
+    "preparing": {
+      "one": "Preparazione di {count} fotogramma per il download…",
+      "other": "Preparazione di {count} fotogrammi per il download…",
+      "many": "Preparazione di {count} fotogrammi per il download…"
+    },
+    "zipReady": {
+      "one": "Lo ZIP con {count} fotogramma PNG è pronto. Controlla i download del browser.",
+      "other": "Lo ZIP con {count} fotogrammi PNG è pronto. Controlla i download del browser.",
+      "many": "Lo ZIP con {count} fotogrammi PNG è pronto. Controlla i download del browser."
+    },
+    "cancelled": "Estrazione annullata. Scegli una GIF per ricominciare.",
+    "openingSample": "Apertura della GIF di esempio…"
   },
   "errors": {
-    "INVALID_GIF": "Questa GIF è incompleta o danneggiata. Prova un altro file GIF.", "NOT_GIF": "Scegli un file GIF valido. Gli altri formati immagine non sono supportati.", "DIMENSIONS": "Le dimensioni di questa GIF sono troppo grandi. Usa una GIF con al massimo 16 milioni di pixel e lati fino a 8192 pixel.", "UNSUPPORTED_TEXT": "Questa GIF contiene un blocco di rendering di testo semplice non supportato. Usa una GIF composta solo da immagini.", "FRAME_LIMIT": "Questa GIF contiene più di 1000 fotogrammi. Scegli un’animazione più breve.", "MEMORY_LIMIT": "Questa GIF richiede troppa memoria del browser. Scegli una GIF più breve o riducine le dimensioni.", "NO_FRAMES": "Questa GIF non contiene fotogrammi immagine. Scegli un’altra GIF.", "CANVAS": "Il browser non è riuscito a creare un’area di disegno per l’immagine. Prova un browser aggiornato.", "PNG_EXPORT": "Il browser non è riuscito a esportare questo fotogramma. Prova una GIF più piccola.", "EMPTY_FILE": "Scegli un file GIF che non sia vuoto.", "FILE_SIZE": "Questo file supera i 30 MB. Scegli una GIF più piccola.", "UNKNOWN": "Impossibile leggere questa GIF. Prova un altro file.", "ZIP_LIMIT": "Questi PNG superano il limite di 128 MB per ZIP. Seleziona meno fotogrammi e scaricali in gruppi più piccoli.", "ZIP_CREATE": "Impossibile creare lo ZIP. Prova a scaricare meno fotogrammi alla volta.", "SAMPLE_LOAD": "Impossibile caricare l’esempio. Puoi comunque scegliere una tua GIF.", "MULTIPLE_FILES": "Scegli una sola GIF alla volta."
+    "INVALID_GIF": "Questa GIF è incompleta o danneggiata. Prova un altro file GIF.",
+    "NOT_GIF": "Scegli un file GIF valido. Gli altri formati immagine non sono supportati.",
+    "DIMENSIONS": "Le dimensioni di questa GIF sono troppo grandi. Usa una GIF con al massimo 16 milioni di pixel e lati fino a 8192 pixel.",
+    "UNSUPPORTED_TEXT": "Questa GIF contiene un blocco di rendering di testo semplice non supportato. Usa una GIF composta solo da immagini.",
+    "FRAME_LIMIT": "Questa GIF contiene più di 1000 fotogrammi. Scegli un’animazione più breve.",
+    "MEMORY_LIMIT": "Questa GIF richiede troppa memoria del browser. Scegli una GIF più breve o riducine le dimensioni.",
+    "NO_FRAMES": "Questa GIF non contiene fotogrammi immagine. Scegli un’altra GIF.",
+    "CANVAS": "Il browser non è riuscito a creare un’area di disegno per l’immagine. Prova un browser aggiornato.",
+    "PNG_EXPORT": "Il browser non è riuscito a esportare questo fotogramma. Prova una GIF più piccola.",
+    "EMPTY_FILE": "Scegli un file GIF che non sia vuoto.",
+    "FILE_SIZE": "Questo file supera i 30 MB. Scegli una GIF più piccola.",
+    "UNKNOWN": "Impossibile leggere questa GIF. Prova un altro file.",
+    "ZIP_LIMIT": "Questi PNG superano il limite di 128 MB per ZIP. Seleziona meno fotogrammi e scaricali in gruppi più piccoli.",
+    "ZIP_CREATE": "Impossibile creare lo ZIP. Prova a scaricare meno fotogrammi alla volta.",
+    "SAMPLE_LOAD": "Impossibile caricare l’esempio. Puoi comunque scegliere una tua GIF.",
+    "MULTIPLE_FILES": "Scegli una sola GIF alla volta."
   },
   "home": {
     "eyebrow": "Dividere GIF gratis online",
@@ -110,27 +245,459 @@
     }
   },
   "pages": {
-    "guide": {"eyebrow": "Guida pratica da GIF a PNG", "h1": "Come estrarre i fotogrammi da una GIF", "intro": "Una GIF animata contiene una sequenza di immagini mostrate per tempi prestabiliti. Estrarre i fotogrammi ti permette di scegliere un fermo immagine preciso oppure conservare tutta la sequenza in file PNG separati. Ecco come usare lo strumento del sito.", "sections": [
-      {"heading": "1. Parti dal file GIF originale", "paragraphs": ["Seleziona una GIF dal dispositivo o trascinala sull’area dello strumento. Se l’hai salvata da un sito, verifica che sia davvero in formato GIF: un video rinominato con l’estensione .gif non viene convertito e non può essere decodificato. Il file viene letto localmente, senza essere inviato a un server.", "L’animazione originale offre di solito il materiale più utile. Uno screenshot contiene un solo momento e una GIF statica può avere un solo fotogramma. L’estrazione recupera le immagini che esistono nel file, ma non può ricostruire un movimento che manca nella sorgente."]},
-      {"heading": "2. Cerca il fotogramma da salvare", "paragraphs": ["Al termine dell’estrazione compaiono il numero di fotogrammi, le dimensioni originali e la durata registrata. Usa le frecce o il cursore per confrontare fotogrammi vicini. Un clic sulla miniatura apre un’anteprima più grande, con il tempo di visualizzazione espresso in millisecondi.", "Riproduci l’anteprima per orientarti nell’animazione, poi mettila in pausa sulla scena che ti interessa. Per rendere utilizzabile l’anteprima, i tempi inferiori a 20 millisecondi vengono riprodotti a 100 millisecondi. Il valore mostrato accanto al fotogramma rimane quello memorizzato nella GIF."]},
-      {"heading": "3. Scarica un PNG o una sequenza di immagini", "paragraphs": ["Scarica il fotogramma attuale per ottenere un solo PNG. Può servirti come immagine di una guida, riferimento per un’animazione o fermo immagine di una GIF di reazione. Il PNG è statico e conserva le dimensioni del quadro originale della GIF.", "Per ottenere più immagini, spunta le caselle dei fotogrammi desiderati e scarica la selezione. Il download completo crea uno ZIP con tutta la sequenza. I nomi mantengono i numeri originali dei fotogrammi anche quando ne salvi solo alcuni. Estrai lo ZIP con il sistema operativo o un’app per archivi prima di modificare i PNG."]},
-      {"heading": "Perché i fotogrammi devono essere ricostruiti", "paragraphs": ["Molte GIF memorizzano un piccolo rettangolo aggiornato invece di un’immagine completa per ogni passaggio. Indicano anche se i pixel precedenti devono restare, essere cancellati o venire ripristinati prima del fotogramma successivo. Salvare direttamente questi rettangoli può produrre immagini incomplete.", "Lo strumento combina gli aggiornamenti e applica le istruzioni di cancellazione o ripristino prima di esportare ciascun PNG. Le aree trasparenti restano tali: la scacchiera dell’anteprima non viene incorporata nel file. Il PNG conserva senza perdita i pixel decodificati, ma non restituisce dettagli assenti nella sorgente."]},
-      {"heading": "Gestire GIF grandi o danneggiate", "paragraphs": ["Sono ammessi file fino a 30 MB e 1000 fotogrammi. Un file compresso può espandersi in molte immagini a piena risoluzione: per questo si applicano anche limiti di pixel e memoria. Se il browser fatica, prova una GIF più breve o con dimensioni inferiori, soprattutto sul telefono.", "Ogni ZIP è limitato a 128 MB di dati PNG. Se l’intera sequenza supera il limite, seleziona e scarica gruppi più piccoli. Puoi annullare l’estrazione e scegliere un altro file. Se la GIF risulta danneggiata, recupera una nuova copia dell’originale; cambiarne l’estensione non ripara il contenuto."]}
-    ], "ctaTitle": "Trova il fotogramma che ti serve", "ctaText": "Apri una GIF, esamina le immagini e salva un PNG o uno ZIP numerato."},
-    "about": {"eyebrow": "Uno strumento dedicato ai fotogrammi GIF", "h1": "Informazioni su GIF Splitter", "intro": "GIF Splitter trasforma una GIF animata in immagini fisse. È pensato per scegliere un istante, esaminare un’animazione o salvare l’intera sequenza dei suoi fotogrammi.", "sections": [
-      {"heading": "Che cosa puoi fare", "paragraphs": ["Apri una GIF locale, visualizza ogni fotogramma decodificato con il relativo tempo e salva un singolo PNG. Puoi anche selezionare alcuni fotogrammi o scaricare l’intera sequenza in uno ZIP. Le immagini esportate mantengono le dimensioni del quadro originale, senza filigrane aggiunte.", "Lo strumento ricostruisce i fotogrammi completi a partire dagli aggiornamenti parziali della GIF. I PNG sono quindi utili per esaminare le fasi di un’animazione, scegliere immagini di riferimento o preparare risorse per un altro editor. Usa file che hai il diritto di elaborare."]},
-      {"heading": "Perché l’elaborazione rimane locale", "paragraphs": ["La decodifica della GIF, la codifica PNG e la creazione dello ZIP avvengono sul tuo dispositivo. Non sono necessari un account o un servizio di caricamento file e la GIF originale non viene modificata. La memoria disponibile e le prestazioni del dispositivo determinano quali animazioni il browser riesce a gestire.", "I file sono limitati a 30 MB e 1000 fotogrammi, con ulteriori protezioni sui pixel decodificati. Ogni ZIP può contenere fino a 128 MB di dati PNG. Anche una GIF compressa di piccole dimensioni può richiedere molta memoria quando viene espansa."]},
-      {"heading": "Funzioni e limiti dello strumento", "paragraphs": ["Il sito accetta GIF e produce immagini PNG o archivi ZIP. Non modifica i fotogrammi, non estrae immagini dai video e non crea una nuova animazione. L’esportazione PNG non può recuperare dettagli che erano già assenti nella GIF.", "La guida spiega i tempi dei fotogrammi, la trasparenza e i download. La pagina sulla privacy descrive il trattamento locale dei file, l’hosting Cloudflare e l’uso di Microsoft Clarity per analizzare le interazioni con il sito."]}
-    ], "contact": {"heading":"Contatta il gestore del sito","paragraphs":["GIF Splitter è il nome con cui viene gestito questo strumento su www.gifsplitter.com. Puoi scrivere al gestore del sito usando l’indirizzo qui sotto per segnalare un errore, proporre una funzione o fare una domanda sulla privacy.","Non è necessario inviare la tua GIF o file privati per segnalare un problema. In genere bastano una breve descrizione, il browser e il tipo di dispositivo, e l’eventuale messaggio di errore. Non includere dati personali estranei alla richiesta."]}, "ctaTitle": "Guarda le immagini della tua GIF", "ctaText": "Non occorrono account o installazioni. Scegli un file per iniziare."},
-    "privacy": {"eyebrow": "I tuoi file restano sul dispositivo", "h1": "Informativa sulla privacy", "intro": "Questa informativa spiega come GIF Splitter tratta i file e le informazioni associate alla visita e all’utilizzo del sito. Si applica allo strumento e alle sue versioni linguistiche.", "sections": [
-      {"heading": "GIF e immagini esportate", "paragraphs": ["La GIF selezionata viene letta dal tuo browser. Decodifica, anteprime dei fotogrammi, codifica PNG e creazione dello ZIP avvengono sul tuo dispositivo. Lo strumento non invia a un server la GIF, i suoi fotogrammi o il nome del file.", "L’applicazione conserva i dati di lavoro nella memoria del browser e non salva le tue GIF nei cookie, nell’archiviazione locale o in un account remoto. Scegliere un’altra GIF o chiudere la pagina libera lo stato di lavoro corrente dell’applicazione. I file scaricati rimangono nella posizione gestita dal browser o dal sistema operativo."]},
-      {"heading": "Hosting del sito web", "paragraphs": ["Cloudflare ospita questo sito e distribuisce pagine, script e immagini. Il caricamento di queste risorse comporta le normali informazioni di connessione, come indirizzo IP, orario della richiesta, URL richiesto e intestazioni del browser. Cloudflare può trattare queste informazioni nei registri di accesso o sicurezza secondo le proprie prassi.", "Se scegli l’esempio facoltativo, viene scaricata una GIF dimostrativa da questo sito. I tuoi file non vengono inviati altrove. Lo strumento non contatta servizi esterni di conversione o traduzione."]},
-      {"heading":"Analisi, cookie e file locali","paragraphs":["Microsoft Clarity viene caricato per impostazione predefinita su www.gifsplitter.com per analizzare le interazioni tramite statistiche di utilizzo, mappe di calore e riproduzioni delle sessioni. Invia dati di interazione e del browser a Microsoft e può impostare o leggere cookie in base alle impostazioni di Clarity, ai segnali di consenso applicabili e alle restrizioni del browser. Non viene caricato nelle versioni locali o nelle anteprime pages.dev.","La decodifica delle GIF e le esportazioni rimangono sul tuo dispositivo. L’area di estrazione, inclusi nomi dei file, anteprime e fotogrammi estratti, è configurata per il mascheramento in Clarity. Il sito non ha un sistema di account e non memorizza preferenze linguistiche: la lingua dipende dall’URL. Informativa sulla privacy di Microsoft: https://www.microsoft.com/en-us/privacy/privacystatement"]},
-      {"heading":"Cloudflare Web Analytics e prestazioni","paragraphs":["Il sito di produzione utilizza Cloudflare Web Analytics, con un beacon per il monitoraggio degli utenti reali (RUM), per misurare le visite e le prestazioni di caricamento. Le statistiche del sito comprendono percorsi delle pagine, siti di provenienza, tipi di browser e dispositivo, e tempi di caricamento.","Cloudflare Web Analytics non usa cookie o archiviazione locale e non crea impronte digitali per identificare i singoli visitatori. Non riceve la GIF scelta o le immagini estratte. Queste misurazioni sono separate dai registri di connessione dell’hosting e da Microsoft Clarity."]},
-      {"heading":"Pubblicità Google: uso attuale e futuro","paragraphs":["Attualmente il sito non carica codice pubblicitario Google AdSense e non mostra annunci Google. Se gli annunci verranno attivati in futuro, Google e i suoi partner pubblicitari potranno impostare o leggere cookie, usare web beacon e trattare indirizzi IP e identificatori del browser o dispositivo per mostrare e misurare gli annunci, prevenire frodi e personalizzarli quando la funzione è attiva e consentita.","Prima di attivare gli annunci, aggiorneremo questa informativa e forniremo le informazioni e i controlli richiesti dai servizi pubblicitari utilizzati. Spiegazione di Google sull’uso dei dati nei siti partner: https://policies.google.com/technologies/partner-sites. Preferenze pubblicitarie Google: https://myadcenter.google.com/. Questi controlli di Google non gestiscono Cloudflare o Microsoft Clarity."]},
-      {"heading":"Messaggi che ci invii","paragraphs":["Se scrivi al gestore del sito, il tuo indirizzo di mittente e i contenuti che scegli di fornire vengono trattati per gestire la richiesta e rispondere. Cloudflare Email Routing inoltra i messaggi di contatto in arrivo alla casella di ricezione. Questo scambio di email è separato dallo strumento GIF, che non carica file.","I servizi email coinvolti nella consegna possono trattare le informazioni su mittente e destinatario, i contenuti e gli allegati. Invia solo quanto serve alla richiesta ed evita file riservati. Puoi usare l’indirizzo nella pagina Informazioni per chiedere chiarimenti su questa informativa o sui tuoi dati."]},
-      {"heading": "Le tue scelte e gli aggiornamenti dell’informativa", "paragraphs": ["Puoi usare lo strumento senza fornire informazioni di profilo personale. Per eliminare i file scaricati, usa il gestore file del dispositivo. Cambiare lingua apre un’altra pagina e non trasferisce alla nuova pagina la GIF su cui stai lavorando.", "Se il trattamento dei dati del sito cambia, questa informativa verrà aggiornata. La data indicata qui identifica l’ultima revisione. Le pagine Informazioni e Guida descrivono più nel dettaglio le funzioni e i limiti dello strumento."]}
-    ], "ctaTitle": "Estrai i fotogrammi sul tuo dispositivo", "ctaText": "Il browser esegue l’elaborazione. La GIF resta sul tuo dispositivo."}
+    "guide": {
+      "eyebrow": "Guida pratica all’estrazione dei fotogrammi GIF",
+      "h1": "Come dividere una GIF in fotogrammi",
+      "intro": "Una GIF animata contiene immagini in sequenza, istruzioni sui tempi e talvolta solo i pixel che cambiano. Questa guida parte dalla GIF originale e ti aiuta a ottenere un fermo immagine utile o una sequenza PNG numerata, verificando ciò che hai scaricato.",
+      "sections": [
+        {
+          "heading": "1. Scegli una vera GIF",
+          "paragraphs": [
+            "Usa un file di tua proprietà o che hai il permesso di elaborare. Salva l’animazione originale sul dispositivo: uno screenshot della riproduzione contiene un solo istante e non permette di recuperare gli altri fotogrammi. Anche una GIF statica è valida, ma normalmente produce una sola immagine. L’estrattore non può inventare movimenti assenti dalla sorgente.",
+            "Verifica che il file salvato sia realmente una GIF. Alcuni siti forniscono video pur chiamandoli GIF nell’interfaccia. Rinominare un file da .mp4 a .gif non ne converte il contenuto. Se il formato viene rifiutato, recupera la GIF originale o converti la tua sorgente in un editor adatto. Conserva l’originale invariato per i confronti."
+          ]
+        },
+        {
+          "heading": "2. Apri il file",
+          "paragraphs": [
+            "Apri GIF Splitter e scegli il file, oppure trascinalo nell’area dedicata. Il browser legge e decodifica la GIF sul tuo dispositivo: la conversione non invia a un server i byte, il nome o le immagini estratte. Le analisi delle visite sono un processo separato, descritto nell’informativa sulla privacy. Non serve un account e l’originale non viene sovrascritto.",
+            "Per conoscere i comandi, scegli «Prova una GIF di esempio». Il sito offre un’animazione geometrica originale di 24 fotogrammi su un quadro di 480 × 300 pixel. L’esempio pubblico viene scaricato dal sito. Attendi il termine dell’estrazione prima di scegliere un fotogramma. Puoi annullare l’elaborazione e aprire un altro file se l’animazione non è adatta."
+          ]
+        },
+        {
+          "heading": "3. Trova il fotogramma che ti serve",
+          "paragraphs": [
+            "I risultati mostrano il numero di fotogrammi, le dimensioni della sorgente e la durata registrata. Riproduci l’anteprima, poi mettila in pausa e confronta i fotogrammi vicini con frecce o cursore. Un clic sulla miniatura mostra un’anteprima più grande. Un’immagine apparentemente nitida può contenere una transizione o una sfocatura di movimento riconoscibile soltanto nel confronto.",
+            "Il ritardo indicato per ogni fotogramma è un dato della GIF, non una promessa sulla velocità di riproduzione. Nell’anteprima i ritardi inferiori a 20 millisecondi vengono portati a 100 millisecondi; il valore mostrato e la durata registrata conservano i dati originali. Per un tutorial scegli l’immagine che comunica meglio l’azione: non deve necessariamente essere il fotogramma centrale."
+          ]
+        },
+        {
+          "heading": "4. Salva un PNG",
+          "paragraphs": [
+            "Quando il fotogramma desiderato è nell’anteprima, scegli «Scarica questo fotogramma». Ottieni un PNG statico alle dimensioni del quadro logico della GIF, non uno screenshot del riquadro ridotto. Lo strumento non aggiunge filigrane. I pixel trasparenti restano tali e la scacchiera dell’anteprima non viene inclusa. Apri il PNG in un visualizzatore per verificare la scelta.",
+            "PNG conserva l’immagine decodificata senza un’altra compressione con perdita, ma non recupera colori, risoluzione o nitidezza già assenti nella GIF. Ingrandire l’immagine in un editor non rivela dettagli nascosti. Per un fermo immagine più nitido cerca, se disponibile, un originale a risoluzione superiore. Il PNG esportato non contiene animazione, ritardi di riproduzione o istruzioni di ripetizione."
+          ]
+        },
+        {
+          "heading": "5. Esporta una selezione o uno ZIP",
+          "paragraphs": [
+            "Spunta le caselle dei fotogrammi desiderati e scegli «Scarica la selezione». Il clic sulla miniatura cambia l’anteprima; la casella determina la selezione. «Scarica tutti i fotogrammi» include invece tutta la sequenza nello ZIP. L’archivio contiene PNG separati nell’ordine dei fotogrammi, non una nuova GIF animata. Secondo le impostazioni, il browser può chiedere dove salvarlo.",
+            "Estrai lo ZIP prima di aprire le immagini in un’altra applicazione. I nomi mantengono i numeri originali anche in una selezione: un intervallo nella numerazione indica fotogrammi omessi, non necessariamente un’esportazione fallita. Conserva i numeri per confrontare le immagini con la sorgente. Per ricostruire un’animazione annota separatamente i ritardi originali, perché la sequenza PNG non contiene queste istruzioni."
+          ]
+        },
+        {
+          "heading": "6. Comprendi i fotogrammi completi e la trasparenza",
+          "paragraphs": [
+            "Molte GIF salvano solo un rettangolo modificato per ogni fotogramma. L’estrazione corretta combina questi aggiornamenti con i pixel precedenti e applica le istruzioni che conservano, cancellano o ripristinano il quadro. GIF Splitter esporta l’immagine completa risultante. Salvare soltanto il rettangolo interno potrebbe produrre un frammento isolato o uno sfondo mancante, anche se la GIF si riproduce correttamente.",
+            "Una sorgente trasparente non rende necessariamente trasparenti tutti i pixel esportati. Pixel opachi precedenti possono restare sul quadro quando un aggiornamento trasparente li lascia invariati. Controlla il PNG su sfondi chiari e scuri prima di concludere che la trasparenza è scomparsa. La guida sulla trasparenza illustra questi casi con esempi controllati e distingue lo sfondo della sorgente dalla scacchiera dell’anteprima."
+          ]
+        },
+        {
+          "heading": "7. Rispetta i limiti del browser",
+          "paragraphs": [
+            "L’ingresso è limitato a 30 MiB e 1.000 fotogrammi. Si applicano anche limiti di 8.192 pixel per lato, 16 milioni di pixel per fotogramma, 128 milioni di pixel decodificati negli aggiornamenti e 80 milioni di pixel nelle immagini complete della sequenza. Una GIF compressa piccola può espandersi in molte immagini grandi: superare il controllo sulla dimensione del file non garantisce di rispettare i limiti sui pixel.",
+            "Ogni ZIP ammette fino a 128 MiB di dati PNG. Se l’archivio completo supera il limite, scarica selezioni più piccole. Questa soluzione riguarda l’esportazione dopo un’estrazione riuscita e non aggira i limiti di memoria dell’estrazione. In quel caso prepara una sorgente più breve o più piccola in un’altra applicazione. La capacità reale dipende anche dalla memoria del dispositivo: un computer può essere più adatto di un telefono."
+          ]
+        },
+        {
+          "heading": "8. Verifica il risultato e segnala i problemi",
+          "paragraphs": [
+            "Confronta il PNG con la sorgente in pausa, controlla le dimensioni e i bordi trasparenti. Dopo aver estratto uno ZIP, verifica il numero dei file e la numerazione originale. Se la sorgente è danneggiata o incompleta, scaricala nuovamente dalla fonte. Rinominare il file o riprovare gli stessi byte incompleti non lo ripara. La guida ai problemi distingue errori di formato, memoria e download.",
+            "Se il problema persiste, comunica al gestore il browser, il dispositivo, il passaggio che fallisce e il messaggio esatto. Di solito non occorre inviare la GIF o immagini riservate. Indica se funziona l’esempio pubblico: aiuta a distinguere un problema generale dell’interfaccia da uno della sorgente. Elabora soltanto file che puoi usare legalmente e verifica i diritti prima di ripubblicare le immagini."
+          ]
+        }
+      ],
+      "ctaTitle": "Scegli il momento che ti serve",
+      "ctaText": "Apri la GIF, esamina i fotogrammi e salva un PNG verificato o uno ZIP numerato.",
+      "example": {
+        "label": "Prova l’esempio con 24 fotogrammi",
+        "caption": "L’esempio geometrico originale contiene 24 fotogrammi su un quadro di 480 × 300 pixel. I PNG esportati conservano queste dimensioni."
+      }
+    },
+    "about": {
+      "eyebrow": "Uno strumento dedicato ai fotogrammi GIF",
+      "h1": "Informazioni su GIF Splitter",
+      "intro": "GIF Splitter trasforma una GIF animata in immagini fisse. È pensato per scegliere un istante, esaminare un’animazione o salvare l’intera sequenza dei suoi fotogrammi.",
+      "sections": [
+        {
+          "heading": "Che cosa puoi fare",
+          "paragraphs": [
+            "Apri una GIF locale, visualizza ogni fotogramma decodificato con il relativo tempo e salva un singolo PNG. Puoi anche selezionare alcuni fotogrammi o scaricare l’intera sequenza in uno ZIP. Le immagini esportate mantengono le dimensioni del quadro originale, senza filigrane aggiunte.",
+            "Lo strumento ricostruisce i fotogrammi completi a partire dagli aggiornamenti parziali della GIF. I PNG sono quindi utili per esaminare le fasi di un’animazione, scegliere immagini di riferimento o preparare risorse per un altro editor. Usa file che hai il diritto di elaborare."
+          ]
+        },
+        {
+          "heading": "Perché l’elaborazione rimane locale",
+          "paragraphs": [
+            "La decodifica della GIF, la codifica PNG e la creazione dello ZIP avvengono sul tuo dispositivo. Non sono necessari un account o un servizio di caricamento file e la GIF originale non viene modificata. La memoria disponibile e le prestazioni del dispositivo determinano quali animazioni il browser riesce a gestire.",
+            "I file sono limitati a 30 MB e 1000 fotogrammi, con ulteriori protezioni sui pixel decodificati. Ogni ZIP può contenere fino a 128 MB di dati PNG. Anche una GIF compressa di piccole dimensioni può richiedere molta memoria quando viene espansa."
+          ]
+        },
+        {
+          "heading": "Funzioni e limiti dello strumento",
+          "paragraphs": [
+            "Il sito accetta GIF e produce immagini PNG o archivi ZIP. Non modifica i fotogrammi, non estrae immagini dai video e non crea una nuova animazione. L’esportazione PNG non può recuperare dettagli che erano già assenti nella GIF.",
+            "La guida spiega i tempi dei fotogrammi, la trasparenza e i download. La pagina sulla privacy descrive il trattamento locale dei file, l’hosting Cloudflare e l’uso di Microsoft Clarity per analizzare le interazioni con il sito."
+          ]
+        },
+        {
+          "heading": "Come funziona l’estrazione",
+          "paragraphs": [
+            "Il browser controlla la struttura della GIF e i limiti delle risorse prima di decodificare gli aggiornamenti parziali. Li dispone su un quadro, gestisce i pixel trasparenti e applica le istruzioni di disposal per ricostruire i fotogrammi visibili completi. Ogni immagine risultante viene codificata in PNG; i PNG selezionati possono poi essere raccolti in uno ZIP.",
+            "Questa descrizione riguarda la conversione, senza affermare che tutti i servizi di terzi del sito operino localmente. Hosting, analisi delle visite e messaggi che invii hanno flussi di dati separati, descritti nell’informativa. Puoi verificare l’esempio pubblico di 24 fotogrammi e gli esempi controllati delle guide confrontandoli con dimensioni, ritardi e pixel attesi indicati."
+          ]
+        },
+        {
+          "heading": "Metodo editoriale e correzioni",
+          "paragraphs": [
+            "Le guide si basano sui comandi effettivi dello strumento, sui suoi limiti e su esempi di immagini riproducibili. Limiti di pixel e totali dei tempi sono presentati come calcoli, non prestazioni misurate. Non affermiamo che un risultato su un dispositivo dimostri compatibilità universale o che un testo più lungo garantisca l’approvazione pubblicitaria.",
+            "Se trovi un’istruzione inesatta o un esempio fuorviante, scrivi al gestore indicando pagina e correzione specifica. Confrontiamo le segnalazioni con l’implementazione e aggiorniamo spiegazioni e date di revisione quando pubblichiamo una correzione sostanziale. Le pagine tradotte devono comunicare chiaramente le stesse capacità nella propria lingua."
+          ]
+        }
+      ],
+      "contact": {
+        "heading": "Contatta il gestore del sito",
+        "paragraphs": [
+          "GIF Splitter è il nome con cui viene gestito questo strumento su www.gifsplitter.com. Puoi scrivere al gestore del sito usando l’indirizzo qui sotto per segnalare un errore, proporre una funzione o fare una domanda sulla privacy.",
+          "Non è necessario inviare la tua GIF o file privati per segnalare un problema. In genere bastano una breve descrizione, il browser e il tipo di dispositivo, e l’eventuale messaggio di errore. Non includere dati personali estranei alla richiesta."
+        ]
+      },
+      "ctaTitle": "Guarda le immagini della tua GIF",
+      "ctaText": "Non occorrono account o installazioni. Scegli un file per iniziare."
+    },
+    "privacy": {
+      "eyebrow": "I tuoi file restano sul dispositivo",
+      "h1": "Informativa sulla privacy",
+      "intro": "Questa informativa spiega come GIF Splitter tratta i file e le informazioni associate alla visita e all’utilizzo del sito. Si applica allo strumento e alle sue versioni linguistiche.",
+      "sections": [
+        {
+          "heading": "GIF e immagini esportate",
+          "paragraphs": [
+            "Il browser legge la GIF selezionata. Decodifica, anteprime dei fotogrammi, codifica PNG e creazione ZIP avvengono sul dispositivo. La conversione non invia a un server la GIF, i suoi fotogrammi o il nome del file.",
+            "I dati di lavoro rimangono nella memoria del browser, non nei cookie, nell’archiviazione locale o in un account remoto. Scegliere un’altra GIF o chiudere la pagina libera lo stato corrente dell’applicazione. I download restano nella posizione gestita da browser o sistema operativo. L’elaborazione locale è separata dai servizi del sito descritti qui sotto."
+          ]
+        },
+        {
+          "heading": "Hosting del sito",
+          "paragraphs": [
+            "Cloudflare ospita il sito e distribuisce pagine, script e immagini. Le richieste delle risorse comportano normali informazioni di connessione: indirizzo IP, orario, URL e intestazioni del browser. Cloudflare può trattarle nei registri di hosting o sicurezza secondo le proprie prassi.",
+            "Scegliere l’esempio facoltativo scarica una GIF pubblica dal sito, senza inviare altrove i tuoi file. L’estrattore non usa servizi esterni di conversione o traduzione. Il browser può gestire autonomamente la cronologia dei download e i file scaricati."
+          ]
+        },
+        {
+          "heading": "Microsoft Clarity e cookie",
+          "paragraphs": [
+            "Microsoft Clarity si carica per impostazione predefinita sulle pagine idonee di www.gifsplitter.com per statistiche di utilizzo, mappe di calore e riproduzioni delle sessioni. La pagina Privacy è esclusa. Le versioni locali e le anteprime pages.dev non lo caricano. Clarity invia dati di interazione e browser a Microsoft e può leggere o impostare cookie secondo configurazione, segnali di consenso e restrizioni del browser.",
+            "L’area di estrazione, compresi nomi dei file, anteprime e fotogrammi, è configurata per il mascheramento in Clarity. Questo non disattiva tutte le analisi del sito. Non esistono account né preferenze linguistiche salvate. Informativa Microsoft: https://www.microsoft.com/en-us/privacy/privacystatement. Le scelte pubblicitarie descritte sotto non controllano di per sé Clarity."
+          ]
+        },
+        {
+          "heading": "Cloudflare Web Analytics e prestazioni",
+          "paragraphs": [
+            "Il sito di produzione carica il beacon per le prestazioni di Cloudflare Web Analytics tramite il proprio modello di pagina. Comunica visite e dati di caricamento, come percorsi delle pagine, siti di provenienza, tipi di browser e dispositivo e misure dei tempi. Questa misurazione è separata dai registri dell’hosting e da Microsoft Clarity.",
+            "Cloudflare Web Analytics non usa cookie o archiviazione locale e non identifica i visitatori tramite impronte digitali. Non riceve la GIF selezionata o le immagini estratte. Queste affermazioni riguardano questo servizio di analisi e non significano che tutti gli altri servizi del sito siano privi di cookie."
+          ]
+        },
+        {
+          "heading": "Pubblicità Google: uso attuale e futuro",
+          "paragraphs": [
+            "La pubblicità Google è attualmente disattivata su questo sito. Il solo record del venditore in ads.txt non carica codice pubblicitario e non mostra annunci. Se la pubblicità verrà attivata, Google e i partner pubblicitari terzi potranno leggere o impostare cookie, usare web beacon e trattare IP e identificatori del browser o dispositivo per mostrare e misurare annunci, prevenire frodi e personalizzare dove consentito.",
+            "Prima di attivare la pubblicità, il sito deve fornire le informative e i controlli di consenso richiesti dall’implementazione effettiva. «Impostazioni di privacy pubblicitaria» permette di gestire le scelte quando il servizio è disponibile; un controllo non disponibile non concede il consenso. Uso dei dati Google: https://policies.google.com/technologies/partner-sites. Preferenze: https://myadcenter.google.com/. Questi controlli non gestiscono Cloudflare o Clarity."
+          ]
+        },
+        {
+          "heading": "Messaggi che ci invii",
+          "paragraphs": [
+            "Se scrivi al gestore, l’indirizzo del mittente e il contenuto fornito vengono trattati per gestire la richiesta e rispondere. Cloudflare Email Routing inoltra i messaggi di contatto alla casella di ricezione. Il trattamento delle email è separato dalla conversione GIF, che non carica i file.",
+            "I fornitori email coinvolti possono trattare indirizzi, contenuti e allegati. Invia soltanto informazioni necessarie ed evita file riservati. Usa l’indirizzo pubblico nella pagina Informazioni per domande sulla privacy, richieste di correzione o problemi con un controllo non disponibile."
+          ]
+        },
+        {
+          "heading": "I tuoi controlli e gli aggiornamenti",
+          "paragraphs": [
+            "Puoi usare lo strumento senza fornire un profilo personale. I controlli del browser possono limitare cookie o archiviazione; il gestore file permette di eliminare i download. Cambiare lingua apre un’altra pagina senza trasferire la GIF corrente. Quando i controlli di consenso sono disponibili, usa «Impostazioni di privacy pubblicitaria» per rivedere o modificare le scelte.",
+            "Aprire una pagina o vedere un collegamento alla privacy non equivale al consenso. Scelte pubblicitarie Google e impostazioni delle altre analisi sono distinte. Se cambia il trattamento, informativa e data devono riflettere i servizi implementati. La presenza di queste spiegazioni non afferma che una piattaforma di gestione del consenso sia configurata, certificata o verificata per ogni regione."
+          ]
+        }
+      ],
+      "ctaTitle": "Estrai i fotogrammi sul dispositivo",
+      "ctaText": "Il browser esegue l’elaborazione. La GIF resta sul tuo dispositivo.",
+      "advertisingLive": {
+        "heading": "Pubblicità Google e le tue scelte",
+        "paragraphs": [
+          "Questo sito usa Google AdSense sulle pagine delle guide idonee. Google e i suoi partner pubblicitari possono usare cookie, web beacon, indirizzi IP e identificatori del browser o dispositivo per mostrare e misurare annunci, prevenire frodi e personalizzare gli annunci dove consentito dalle tue scelte. Questi servizi sono separati dallo strumento GIF: la GIF selezionata, il nome del file e i fotogrammi estratti restano sul tuo dispositivo.",
+          "Usa «Impostazioni di privacy pubblicitaria» per rivedere o revocare il consenso pubblicitario. Qui sotto trovi i collegamenti alla spiegazione di Google sull’uso dei dati nei siti partner e a My Ad Center. Microsoft Clarity e le analisi Cloudflare sono descritti separatamente in questa informativa. Uso dei dati Google: https://policies.google.com/technologies/partner-sites. My Ad Center: https://myadcenter.google.com/."
+        ]
+      },
+      "advertisingConsent": {
+        "heading": "Verifica pubblicitaria e scelte sulla privacy",
+        "paragraphs": [
+          "In questa modalità di verifica possono caricarsi il codice pubblicitario Google e il servizio di consenso configurato, ma le richieste pubblicitarie sono sospese e gli annunci non vengono mostrati. Il caricamento può trasmettere IP e informazioni del browser o dispositivo e comportare cookie o identificatori secondo il funzionamento dei servizi e le scelte applicabili. GIF e immagini estratte rimangono separate e non vengono caricate dalla conversione.",
+          "Usa «Impostazioni di privacy pubblicitaria» per rivedere o revocare le scelte di consenso disponibili. Una pagina di verifica non prova il completamento dei controlli regionali, la certificazione della piattaforma di consenso o l’approvazione degli annunci. I controlli richiesti devono funzionare prima di attivare le richieste che ne dipendono. Uso dei dati Google: https://policies.google.com/technologies/partner-sites. Preferenze: https://myadcenter.google.com/. Queste impostazioni pubblicitarie non controllano Clarity o Cloudflare."
+        ]
+      }
+    },
+    "transparency": {
+      "eyebrow": "Comprendi i pixel dietro l’anteprima",
+      "h1": "Trasparenza GIF, aggiornamenti parziali e fotogrammi PNG completi",
+      "intro": "Una GIF può apparire corretta durante la riproduzione anche quando le immagini interne sembrano incomplete. La differenza dipende da pixel trasparenti, aggiornamenti parziali e istruzioni di disposal. Questa guida segue il modello del quadro usato dall’estrattore e spiega come verificare un PNG esportato.",
+      "sections": [
+        {
+          "heading": "1. Che cosa rappresenta la trasparenza GIF",
+          "paragraphs": [
+            "La trasparenza GIF contrassegna una voce della tavolozza come trasparente per un’immagine. Non offre la gamma graduale di valori alfa che PNG può conservare. Un pixel decodificato con quella voce non aggiunge colore al quadro: può lasciare visibile uno sfondo trasparente oppure un pixel opaco precedente. Il risultato dipende dallo stato del quadro prima del disegno.",
+            "Questo conta per loghi, icone e sovrapposizioni animate. Un bordo ridotto ai colori della tavolozza GIF non recupera la smussatura originale solo perché viene salvato in PNG. L’esportazione conserva il risultato decodificato, senza ricostruire una sorgente più ricca. Confronta il bordo con la GIF originale su uno sfondo simile e distingui gli aloni già presenti dagli errori di estrazione."
+          ]
+        },
+        {
+          "heading": "2. Perché le GIF ottimizzate usano aggiornamenti parziali",
+          "paragraphs": [
+            "Un’animazione può avere uno sfondo quasi fermo e un piccolo oggetto mobile. Memorizzare ogni volta l’immagine completa ripeterebbe molti pixel. GIF può invece conservare un rettangolo più piccolo in una posizione specifica del quadro logico: è un aggiornamento parziale, spesso chiamato patch. Le sue dimensioni possono differire da quelle dell’intera animazione.",
+            "Il rettangolo isolato non sempre coincide con ciò che vede lo spettatore. Le parti trasparenti possono lasciare visibili pixel precedenti, mentre le aree esterne rimangono invariate. Salvare ciascun rettangolo senza composizione può perdere lo sfondo o produrre un’immagine insolitamente piccola. L’esportazione completa ricostruisce il quadro visibile a ogni passaggio prima di creare il PNG."
+          ]
+        },
+        {
+          "heading": "3. Leggi il quadro logico",
+          "paragraphs": [
+            "Pensa al quadro logico come al foglio su cui vengono disegnati gli aggiornamenti. La GIF fornisce larghezza, altezza, posizioni dei rettangoli e informazioni pertinenti sullo sfondo. GIF Splitter crea un quadro di quelle dimensioni e compone i fotogrammi in ordine. Ogni PNG usa il quadro completo, anche quando l’oggetto visibile ne occupa soltanto una piccola parte.",
+            "L’esempio pubblico misura 480 × 300 pixel e contiene 24 fotogrammi: queste sono anche le dimensioni attese dei PNG. Usalo per confrontare l’esportazione con l’anteprima ridimensionata. Non dimostra ogni caso di trasparenza: per questo sono più utili gli esempi controllati di disposal. La dimensione del file compresso non rivela da sola dimensioni delle patch, sfondo trasparente o metodo di disposal."
+          ]
+        },
+        {
+          "heading": "4. Il metodo di disposal 2 cancella una regione",
+          "paragraphs": [
+            "L’istruzione di disposal agisce dopo la visualizzazione di un fotogramma e prima del disegno del successivo. Il metodo 2 rimuove il rettangolo precedente, ripristinando il trattamento dello sfondo pertinente a quella regione. Non agisce automaticamente su tutto il quadro: gli altri pixel possono restare visibili e fare parte dell’immagine completa successiva.",
+            "In un esempio controllato, disegna un quadrato rosso su un quadro trasparente, poi applica il metodo 2 prima di disegnare un quadrato blu altrove. Nell’immagine successiva il rosso deve scomparire, mentre i pixel conservati fuori dalla regione restano. Una GIF opaca con sfondo logico definito può invece ripristinare quel colore. Confronta il risultato atteso senza presumere che il metodo 2 produca sempre trasparenza."
+          ]
+        },
+        {
+          "heading": "5. Il metodo di disposal 3 ripristina lo stato precedente",
+          "paragraphs": [
+            "Il metodo 3 ripristina lo stato precedente: la regione interessata torna com’era prima del fotogramma temporaneo. È diverso dalla semplice cancellazione del rettangolo. Quando una sovrapposizione copre parte dell’immagine, il ripristino fa riapparire i pixel precedenti. Il decodificatore deve conservare quello stato prima di disegnare la sovrapposizione.",
+            "Una sequenza controllata mostra una forma di base, una sovrapposizione colorata temporanea e un aggiornamento successivo. Dopo il disposal della sovrapposizione, la base deve riapparire dove era coperta. Se il PNG successivo mostra un vuoto o mantiene la sovrapposizione, il risultato differisce dalla composizione attesa. Gli esempi spiegano il meccanismo: non sono misure delle prestazioni né garanzie per GIF danneggiate."
+          ]
+        },
+        {
+          "heading": "6. Confronta aggiornamenti e fotogrammi completi",
+          "paragraphs": [
+            "Verifica la sequenza di immagini complete, senza confrontare ogni PNG soltanto con un rettangolo interno. Considera la posizione della patch, i pixel già presenti e il disposal applicato dopo il fotogramma precedente. L’immagine completa viene acquisita dopo il disegno della patch attuale e prima del suo disposal. Invertire questo ordine può rendere errata un’immagine apparentemente plausibile.",
+            "L’estrattore gestisce patch trasparenti e cancellazione o ripristino dei metodi 2 e 3, senza aggiungere uno sfondo decorativo. Per una verifica riproducibile usa esempi geometrici originali con rettangoli e colori noti. Annota i pixel attesi dentro l’oggetto mobile, nella sua posizione precedente e fuori dalla patch. È una verifica più solida del giudizio su una miniatura ridotta."
+          ]
+        },
+        {
+          "heading": "7. Verifica i PNG su sfondi diversi",
+          "paragraphs": [
+            "La scacchiera dell’anteprima evidenzia la trasparenza, ma appartiene all’interfaccia e non all’immagine. Scarica un fotogramma e aprilo in un’applicazione che mostra la trasparenza; poi disponilo su uno sfondo bianco e uno scuro. Se la scacchiera rimane incorporata nell’immagine, controlla la sorgente: il motivo potrebbe essere già presente nella GIF.",
+            "Alcuni visualizzatori mostrano le immagini trasparenti su bianco o nero senza evidenziarne la trasparenza. Un rettangolo apparentemente bianco non dimostra quindi che il PNG sia opaco. Se la GIF contiene già uno sfondo bianco uniforme, la conversione non lo rimuove: serve una modifica separata. In caso di dubbio controlla un pixel o il canale alfa nel tuo editor."
+          ]
+        },
+        {
+          "heading": "8. Scegli il rimedio adatto",
+          "paragraphs": [
+            "Per frammenti mancanti o scie inattese, confronta i fotogrammi vicini e prova l’esempio noto prima di attribuire l’errore al download. Per aloni già presenti cerca una sorgente migliore o modifica il bordo. Per uno sfondo incorporato usa un editor che lo rimuova. Per file danneggiati recupera una nuova copia. Queste soluzioni affrontano cause diverse e non sono intercambiabili.",
+            "Un PNG completo è un’immagine statica: conserva i pixel composti attuali, non le istruzioni delle patch o l’animazione futura. Importando una sequenza altrove, mantieni l’ordine e annota separatamente i tempi. Per segnalare una composizione sospetta indica numero del fotogramma, risultato atteso e browser, usando se possibile un esempio non riservato. Non pubblicare sorgenti o immagini altrui senza autorizzazione."
+          ]
+        }
+      ],
+      "ctaTitle": "Esamina l’immagine completa",
+      "ctaText": "Estrai un fotogramma e confronta dimensioni e aree trasparenti con l’originale.",
+      "example": {
+        "label": "Confronta i metodi di disposal 2 e 3",
+        "caption": "Gli esempi controllati di 3 × 1 pixel partono da pixel rossi, aggiungono una sovrapposizione verde e poi un pixel blu. Il metodo 2 lascia rosso, trasparente, blu; il metodo 3 ripristina rosso, rosso, blu."
+      }
+    },
+    "timing": {
+      "eyebrow": "Leggi i tempi dell’animazione",
+      "h1": "Tempi dei fotogrammi GIF: ritardi registrati e riproduzione dell’anteprima",
+      "intro": "I numeri dei fotogrammi indicano l’ordine; i ritardi indicano il tempo. Comprendere questa differenza aiuta a scegliere un fermo immagine, confrontare l’anteprima e importare una sequenza PNG in un altro editor senza presumere che tutti i fotogrammi durino ugualmente.",
+      "sections": [
+        {
+          "heading": "1. Fotogrammi e tempo sono cose diverse",
+          "paragraphs": [
+            "Una GIF animata contiene fotogrammi in sequenza, ciascuno con un possibile ritardo diverso. Venti fotogrammi non implicano venti intervalli uguali o una frequenza specifica. Una lunga pausa può usare un solo fotogramma con un ritardo elevato; un breve movimento può averne diversi con ritardi brevi. Il numero descrive le immagini disponibili, la durata il loro tempo registrato.",
+            "Due fotogrammi vicini possono produrre immagini simili o identiche con ritardi diversi. Eliminarne uno perché sembra superfluo può cambiare i tempi dell’animazione. Per un singolo fermo immagine può essere irrilevante, ma per analizzare o ricostruire la sequenza conserva l’associazione tra numero originale e ritardo, senza affidarti soltanto al numero dei PNG."
+          ]
+        },
+        {
+          "heading": "2. Leggi le unità del ritardo GIF",
+          "paragraphs": [
+            "La GIF esprime i ritardi in centesimi di secondo: un’unità equivale a 10 millisecondi. L’estrattore mostra il valore corrispondente in millisecondi, anche quando è zero. Per esempio, otto unità diventano 80 ms. La durata registrata mostrata dallo strumento è la somma dei ritardi, non una misura del tempo impiegato dal dispositivo per riprodurli.",
+            "Il ritardo zero è un metadato, non un comando che il browser possa sempre eseguire istantaneamente. Disegno delle immagini, timer e regole di riproduzione incidono sul risultato visibile. Distingui il dato della sorgente dal tempo misurato. Anche la ripetizione è separata: la durata di una sequenza non indica se l’originale debba ripetersi una volta o all’infinito."
+          ]
+        },
+        {
+          "heading": "3. Distingui il tempo registrato dall’anteprima",
+          "paragraphs": [
+            "GIF Splitter applica una regola pratica: nell’anteprima i ritardi inferiori a 20 ms diventano 100 ms, rendendo osservabili quelli brevissimi o nulli. Da 20 ms in su viene richiesto l’intervallo originale. Etichetta e durata registrata restano invariate. Lo strumento non riscrive la GIF e non afferma di riprodurre il comportamento di ogni browser.",
+            "Neppure l’intervallo richiesto garantisce una durata effettiva precisa. Carico del dispositivo, schede in secondo piano e aggiornamento dello schermo possono cambiare il momento di visualizzazione. Un’anteprima lenta non dimostra quindi che la GIF contenga ritardi lunghi. Se i tempi contano, metti in pausa e leggi i valori. I pixel esportati non cambiano quando l’anteprima usa un intervallo maggiore."
+          ]
+        },
+        {
+          "heading": "4. Esamina l’esempio controllato sui tempi",
+          "paragraphs": [
+            "L’esempio contiene quattro ritardi registrati: 0, 10, 20 e 80 ms, che sommano 110 ms. Con la regola dell’anteprima, i primi due diventano 100 ms ciascuno, mentre gli ultimi restano 20 e 80 ms. Gli intervalli richiesti totalizzano 300 ms. Sono valori calcolati dai metadati, non una misura sperimentale della velocità.",
+            "Esamina separatamente i quattro fotogrammi e confronta le etichette con quell’elenco. Il risultato corretto mantiene i valori zero e 10 ms anche se la riproduzione li rende più facili da vedere. Esporta i quattro PNG e verifica la numerazione originale. La sequenza PNG da sola non ha una durata di 110 o 300 ms: i file statici non contengono il programma di riproduzione GIF."
+          ]
+        },
+        {
+          "heading": "5. Scegli il fermo immagine durante una transizione",
+          "paragraphs": [
+            "Riproduci l’animazione per individuare l’evento, poi fermala e avanza un fotogramma alla volta. Confronta l’immagine candidata con quella precedente e successiva. Una transizione può spiegare il movimento, mentre un’immagine stabile può essere migliore per la miniatura di un tutorial. Un ritardo lungo può segnalare una pausa intenzionale, ma non stabilisce quale immagine serva meglio al tuo scopo.",
+            "Il cursore seleziona il numero del fotogramma, non i millisecondi trascorsi. Il centro della sequenza non corrisponde necessariamente al punto medio temporale. Per un istante registrato specifico somma i ritardi precedenti e individua l’intervallo corrispondente. Con ritardi zero o riproduttori diversi, documenta il criterio di scelta anziché attribuire allo screenshot un tempo valido universalmente."
+          ]
+        },
+        {
+          "heading": "6. Conserva i tempi insieme alla sequenza PNG",
+          "paragraphs": [
+            "Scaricare un PNG salva un’immagine statica. Scaricare tutti i fotogrammi crea uno ZIP ordinato con i numeri originali nei nomi. Nessuna delle due operazioni esporta un elenco dei tempi o una nuova animazione. Un editor che importa a una frequenza fissa assegna tempi propri, quindi il movimento ricostruito può differire da una GIF con ritardi variabili.",
+            "Prima di ricostruire l’animazione, annota i ritardi necessari e il comportamento di ripetizione della sorgente. Verifica che l’editor supporti durate per fotogramma e impostale deliberatamente. Conserva l’originale per il confronto. Se hai esportato solo una selezione, i numeri rivelano le omissioni, ma devi comunque decidere come quelle omissioni influenzino l’animazione desiderata."
+          ]
+        },
+        {
+          "heading": "7. Perché la velocità può sembrare diversa",
+          "paragraphs": [
+            "Riproduttori GIF diversi possono trattare diversamente i ritardi brevissimi. Carico del dispositivo e visibilità della scheda aggiungono variazioni: la velocità osservata non basta per leggere i metadati. Confrontare questa anteprima con un’animazione su un sito può anche significare confrontare GIF e video, perché alcuni siti sostituiscono il formato. Verifica la sorgente prima di trarre conclusioni.",
+            "Una lunga pausa finale o immagini ripetute possono rendere il movimento irregolare. Esamina ritardi e immagini vicine per distinguere una pausa prevista dall’autore da un effetto dei timer dell’anteprima. GIF Splitter espone i ritardi originali, ma non li modifica, non interpola fotogrammi e non garantisce sincronizzazione fra dispositivi. Per queste modifiche usa un editor di animazioni."
+          ]
+        },
+        {
+          "heading": "8. Risolvi i problemi di tempo senza cambiare i pixel",
+          "paragraphs": [
+            "Se il movimento appare lento, cerca prima ritardi inferiori a 20 ms e considera la regola dell’anteprima. Se la durata registrata sorprende, somma le etichette e cerca pause lunghe o valori zero. Se una sequenza PNG reimportata cambia velocità, controlla la frequenza predefinita dell’editor. Queste verifiche affrontano i tempi senza ridimensionare o ricomprimere inutilmente le immagini.",
+            "Quando chiedi aiuto, distingui ritardo registrato, intervallo richiesto dall’anteprima e durata osservata. Indica numeri dei fotogrammi e browser; usa se possibile un esempio controllato. Non descrivere i totali calcolati dell’esempio come misure del dispositivo. Per scegliere un fermo immagine torna al contenuto visivo: il tempo fornisce il contesto, mentre il PNG conserva i pixel composti selezionati."
+          ]
+        }
+      ],
+      "ctaTitle": "Controlla un fotogramma e il suo ritardo",
+      "ctaText": "Apri una GIF, confronta i fotogrammi vicini e leggi i valori registrati in millisecondi.",
+      "example": {
+        "label": "Esamina l’esempio temporale di quattro fotogrammi",
+        "caption": "I ritardi registrati sono 0, 10, 20 e 80 ms: 110 ms in totale. Con la regola dei ritardi brevi, l’anteprima richiede intervalli per 300 ms complessivi. Nessuno dei totali è una misura sperimentale."
+      }
+    },
+    "troubleshooting": {
+      "eyebrow": "Individua il passaggio che non riesce",
+      "h1": "Problemi con GIF grandi, limiti di memoria e download ZIP",
+      "intro": "Un download fallito e una GIF rifiutata sono problemi diversi. Questa guida distingue lettura, decodifica, anteprima ed esportazione, spiegando le protezioni precise di GIF Splitter. Parti dal messaggio di errore e scegli un rimedio adatto a quel passaggio.",
+      "sections": [
+        {
+          "heading": "1. Identifica il passaggio che fallisce",
+          "paragraphs": [
+            "Nota se il file viene rifiutato prima dei risultati, se l’estrazione si interrompe, se vedi i fotogrammi ma non puoi esportarli o se non trovi un download completato. Ogni fase usa risorse diverse. Prova l’esempio pubblico con 24 fotogrammi di 480 × 300 pixel: il suo successo aiuta a individuare problemi della sorgente, ma non dimostra che una GIF molto più grande possa riuscire.",
+            "Annota il messaggio esatto, il browser e il dispositivo prima di riprovare. Puoi annullare e scegliere un altro file. Ripetere l’estrazione non riduce dimensioni o numero dei fotogrammi. Se la pagina non risponde, chiudila e riapri lo strumento con un esempio più piccolo. Evita più estrazioni grandi in schede diverse mentre indaghi un problema di memoria."
+          ]
+        },
+        {
+          "heading": "2. Verifica formato e integrità del file",
+          "paragraphs": [
+            "Lo strumento accetta file GIF, anche statici. Un video, una pagina HTML scaricata o un altro formato rinominato .gif resta incompatibile. Verifica come hai ottenuto il file e, se necessario, aprilo con un visualizzatore adatto. La sola dimensione non conferma la validità del contenuto. Un file vuoto non è decodificabile anche se il nome sembra corretto.",
+            "Una GIF troncata o danneggiata può perdere dati necessari anche se un visualizzatore la mostra in parte. Recupera una copia nuova dell’originale, preferibilmente da una sorgente che controlli, e confronta la dimensione con quella non riuscita. Cambiare estensione non ripara byte mancanti. I blocchi di rendering di testo semplice non sono supportati: usa una GIF composta da immagini o un altro decodificatore adatto."
+          ]
+        },
+        {
+          "heading": "3. Distingui dimensione compressa e memoria",
+          "paragraphs": [
+            "Il limite del file è 30 MiB; un MiB equivale a 1.048.576 byte. Una GIF può essere piccola perché riutilizza colori e conserva pochi aggiornamenti, ma richiedere molte immagini complete. Anche dati del decodificatore, quadri di lavoro e oggetti PNG occupano memoria. Il limite d’ingresso è soltanto un controllo e non garantisce l’estrazione di ogni file più piccolo.",
+            "L’estrattore decodifica gli aggiornamenti in sequenza e limita i pixel per contenere le allocazioni. Il browser deve comunque avere memoria disponibile. Un telefono sotto carico può faticare con un file gestibile sul computer. Prepara una GIF più breve o a risoluzione minore in un’altra applicazione. Cancellare i download non riduce la sorgente o i pixel necessari per decodificarla."
+          ]
+        },
+        {
+          "heading": "4. Applica i limiti di dimensioni e pixel",
+          "paragraphs": [
+            "Ogni lato può arrivare a 8.192 pixel, ma il fotogramma completo deve restare entro 16 milioni di pixel. Entrambi i controlli valgono: 8.192 × 8.192 supera il limite per fotogramma pur rispettando quello sui lati. La sequenza ammette inoltre al massimo 128 milioni di pixel nelle patch decodificate e 80 milioni di pixel nelle immagini complete. Sono protezioni distinte.",
+            "Per esempio, 100 fotogrammi di 1.000 × 1.000 richiedono 100 milioni di pixel in uscita, oltre il limite di 80 milioni, anche se il file è inferiore a 30 MiB. A 800 × 800 diventano 64 milioni, ma contano ancora tutti gli altri controlli e le risorse del dispositivo. Sono calcoli per spiegare un limite, non capacità misurate o garanzie di riuscita."
+          ]
+        },
+        {
+          "heading": "5. Gestisci le animazioni lunghe",
+          "paragraphs": [
+            "Una sorgente con più di 1.000 fotogrammi immagine viene rifiutata. Anche una sequenza più breve può superare il limite totale dei pixel se il quadro è grande. Accorciare o ridimensionare la sorgente prima dell’estrazione affronta queste cause. Selezionare pochi fotogrammi nei risultati non aiuta quando l’estrazione fallisce: lo strumento ricostruisce la sequenza prima di presentare le selezioni scaricabili.",
+            "Se ti serve un solo istante di una sorgente troppo grande, usa un editor che possa tagliarla o esportare quel momento. Mantieni intatto l’originale e lavora su una copia. Separare una GIF ottimizzata copiando patch interne isolate può perdere lo stato del quadro precedente. Usa un editor o decodificatore capace di comporre immagini complete, senza presumere che ogni immagine memorizzata sia indipendente."
+          ]
+        },
+        {
+          "heading": "6. Suddividi gli ZIP grandi",
+          "paragraphs": [
+            "Ogni ZIP ammette fino a 128 MiB di dati PNG prima dell’overhead dell’archivio. Se l’estrazione riesce ma «Scarica tutti i fotogrammi» supera il limite, seleziona un gruppo più piccolo e ripeti per quelli rimanenti. Puoi anche scaricare il singolo PNG in anteprima. Questo rimedio riguarda la dimensione dell’archivio e non aggira limiti d’ingresso, dimensioni, numero di fotogrammi o memoria.",
+            "Annota i numeri selezionati per ciascun gruppo. I nomi esportati conservano i numeri originali, così gli archivi possono essere riuniti senza rinumerare la sequenza. Estrai gli ZIP prima di modificare le immagini. Contengono PNG statici, non un’animazione riproducibile. Una GIF compressa piccola non implica un archivio piccolo: i PNG completi possono contenere molti più dati di immagine."
+          ]
+        },
+        {
+          "heading": "7. Affronta problemi di browser e dispositivo",
+          "paragraphs": [
+            "Se il browser non crea il quadro di disegno o non codifica un PNG, prova una sorgente minore con un browser aggiornato e confrontala con l’esempio. Chiudi altre schede che consumano memoria o usa un dispositivo con più memoria libera. L’annullamento interrompe volontariamente l’elaborazione: avvia una nuova estrazione quando sei pronto. Scegliere un’altra GIF o chiudere la pagina libera lo stato di lavoro corrente.",
+            "Se l’esportazione sembra riuscita ma non trovi il file, controlla l’elenco download del browser e la destinazione scelta. Browser e sistema possono chiedere un’autorizzazione o una posizione di salvataggio. Sul telefono, per aprire lo ZIP può servire il gestore file. Queste operazioni avvengono fuori dall’anteprima. Conserva la sorgente e controlla dimensioni dei PNG o contenuto dello ZIP prima di ripetere tutto."
+          ]
+        },
+        {
+          "heading": "8. Riconosci quando serve un altro metodo",
+          "paragraphs": [
+            "Un editor di immagini o animazioni per computer può essere più adatto a sorgenti molto grandi, modifiche dei fotogrammi, ridimensionamento o creazione di nuove animazioni. Questo strumento elabora una GIF alla volta ed esporta PNG o ZIP: non converte gruppi di file e non ripara sorgenti. Per queste esigenze scegli un altro metodo e verifica trasparenza, disposal e tempi su un esempio controllato.",
+            "Per un problema irrisolto scrivi al gestore indicando passaggio, messaggio di errore, browser e dimensioni o numero approssimativo dei fotogrammi, se noti. Specifica se funziona l’esempio pubblico. Di solito non occorre allegare file privati. Un piccolo esempio riproducibile è più utile dell’affermazione che nessuna GIF funziona e permette una correzione precisa senza esporre materiali riservati."
+          ]
+        }
+      ],
+      "ctaTitle": "Prova una sorgente piccola e nota",
+      "ctaText": "Verifica i comandi con l’esempio, poi applica il rimedio corrispondente all’errore.",
+      "example": {
+        "label": "Prova il limite dei pixel di uscita",
+        "caption": "Questo GIF controllato ha una tela di 4.000 × 4.000 e sei patch di un pixel. I fotogrammi completi richiedono 96 milioni di pixel, oltre il limite di 80 milioni. L’errore di memoria prima dell’allocazione delle immagini è il risultato previsto."
+      }
+    },
+    "terms": {
+      "eyebrow": "Utilizzo di questo strumento",
+      "h1": "Condizioni di utilizzo",
+      "intro": "Queste condizioni descrivono l’uso previsto di GIF Splitter su www.gifsplitter.com e nelle sue versioni linguistiche. Spiegano le tue responsabilità sui file sorgente e i limiti pratici del servizio nel browser.",
+      "sections": [
+        {
+          "heading": "1. Servizio e gestore",
+          "paragraphs": [
+            "GIF Splitter è il nome con cui viene gestito questo strumento gratuito nel browser. Legge una GIF scelta sul dispositivo e fornisce fotogrammi PNG composti o archivi ZIP. L’indirizzo pubblico per domande, problemi e richieste sulla privacy è contact@gifsplitter.com.",
+            "Non serve un account. Lo strumento è destinato alla normale estrazione ed esame delle immagini. Non offre archiviazione a pagamento, non pubblica i tuoi file e non garantisce che un’immagine esportata sia adatta a qualsiasi scopo. Verifica il risultato prima di farvi affidamento."
+          ]
+        },
+        {
+          "heading": "2. Usi consentiti e titolarità",
+          "paragraphs": [
+            "Usa soltanto file di tua proprietà o che sei autorizzato a elaborare. Resti responsabile dei diritti, degli interessi legati alla privacy e delle altre restrizioni sulle immagini sorgente e sui fotogrammi estratti. Poter scaricare una GIF da un sito non concede automaticamente il permesso di riutilizzarne le immagini.",
+            "Non usare il servizio per attività illegali, per violare diritti altrui o per compromettere il sito. L’estrazione locale non trasferisce al gestore la proprietà della sorgente o dei risultati. Prima di ripubblicare un fotogramma, verifica le autorizzazioni applicabili al tuo uso specifico."
+          ]
+        },
+        {
+          "heading": "3. File e download",
+          "paragraphs": [
+            "Lettura GIF, decodifica, codifica PNG e creazione ZIP avvengono nel browser. La conversione non carica la GIF scelta, il nome o i fotogrammi. Conserva una copia separata dell’originale: lo strumento non è un sistema di backup. Analisi del sito e messaggi di contatto seguono l’informativa sulla privacy.",
+            "Browser e sistema operativo gestiscono i file scaricati. Spetta a te verificare la destinazione, aprire gli archivi e controllare le immagini esportate. Un PNG è un’immagine statica; uno ZIP di PNG non conserva i tempi dell’animazione sotto forma di GIF riproducibile."
+          ]
+        },
+        {
+          "heading": "4. Disponibilità e limiti",
+          "paragraphs": [
+            "Il servizio applica limiti a file, fotogrammi, dimensioni, pixel e archivi, descritti nelle guide. Funzioni del browser, risorse del dispositivo e integrità della sorgente influiscono sulla riuscita. Le GIF non supportate o danneggiate possono essere rifiutate; lo strumento non ripara dati mancanti.",
+            "Cerchiamo di mantenere utile lo strumento, ma non promettiamo disponibilità ininterrotta, risultati privi di errori o compatibilità con ogni file e dispositivo. Funzioni e protezioni possono cambiare. Verifica i lavori importanti sull’originale e scegli un altro metodo adatto quando il compito supera le capacità del servizio."
+          ]
+        },
+        {
+          "heading": "5. Servizi di terzi e privacy",
+          "paragraphs": [
+            "Cloudflare fornisce hosting e misurazione delle prestazioni del sito. Microsoft Clarity analizza le interazioni sulle pagine di produzione idonee. La pubblicità Google, quando attiva, comporta ulteriori trattamenti di terzi e scelte sulla privacy. L’informativa descrive i servizi effettivamente usati e li distingue dalla conversione locale dei file.",
+            "Se vengono attivati servizi pubblicitari, l’Informativa sulla privacy attuale ne descrive l’uso dei dati, i partner, i requisiti di consenso e i controlli disponibili. Il loro funzionamento dipende dalle scelte e dai requisiti applicabili: consulta quindi l’informativa per i servizi effettivamente utilizzati. I collegamenti a spiegazioni e controlli aprono servizi soggetti alle condizioni e alle informative dei rispettivi fornitori. Le scelte pubblicitarie non controllano necessariamente altre analisi; contatta il gestore se un controllo del sito non è chiaro o disponibile."
+          ]
+        },
+        {
+          "heading": "6. Segnalazioni e aggiornamenti",
+          "paragraphs": [
+            "Per segnalare un problema di copyright relativo a contenuti pubblicati su questo sito, scrivi a contact@gifsplitter.com. Indica l’URL della pagina, identifica l’opera e i diritti che possiedi o la base della tua rappresentanza del titolare, spiega il problema e fornisci un recapito per la risposta. Questo aiuta il gestore a individuare il contenuto e valutare la richiesta. Per normali segnalazioni su funzioni, contenuti o problemi tecnici, indica la pagina o il comportamento e i dettagli pertinenti di browser, dispositivo ed errore. Di solito non occorre inviare un GIF privato o dati personali estranei alla richiesta.",
+            "Le condizioni possono essere aggiornate quando cambia il servizio. La data di revisione indica il testo pubblicato più recente. Gli aggiornamenti non eliminano i diritti riconosciuti dalla legge applicabile. Consulta le condizioni e l’informativa attuali quando una modifica incide sul tuo utilizzo."
+          ]
+        }
+      ],
+      "ctaTitle": "Usa file che puoi elaborare legalmente",
+      "ctaText": "Verifica la sorgente, estrai localmente e controlla le immagini scaricate."
+    }
   },
-  "footer": {"tagline": "Trova nell’animazione l’immagine da conservare.", "copyright": "© 2026 GIF Splitter"}
+  "footer": {
+    "tagline": "Trova nell’animazione l’immagine da conservare.",
+    "copyright": "© 2026 GIF Splitter"
+  }
 }

@@ -1,11 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { loadLocales } from '../src/site/content.js';
-import { ORIGIN, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, ROUTES, pagePath } from '../src/site/config.js';
+import { ORIGIN, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, GUIDE_TYPES, PAGE_DATES, ROUTES, pagePath } from '../src/site/config.js';
 import { renderPage } from '../src/site/render.js';
+import { createAdPolicy } from '../src/site/ad-policy.js';
 
 const locales = await loadLocales();
-const suffixes = { home: '', guide: 'how-to-extract-gif-frames/', about: 'about/', privacy: 'privacy/' };
+const suffixes = { home: '', guide: 'how-to-extract-gif-frames/', transparency: 'gif-transparency-and-disposal/', timing: 'gif-frame-timing/', troubleshooting: 'large-gif-extraction-troubleshooting/', about: 'about/', privacy: 'privacy/', terms: 'terms/' };
 const expectedPath = (locale, type) => `${locale === 'en' ? '/' : `/${locale}/`}${suffixes[type]}`;
 const decodeHtml = (value) => value.replace(/&(amp|lt|gt|quot|#39);/g, (_, entity) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" })[entity]);
 const textOf = (html) => decodeHtml(html.replace(/<[^>]*>/g, ''));
@@ -47,11 +48,11 @@ function checkInternalLinks(html, route) {
   }
 }
 
-test('routes cover exactly ten languages and four page types without changing English URLs', () => {
+test('routes cover ten languages and eight complete page types without changing existing URLs', () => {
   assert.equal(ORIGIN, 'https://www.gifsplitter.com');
-  assert.deepEqual(PAGE_TYPES, ['home', 'guide', 'about', 'privacy']);
-  assert.equal(ROUTES.length, 40);
-  assert.equal(new Set(ROUTES.map((route) => route.path)).size, 40);
+  assert.deepEqual(PAGE_TYPES, ['home', 'guide', 'transparency', 'timing', 'troubleshooting', 'about', 'privacy', 'terms']);
+  assert.equal(ROUTES.length, 80);
+  assert.equal(new Set(ROUTES.map((route) => route.path)).size, 80);
   for (const locale of LOCALES) {
     for (const type of Object.keys(suffixes)) {
       const path = expectedPath(locale, type);
@@ -65,7 +66,7 @@ test('routes cover exactly ten languages and four page types without changing En
   assert.throws(() => pagePath('ja', 'unknown'), /Unknown site route/);
 });
 
-test('all forty pages have their own localized title, description and H1', () => {
+test('all eighty pages have their own localized title, description and H1', () => {
   for (const type of PAGE_TYPES) {
     const titles = new Set();
     const descriptions = new Set();
@@ -80,7 +81,7 @@ test('all forty pages have their own localized title, description and H1', () =>
     assert.equal(descriptions.size, 10, `${type} descriptions must not reuse an English fallback`);
     assert.equal(headings.size, 10, `${type} H1 headings must not reuse an English fallback`);
   }
-  assert.equal(new Set(ROUTES.map(({ locale, type }) => locales[locale].seo[type].title)).size, 40);
+  assert.equal(new Set(ROUTES.map(({ locale, type }) => locales[locale].seo[type].title)).size, 80);
 });
 
 for (const route of ROUTES) {
@@ -183,7 +184,7 @@ for (const route of ROUTES) {
           assert.ok(links(main[1]).some((link) => link.href === url && link.text === url), 'privacy controls and vendor explanations must be usable links');
         }
       }
-      const modifiedDate = type === 'guide' ? '2026-10-04' : '2026-10-05';
+      const modifiedDate = PAGE_DATES[type].modified;
       const date = html.match(new RegExp(`<time datetime="${modifiedDate}">([^<]+)<\\/time>`));
       assert.ok(date);
       assert.equal(textOf(date[1]), new Intl.DateTimeFormat(dictionary.htmlLang, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${modifiedDate}T00:00:00Z`)));
@@ -193,7 +194,7 @@ for (const route of ROUTES) {
     assert.equal(structuredScripts.length, 1);
     const structured = JSON.parse(structuredScripts[0]);
     assert.equal(structured['@context'], 'https://schema.org');
-    assert.equal(structured['@type'], type === 'home' ? 'WebApplication' : type === 'guide' ? 'Article' : 'WebPage');
+    assert.equal(structured['@type'], type === 'home' ? 'WebApplication' : GUIDE_TYPES.includes(type) ? 'Article' : 'WebPage');
     assert.equal(structured.url, canonical);
     assert.equal(structured.inLanguage, dictionary.htmlLang);
     assert.equal(structured.description, seo.description);
@@ -250,4 +251,35 @@ test('rendered text, metadata and embedded locale JSON cannot break their HTML c
   assert.equal(JSON.parse(payload).ui.sample, unsafeJson);
   const [structured] = scriptContents(html, (tag) => tag.type === 'application/ld+json');
   assert.equal(JSON.parse(structured).description, unsafeText);
+});
+
+test('four distinct English guides meet the editorial length target and have real examples', () => {
+  for (const type of GUIDE_TYPES) {
+    const page = locales.en.pages[type];
+    const text = [page.h1, page.intro, ...page.sections.flatMap(section => [section.heading, ...section.paragraphs])].join(' ');
+    const words = text.trim().split(/\s+/).length;
+    assert.ok(words >= 800 && words <= 1500, `${type}: ${words} words`);
+    assert.equal(page.sections.length, 8);
+    assert.ok(page.example.caption.length > 30);
+  }
+  assert.equal(new Set(GUIDE_TYPES.map(type => locales.en.pages[type].intro)).size, 4);
+});
+
+test('ad modes render only article slots and correct privacy disclosures, with no policy consent scripts', () => {
+  const policies = [createAdPolicy(), createAdPolicy({ mode: 'consent' }), createAdPolicy({ mode: 'live', articleSlotId: '1234567890', siteReady: true, cmpPublished: true, cmpVerified: true, autoAdsDisabled: true })];
+  for (const policy of policies) for (const route of ROUTES) {
+    const html = renderPage(locales, route, assetPaths, { production: true, adPolicy: policy });
+    assert.equal(tags(html, 'ins').filter(tag => tag.class === 'adsbygoogle').length, policy.mode === 'live' && GUIDE_TYPES.includes(route.type) ? 1 : 0);
+    const scripts = tags(html, 'script');
+    assert.equal(scripts.some(tag => tag.id === 'advertising-config'), policy.mode !== 'off' && (route.type === 'home' || GUIDE_TYPES.includes(route.type)));
+    assert.equal(scripts.some(tag => tag.id === 'clarity-tracking'), route.type !== 'privacy');
+    assert.ok(scripts.every(tag => tag.nonce === '__CSP_NONCE__'));
+    if (route.type === 'privacy' && policy.mode !== 'off') {
+      const expected = locales[route.locale].pages.privacy[policy.mode === 'live' ? 'advertisingLive' : 'advertisingConsent'];
+      assert.ok(textOf(html).includes(expected.paragraphs[0]));
+      assert.ok(links(html).some(link => link.href === `${pagePath(route.locale)}?privacy-settings=1`));
+    }
+    if (policy.mode === 'off') assert.ok(!html.includes('article-ad-region') && !html.includes('privacy-settings'));
+    if (policy.mode === 'live' && GUIDE_TYPES.includes(route.type)) assert.ok(html.indexOf('article-ad-region') > html.indexOf('id="section-2"') && html.indexOf('article-ad-region') < html.indexOf('id="section-3"'));
+  }
 });

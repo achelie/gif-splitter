@@ -4,74 +4,696 @@
   "htmlLang": "en",
   "ogLocale": "en_US",
   "seo": {
-    "home": {"title": "GIF Splitter — Free Online GIF Frame Extractor", "description": "Use this free GIF splitter to extract PNG frames from animated GIFs. Preview and download one frame or a ZIP. Your GIF stays on your device."},
-    "guide": {"title": "How to Split a GIF into Frames and Save PNG Images", "description": "Learn how to split a GIF into frames, save one image as PNG, or download a numbered ZIP. Includes transparency, frame timing and advice for large files."},
-    "about": {"title": "About GIF Splitter | A Private Browser Tool", "description": "Learn what GIF Splitter does, how local GIF decoding works, and which PNG and ZIP exports are supported."},
-    "privacy": {"title":"Privacy Policy | GIF Splitter","description":"Your GIFs stay on your device. Learn about Cloudflare hosting and performance analytics, Clarity, cookies, contact emails and possible future Google ads."}
+    "home": {
+      "title": "GIF Splitter — Free Online GIF Frame Extractor",
+      "description": "Use this free GIF splitter to extract PNG frames from animated GIFs. Preview and download one frame or a ZIP. Your GIF stays on your device."
+    },
+    "guide": {
+      "title": "How to Split a GIF into Frames and Save PNG Images",
+      "description": "Learn how to split a GIF into frames, save one image as PNG, or download a numbered ZIP. Includes transparency, frame timing and advice for large files."
+    },
+    "about": {
+      "title": "About GIF Splitter | A Private Browser Tool",
+      "description": "Learn what GIF Splitter does, how local GIF decoding works, and which PNG and ZIP exports are supported."
+    },
+    "privacy": {
+      "title": "Privacy Policy | GIF Splitter",
+      "description": "Your GIFs stay on your device. Learn about Cloudflare hosting and performance analytics, Clarity, cookies, contact emails and possible future Google ads."
+    },
+    "transparency": {
+      "title": "GIF Transparency and Disposal: Export Complete PNG Frames",
+      "description": "Understand transparent GIF pixels, partial frame patches and disposal methods 2 and 3. Learn how to check complete PNG exports with reproducible examples."
+    },
+    "timing": {
+      "title": "GIF Frame Timing: Recorded Delays and PNG Sequences",
+      "description": "Learn how GIF frame delays work, why preview speed can differ and what PNG exports retain. Follow a four-frame example with 0, 10, 20 and 80 ms delays."
+    },
+    "troubleshooting": {
+      "title": "Large GIF Extraction Troubleshooting | GIF Splitter",
+      "description": "Diagnose invalid GIFs, memory and pixel limits, long animations and ZIP export problems. Find practical next steps for local GIF frame extraction."
+    },
+    "terms": {
+      "title": "Terms of Use | GIF Splitter",
+      "description": "Read the terms for using GIF Splitter, including your responsibility for source files, local processing, downloads, service limits and reporting problems."
+    }
   },
   "ui": {
     "contact": "Contact",
-    "skip": "Skip to content", "homeLabel": "GIF Splitter home", "mainNav": "Main navigation", "footerNav": "Footer navigation", "languageNav": "Choose language", "extract": "Split GIF", "how": "How it works", "privacy": "Privacy", "about": "About", "guide": "How to split a GIF",
-    "toolLabel": "GIF splitter and frame extractor", "dropTitle": "Drop your GIF here", "dropText": "or choose a file to see what's inside", "choose": "Choose GIF", "fileHint": "Animated GIF · Up to 30 MB", "outputHint": "PNG frames · Original dimensions", "local": "Your GIF stays on your device", "sample": "Try a sample GIF", "inputLabel": "Choose a GIF file", "cancel": "Cancel", "progressLabel": "Extracting GIF frames", "progressNote": "Building full images, one frame at a time.",
-    "resultsLabel": "Your GIF, unpacked", "resultsTitle": "Extracted frames", "another": "Choose another GIF", "previewAlt": "Selected GIF frame", "previous": "Previous frame", "next": "Next frame", "play": "Play preview", "pause": "Pause preview", "slider": "Preview frame", "downloadFrame": "Download this frame", "frames": "Frames", "dimensions": "Dimensions", "duration": "Duration", "output": "Output", "downloadTitle": "A single moment. Or the whole story.", "downloadText": "Save every frame as a full-size PNG, neatly numbered in one ZIP file.", "downloadAll": "Download all frames", "localNote": "Processed locally. No uploads.", "allFrames": "All frames", "selectAll": "Select all", "deselectAll": "Deselect all", "downloadSelected": "Download selected", "gridHint": "Click an image to preview it. Use the checkboxes to select frames for a ZIP.", "showMore": "Show more frames",
-    "noscript": "Enable JavaScript to extract GIF frames on your device. The guide is available without JavaScript.", "capabilities": ["Every frame, in order", "Full-resolution PNGs", "One-click ZIP download", "No account needed"], "readGuide": "Read the step-by-step guide", "openTool": "Open GIF Splitter", "onThisPage": "In this guide", "updated": "Last updated", "related": "More about this tool"
+    "skip": "Skip to content",
+    "homeLabel": "GIF Splitter home",
+    "mainNav": "Main navigation",
+    "footerNav": "Footer navigation",
+    "languageNav": "Choose language",
+    "extract": "Split GIF",
+    "how": "How it works",
+    "privacy": "Privacy",
+    "about": "About",
+    "guide": "How to split a GIF",
+    "toolLabel": "GIF splitter and frame extractor",
+    "dropTitle": "Drop your GIF here",
+    "dropText": "or choose a file to see what's inside",
+    "choose": "Choose GIF",
+    "fileHint": "Animated GIF · Up to 30 MB",
+    "outputHint": "PNG frames · Original dimensions",
+    "local": "Your GIF stays on your device",
+    "sample": "Try a sample GIF",
+    "inputLabel": "Choose a GIF file",
+    "cancel": "Cancel",
+    "progressLabel": "Extracting GIF frames",
+    "progressNote": "Building full images, one frame at a time.",
+    "resultsLabel": "Your GIF, unpacked",
+    "resultsTitle": "Extracted frames",
+    "another": "Choose another GIF",
+    "previewAlt": "Selected GIF frame",
+    "previous": "Previous frame",
+    "next": "Next frame",
+    "play": "Play preview",
+    "pause": "Pause preview",
+    "slider": "Preview frame",
+    "downloadFrame": "Download this frame",
+    "frames": "Frames",
+    "dimensions": "Dimensions",
+    "duration": "Duration",
+    "output": "Output",
+    "downloadTitle": "A single moment. Or the whole story.",
+    "downloadText": "Save every frame as a full-size PNG, neatly numbered in one ZIP file.",
+    "downloadAll": "Download all frames",
+    "localNote": "Processed locally. No uploads.",
+    "allFrames": "All frames",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "downloadSelected": "Download selected",
+    "gridHint": "Click an image to preview it. Use the checkboxes to select frames for a ZIP.",
+    "showMore": "Show more frames",
+    "noscript": "Enable JavaScript to extract GIF frames on your device. The guide is available without JavaScript.",
+    "capabilities": [
+      "Every frame, in order",
+      "Full-resolution PNGs",
+      "One-click ZIP download",
+      "No account needed"
+    ],
+    "readGuide": "Read the step-by-step guide",
+    "openTool": "Open GIF Splitter",
+    "onThisPage": "In this guide",
+    "updated": "Last updated",
+    "related": "More about this tool",
+    "terms": "Terms of use",
+    "transparency": "Transparency and complete frames",
+    "timing": "GIF frame timing",
+    "troubleshooting": "Large GIF troubleshooting",
+    "knowledgeTitle": "Understand your GIF before exporting",
+    "knowledgeIntro": "Practical guides explain transparency, frame timing and the limits that affect PNG and ZIP downloads.",
+    "advertisements": "Advertisements",
+    "privacySettings": "Advertising privacy settings",
+    "privacyUnavailable": "Advertising privacy settings are currently unavailable. Please try again later.",
+    "privacyPending": "Loading advertising privacy settings…",
+    "privacyUpdated": "Your advertising privacy settings have been updated."
   },
   "runtime": {
-    "reading": "Reading your GIF…", "extracting": "Extracting frame {completed} of {total}…", "frameLabel": "Frame {current} of {total}", "frameAlt": "Frame {current} of {name}", "previewFrame": "Preview frame {current}", "selectFrame": "Select frame {current}", "thumbnailAlt": "GIF frame {current}", "milliseconds": "{value} ms", "seconds": "{value} s", "fileSummary": "{size} · GIF", "more": "Show more frames ({visible} of {total})",
-    "selected": {"one": "{count} selected", "other": "{count} selected"},
-    "ready": {"one": "{count} frame is ready. Your original GIF has not been changed.", "other": "{count} frames are ready. Your original GIF has not been changed."},
-    "preparing": {"one": "Preparing {count} frame for download…", "other": "Preparing {count} frames for download…"},
-    "zipReady": {"one": "Your ZIP with {count} PNG frame is ready. Check your browser's downloads.", "other": "Your ZIP with {count} PNG frames is ready. Check your browser's downloads."},
-    "cancelled": "Extraction cancelled. Choose a GIF to start again.", "openingSample": "Opening the sample GIF…"
+    "reading": "Reading your GIF…",
+    "extracting": "Extracting frame {completed} of {total}…",
+    "frameLabel": "Frame {current} of {total}",
+    "frameAlt": "Frame {current} of {name}",
+    "previewFrame": "Preview frame {current}",
+    "selectFrame": "Select frame {current}",
+    "thumbnailAlt": "GIF frame {current}",
+    "milliseconds": "{value} ms",
+    "seconds": "{value} s",
+    "fileSummary": "{size} · GIF",
+    "more": "Show more frames ({visible} of {total})",
+    "selected": {
+      "one": "{count} selected",
+      "other": "{count} selected"
+    },
+    "ready": {
+      "one": "{count} frame is ready. Your original GIF has not been changed.",
+      "other": "{count} frames are ready. Your original GIF has not been changed."
+    },
+    "preparing": {
+      "one": "Preparing {count} frame for download…",
+      "other": "Preparing {count} frames for download…"
+    },
+    "zipReady": {
+      "one": "Your ZIP with {count} PNG frame is ready. Check your browser's downloads.",
+      "other": "Your ZIP with {count} PNG frames is ready. Check your browser's downloads."
+    },
+    "cancelled": "Extraction cancelled. Choose a GIF to start again.",
+    "openingSample": "Opening the sample GIF…"
   },
   "errors": {
-    "INVALID_GIF": "This GIF is incomplete or damaged. Please try another GIF file.", "NOT_GIF": "Please choose a valid GIF file. Other image formats are not supported.", "DIMENSIONS": "This GIF's dimensions are too large. Use a GIF with at most 16 million pixels and sides up to 8,192 pixels.", "UNSUPPORTED_TEXT": "This GIF contains a plain-text rendering block that is not supported. Please use an image-only GIF.", "FRAME_LIMIT": "This GIF has more than 1,000 frames. Please choose a shorter GIF.", "MEMORY_LIMIT": "This GIF needs too much browser memory. Please choose a shorter GIF or reduce its dimensions.", "NO_FRAMES": "This GIF does not contain any image frames. Please choose another GIF.", "CANVAS": "Your browser could not create an image canvas. Please try a current browser.", "PNG_EXPORT": "Your browser could not export this frame. Please try a smaller GIF.", "EMPTY_FILE": "Please choose a non-empty GIF file.", "FILE_SIZE": "This file is larger than 30 MB. Please choose a smaller GIF.", "UNKNOWN": "This GIF could not be read. Please try a different file.", "ZIP_LIMIT": "These PNGs exceed the 128 MB ZIP limit. Select fewer frames and download them in smaller batches.", "ZIP_CREATE": "The ZIP could not be created. Try downloading fewer frames at a time.", "SAMPLE_LOAD": "The sample could not be loaded. You can still choose your own GIF.", "MULTIPLE_FILES": "Please choose one GIF at a time."
+    "INVALID_GIF": "This GIF is incomplete or damaged. Please try another GIF file.",
+    "NOT_GIF": "Please choose a valid GIF file. Other image formats are not supported.",
+    "DIMENSIONS": "This GIF's dimensions are too large. Use a GIF with at most 16 million pixels and sides up to 8,192 pixels.",
+    "UNSUPPORTED_TEXT": "This GIF contains a plain-text rendering block that is not supported. Please use an image-only GIF.",
+    "FRAME_LIMIT": "This GIF has more than 1,000 frames. Please choose a shorter GIF.",
+    "MEMORY_LIMIT": "This GIF needs too much browser memory. Please choose a shorter GIF or reduce its dimensions.",
+    "NO_FRAMES": "This GIF does not contain any image frames. Please choose another GIF.",
+    "CANVAS": "Your browser could not create an image canvas. Please try a current browser.",
+    "PNG_EXPORT": "Your browser could not export this frame. Please try a smaller GIF.",
+    "EMPTY_FILE": "Please choose a non-empty GIF file.",
+    "FILE_SIZE": "This file is larger than 30 MB. Please choose a smaller GIF.",
+    "UNKNOWN": "This GIF could not be read. Please try a different file.",
+    "ZIP_LIMIT": "These PNGs exceed the 128 MB ZIP limit. Select fewer frames and download them in smaller batches.",
+    "ZIP_CREATE": "The ZIP could not be created. Try downloading fewer frames at a time.",
+    "SAMPLE_LOAD": "The sample could not be loaded. You can still choose your own GIF.",
+    "MULTIPLE_FILES": "Please choose one GIF at a time."
   },
   "home": {
-    "eyebrow": "Free online GIF splitter", "h1": "GIF Splitter — Split GIFs into PNG Frames", "lede": "Save one moment or the complete frame sequence.", "description": "Use this GIF frame extractor to turn an animated GIF into individual PNG images. Preview every frame, choose the images you need, and download one PNG or a numbered ZIP. Your GIF and exported images stay on your device.",
-    "how": {"label": "From motion to still images", "title": "How to use the GIF splitter", "intro": "A GIF is a sequence of still images with instructions for how long each frame should appear. Splitting it lets you choose a clear tutorial thumbnail, save a reaction image, or inspect a change in an animation. Start with the original GIF file so the tool can read the frames it actually contains.", "steps": [
-      {"title": "Choose a GIF to split", "text": "Drop a GIF onto the tool or choose one from your device. Open one file at a time, up to 30 MB and 1,000 frames. Extraction runs in your browser, and the progress indicator shows how many frames are ready. If you only want to explore the controls, try the sample GIF before opening your own file."},
-      {"title": "Preview and select frames", "text": "Play the animation to locate the scene you want, then use the arrows or slider to compare nearby frames. Click a thumbnail for a larger preview. The frame number and recorded delay help you keep track of your place. Tick checkboxes to select images for a ZIP; use Show more frames to reveal additional thumbnails in a long sequence."},
-      {"title": "Download PNG frames", "text": "Download this frame saves the image currently in the preview. Download selected creates a ZIP of checked frames, while Download all frames includes the full sequence. The PNGs keep their original frame numbers, so a partial selection still shows where each image came from. Extract the ZIP with your device's file manager before opening the individual PNGs in another editor."}
-    ]},
-    "features": {"title": "Full PNG frames at the original dimensions", "description": "GIF splitting should give you images that make sense on their own. Each export represents the complete visible frame at the GIF's original canvas size, whether you save a single moment or a batch.", "items": [
-      {"title": "Complete images from partial updates", "text": "Many GIFs store only a small rectangle of changed pixels for the next frame. Saving that rectangle alone would leave part of the image missing. The splitter combines these updates and follows the GIF's instructions for retaining, clearing, or restoring earlier pixels. This produces a full image of each animation step rather than a collection of isolated patches."},
-      {"title": "PNG output with transparency", "text": "Transparent areas remain transparent in the exported PNG. The checkerboard in the preview helps distinguish them from white or dark pixels and is not included in the download. PNG compression preserves the decoded pixels without introducing another loss of image quality. It cannot recover colors or detail that were already missing from the source GIF."},
-      {"title": "Local processing without a watermark", "text": "Your browser reads the selected GIF, reconstructs the frames, and prepares PNG or ZIP downloads on your device. The tool leaves the original file unchanged and adds no watermark. You can open a different GIF after saving your images. Keep any downloads you want before leaving the page, because the current extraction is held in browser memory."}
-    ]},
-    "faq": {"label": "Good to know", "title": "GIF splitter FAQ", "intro": "Answers about extracting one image, preserving frames, handling larger GIFs, and downloading on a phone.", "items": [
-      {"q": "How do I split a GIF into frames?", "a": "Choose a GIF from your device and wait for the frame list to appear. The results show the number of frames, canvas dimensions, and recorded duration. Download all frames gives you a ZIP of numbered PNG images in their original order. For a tutorial or reference sheet, check only the frames that show the steps you need and download that selection."},
-      {"q": "Does this GIF splitter create shorter animated GIFs?", "a": "This tool separates a GIF into static PNG frames. It does not trim the animation into shorter GIF clips, divide it into animated tiles, or create a new animated file. A ZIP contains separate images; opening it does not play the animation. To rebuild or edit the sequence, extract the PNGs and use another animation editor. You can inspect each frame's recorded delay here, but PNG downloads do not store animation timing."},
-      {"q": "Can I extract a single frame from a GIF?", "a": "Yes. Preview the moment you want, then choose Download this frame to save one PNG without downloading the whole animation. Clicking a thumbnail changes the preview; its checkbox controls whether it belongs in a selected ZIP. To save several images together, check their boxes and choose Download selected. Filenames retain the original frame numbers, helping you match downloaded images to their positions in the source."},
-      {"q": "Will PNG frames keep their quality and transparency?", "a": "The GIF frame extractor exports the decoded image at the original GIF canvas dimensions, without resizing it to the thumbnail or preview area. PNG uses lossless compression, so exporting does not introduce further compression loss, and transparent areas remain transparent. A GIF may already have a limited color palette or reduced detail; converting it to PNG cannot reverse those changes. The result is a static image of the reconstructed frame, with no preview checkerboard or added watermark."},
-      {"q": "Does the GIF splitter upload my files?", "a": "No. Your selected GIF, its filename, and extracted images are processed locally rather than sent to a conversion server. PNG encoding and ZIP creation also happen in your browser. The optional sample downloads a GIF from this website. Loading the site still involves hosting requests, and the production website uses analytics for visits and interactions. The privacy policy explains those services separately from local file processing. Downloads are saved wherever your browser or device normally stores them."},
-      {"q": "Is the GIF splitter free, and what are its limits?", "a": "It is free, with no account or added watermark. Open one GIF at a time, up to 30 MB and 1,000 frames. Pixel and memory safeguards may reject an animation below 30 MB: hundreds of full images can take much more space once decoded. Each ZIP supports up to 128 MB of PNG data. If a download exceeds that limit, select fewer frames and save smaller batches. If extraction itself fails on size or memory limits, try a shorter GIF or a version with smaller dimensions."},
-      {"q": "Why can some split frames look identical?", "a": "An animation can repeat an image, change only a small area, or use similar frames with different display delays. Exported PNGs contain complete visible frames, including retained pixels, so consecutive images may look identical. Compare the larger preview and check each delay before choosing images to keep. The splitter preserves the source sequence without removing repeated frames. For preview playback, delays below 20 milliseconds are played at 100 milliseconds; the displayed delay remains the value recorded in the GIF."},
-      {"q": "Can I split a GIF on my phone?", "a": "Yes. Use a current browser with JavaScript enabled, choose a GIF from your device, and download a PNG or ZIP. The browser's file picker controls which folders or image sources you can access. Open ZIP downloads with your device's Files app or an archive utility. Large animations need more memory, especially on a phone. If you see a size or memory error, use a shorter or smaller GIF. Keep the page open until extraction and the download are finished."}
-    ]}
+    "eyebrow": "Free online GIF splitter",
+    "h1": "GIF Splitter — Split GIFs into PNG Frames",
+    "lede": "Save one moment or the complete frame sequence.",
+    "description": "Use this GIF frame extractor to turn an animated GIF into individual PNG images. Preview every frame, choose the images you need, and download one PNG or a numbered ZIP. Your GIF and exported images stay on your device.",
+    "how": {
+      "label": "From motion to still images",
+      "title": "How to use the GIF splitter",
+      "intro": "A GIF is a sequence of still images with instructions for how long each frame should appear. Splitting it lets you choose a clear tutorial thumbnail, save a reaction image, or inspect a change in an animation. Start with the original GIF file so the tool can read the frames it actually contains.",
+      "steps": [
+        {
+          "title": "Choose a GIF to split",
+          "text": "Drop a GIF onto the tool or choose one from your device. Open one file at a time, up to 30 MB and 1,000 frames. Extraction runs in your browser, and the progress indicator shows how many frames are ready. If you only want to explore the controls, try the sample GIF before opening your own file."
+        },
+        {
+          "title": "Preview and select frames",
+          "text": "Play the animation to locate the scene you want, then use the arrows or slider to compare nearby frames. Click a thumbnail for a larger preview. The frame number and recorded delay help you keep track of your place. Tick checkboxes to select images for a ZIP; use Show more frames to reveal additional thumbnails in a long sequence."
+        },
+        {
+          "title": "Download PNG frames",
+          "text": "Download this frame saves the image currently in the preview. Download selected creates a ZIP of checked frames, while Download all frames includes the full sequence. The PNGs keep their original frame numbers, so a partial selection still shows where each image came from. Extract the ZIP with your device's file manager before opening the individual PNGs in another editor."
+        }
+      ]
+    },
+    "features": {
+      "title": "Full PNG frames at the original dimensions",
+      "description": "GIF splitting should give you images that make sense on their own. Each export represents the complete visible frame at the GIF's original canvas size, whether you save a single moment or a batch.",
+      "items": [
+        {
+          "title": "Complete images from partial updates",
+          "text": "Many GIFs store only a small rectangle of changed pixels for the next frame. Saving that rectangle alone would leave part of the image missing. The splitter combines these updates and follows the GIF's instructions for retaining, clearing, or restoring earlier pixels. This produces a full image of each animation step rather than a collection of isolated patches."
+        },
+        {
+          "title": "PNG output with transparency",
+          "text": "Transparent areas remain transparent in the exported PNG. The checkerboard in the preview helps distinguish them from white or dark pixels and is not included in the download. PNG compression preserves the decoded pixels without introducing another loss of image quality. It cannot recover colors or detail that were already missing from the source GIF."
+        },
+        {
+          "title": "Local processing without a watermark",
+          "text": "Your browser reads the selected GIF, reconstructs the frames, and prepares PNG or ZIP downloads on your device. The tool leaves the original file unchanged and adds no watermark. You can open a different GIF after saving your images. Keep any downloads you want before leaving the page, because the current extraction is held in browser memory."
+        }
+      ]
+    },
+    "faq": {
+      "label": "Good to know",
+      "title": "GIF splitter FAQ",
+      "intro": "Answers about extracting one image, preserving frames, handling larger GIFs, and downloading on a phone.",
+      "items": [
+        {
+          "q": "How do I split a GIF into frames?",
+          "a": "Choose a GIF from your device and wait for the frame list to appear. The results show the number of frames, canvas dimensions, and recorded duration. Download all frames gives you a ZIP of numbered PNG images in their original order. For a tutorial or reference sheet, check only the frames that show the steps you need and download that selection."
+        },
+        {
+          "q": "Does this GIF splitter create shorter animated GIFs?",
+          "a": "This tool separates a GIF into static PNG frames. It does not trim the animation into shorter GIF clips, divide it into animated tiles, or create a new animated file. A ZIP contains separate images; opening it does not play the animation. To rebuild or edit the sequence, extract the PNGs and use another animation editor. You can inspect each frame's recorded delay here, but PNG downloads do not store animation timing."
+        },
+        {
+          "q": "Can I extract a single frame from a GIF?",
+          "a": "Yes. Preview the moment you want, then choose Download this frame to save one PNG without downloading the whole animation. Clicking a thumbnail changes the preview; its checkbox controls whether it belongs in a selected ZIP. To save several images together, check their boxes and choose Download selected. Filenames retain the original frame numbers, helping you match downloaded images to their positions in the source."
+        },
+        {
+          "q": "Will PNG frames keep their quality and transparency?",
+          "a": "The GIF frame extractor exports the decoded image at the original GIF canvas dimensions, without resizing it to the thumbnail or preview area. PNG uses lossless compression, so exporting does not introduce further compression loss, and transparent areas remain transparent. A GIF may already have a limited color palette or reduced detail; converting it to PNG cannot reverse those changes. The result is a static image of the reconstructed frame, with no preview checkerboard or added watermark."
+        },
+        {
+          "q": "Does the GIF splitter upload my files?",
+          "a": "No. Your selected GIF, its filename, and extracted images are processed locally rather than sent to a conversion server. PNG encoding and ZIP creation also happen in your browser. The optional sample downloads a GIF from this website. Loading the site still involves hosting requests, and the production website uses analytics for visits and interactions. The privacy policy explains those services separately from local file processing. Downloads are saved wherever your browser or device normally stores them."
+        },
+        {
+          "q": "Is the GIF splitter free, and what are its limits?",
+          "a": "It is free, with no account or added watermark. Open one GIF at a time, up to 30 MB and 1,000 frames. Pixel and memory safeguards may reject an animation below 30 MB: hundreds of full images can take much more space once decoded. Each ZIP supports up to 128 MB of PNG data. If a download exceeds that limit, select fewer frames and save smaller batches. If extraction itself fails on size or memory limits, try a shorter GIF or a version with smaller dimensions."
+        },
+        {
+          "q": "Why can some split frames look identical?",
+          "a": "An animation can repeat an image, change only a small area, or use similar frames with different display delays. Exported PNGs contain complete visible frames, including retained pixels, so consecutive images may look identical. Compare the larger preview and check each delay before choosing images to keep. The splitter preserves the source sequence without removing repeated frames. For preview playback, delays below 20 milliseconds are played at 100 milliseconds; the displayed delay remains the value recorded in the GIF."
+        },
+        {
+          "q": "Can I split a GIF on my phone?",
+          "a": "Yes. Use a current browser with JavaScript enabled, choose a GIF from your device, and download a PNG or ZIP. The browser's file picker controls which folders or image sources you can access. Open ZIP downloads with your device's Files app or an archive utility. Large animations need more memory, especially on a phone. If you see a size or memory error, use a shorter or smaller GIF. Keep the page open until extraction and the download are finished."
+        }
+      ]
+    }
   },
   "pages": {
-    "guide": {"eyebrow": "A practical GIF splitting guide", "h1": "How to split a GIF into frames", "intro": "Splitting a GIF into frames gives you the individual still images behind the animation. Follow these steps to choose one frame, save a selection or export the full sequence as PNG files with GIF Splitter.", "sections": [
-      {"heading": "1. Open the original GIF", "paragraphs": ["Choose a GIF from your device or drag it onto the tool. If you saved it from another website, check that it is actually a GIF: a video renamed with a .gif extension will not decode. The file is read locally and is not uploaded.", "The original animation usually gives the most useful result. A screenshot contains only one moment, and a static GIF contains only one frame. The extractor cannot reconstruct motion that is not present in the file."]},
-      {"heading": "2. Find the still image you want", "paragraphs": ["When extraction finishes, the page shows the frame count, original dimensions and recorded duration. Use the arrows or slider to inspect adjacent frames. Click a thumbnail to view it at a larger size; its delay appears in milliseconds.", "Play the preview to understand how the frames fit together, then pause on the scene you want. Extremely short delays below 20 milliseconds are played at 100 milliseconds for a usable preview. The displayed timing remains the value stored in the GIF."]},
-      {"heading": "3. Download one PNG or a sequence", "paragraphs": ["Download the current frame to save a single PNG. This is useful for a tutorial thumbnail, an animation reference or a still from a reaction GIF. The downloaded image is static and retains the original GIF canvas dimensions.", "For several images, tick their checkboxes and download the selection. Download all frames creates a ZIP of the complete sequence. Filenames use the original frame numbers, including when only selected frames are saved. Extract the ZIP with your operating system or archive app before editing its PNGs."]},
-      {"heading": "Why complete frames matter", "paragraphs": ["GIF files often store a small changed rectangle instead of a full image for every frame. They also specify whether earlier pixels should remain, be cleared, or be restored before the next frame. Simply saving those rectangles can produce broken images.", "This tool combines the patches and applies these disposal instructions before exporting each PNG. Transparent areas remain transparent; the preview's checkerboard is not baked into the file. Lossless PNG output preserves the decoded pixels, but cannot restore detail missing from the source."]},
-      {"heading": "Handling large or damaged GIFs", "paragraphs": ["The input limit is 30 MB and 1,000 frames. A compressed file can expand into many full-size images, so pixel and memory limits also apply. For a very large GIF, try a shorter or smaller source, especially on a phone.", "Each ZIP is limited to 128 MB of PNG data. If a full download exceeds that limit, select smaller groups. You can cancel extraction and choose another file. If a GIF is reported as damaged, obtain a fresh copy of the original rather than changing its file extension."]}
-    ], "ctaTitle": "Choose the moment you need", "ctaText": "Open your GIF, inspect its frames and save a PNG or a numbered ZIP."},
-    "about": {"eyebrow": "A focused browser tool", "h1": "About GIF Splitter", "intro": "GIF Splitter turns an animated GIF into useful still images. It is designed for choosing one moment, inspecting an animation or saving its entire frame sequence.", "sections": [
-      {"heading": "What you can do", "paragraphs": ["Open a local GIF, view each decoded frame and its timing, and save a single PNG. You can also select a few frames or download the complete sequence in a ZIP. Exported images use the original canvas size, with no added watermark.", "The tool rebuilds full frames from the GIF's partial image updates. This makes the PNGs suitable for reviewing animation steps, selecting reference images or preparing assets for another editor. Use files you have permission to work with."]},
-      {"heading": "Why processing stays local", "paragraphs": ["GIF decoding, PNG encoding and ZIP creation run on your device. No account or file-upload service is required, and your original GIF is not modified. Available memory and device performance affect the animations your browser can handle.", "Files are limited to 30 MB and 1,000 frames, with additional decoded-pixel safeguards. Each ZIP is limited to 128 MB of PNG data. A small compressed GIF can still require substantial memory when expanded."]},
-      {"heading": "A clear set of capabilities", "paragraphs": ["This site accepts GIFs and produces PNG images or ZIP archives. It does not edit frames, extract video, or build a new animation. PNG export cannot recover detail that was already missing from the GIF.", "The guide explains frame timing, transparency and downloads. The privacy page describes local file handling, Cloudflare hosting and the use of Microsoft Clarity for website interaction analytics."]}
-    ], "contact": {"heading":"Contact the website operator","paragraphs":["GIF Splitter is the name used to operate this tool at www.gifsplitter.com. You can contact the website operator using the email below to report an error, suggest a feature or ask a privacy question.","You do not need to send your GIF or private files to report a problem. A short description, your browser and device type, and any error message are usually enough. Leave out personal information unrelated to your request."]}, "ctaTitle": "Look inside your GIF", "ctaText": "No account or installation is needed. Choose a file to get started."},
-    "privacy": {"eyebrow": "Your files stay on your device", "h1": "Privacy policy", "intro": "This policy explains how GIF Splitter handles files and information associated with visiting and using the website. It applies to the tool and its language versions.", "sections": [
-      {"heading": "GIFs and exported images", "paragraphs": ["Your selected GIF is read by your browser. Decoding, frame previews, PNG encoding and ZIP creation take place on your device. The tool does not upload your GIF, its frames or its filename to a server.", "The application keeps working data in browser memory and does not save your GIFs in cookies, local storage or a remote account. Choosing another GIF or closing the page releases the application's current working state. Files you download remain in the location managed by your browser or operating system."]},
-      {"heading": "Website hosting", "paragraphs": ["Cloudflare hosts this website and serves its pages, scripts and images. Loading those resources involves routine connection information, such as your IP address, request time, requested URL and browser headers. Cloudflare may process this information in access or security logs according to its own practices.", "Choosing the optional sample downloads a sample GIF from this website. It does not send your own files anywhere. The tool does not contact an external conversion or translation service."]},
-      {"heading":"Analytics, cookies and local files","paragraphs":["Microsoft Clarity loads by default on www.gifsplitter.com to measure page interactions through usage analytics, heatmaps and session replay. It sends interaction and browser data to Microsoft and may set or read cookies depending on Clarity settings, applicable consent signals and browser restrictions. It is not loaded on local or pages.dev previews.","GIF decoding and exports remain on your device. The extraction area, including filenames, previews and extracted frames, is configured for masking in Clarity. The site has no account system and does not store a language preference: the URL determines the language. Microsoft privacy statement: https://www.microsoft.com/en-us/privacy/privacystatement"]},
-      {"heading":"Cloudflare Web Analytics and performance","paragraphs":["The production site uses Cloudflare Web Analytics, including a real user monitoring (RUM) beacon, to measure visits and page loading performance. It reports information such as page paths, referring sites, browser and device types, and loading times in website statistics.","Cloudflare Web Analytics does not use cookies or local storage, and does not fingerprint individual visitors. It does not receive your selected GIF or extracted images. These measurements are separate from hosting connection logs and Microsoft Clarity."]},
-      {"heading":"Google advertising: current and future use","paragraphs":["The site currently does not load Google AdSense advertising code or display Google ads. If Google ads are enabled in the future, Google and its advertising partners may place or read cookies, use web beacons, and process IP addresses and browser or device identifiers to deliver and measure ads, prevent fraud, and personalize ads where enabled and permitted.","Before enabling ads, we will update the policy and provide any required notices and controls for the implemented advertising services. Google's explanation of data use on partner sites: https://policies.google.com/technologies/partner-sites. Google advertising preferences: https://myadcenter.google.com/. These Google controls do not manage Cloudflare or Microsoft Clarity."]},
-      {"heading":"Messages you send us","paragraphs":["If you email the website operator, your sender address and the message content you choose to provide are processed to handle and reply to your request. Cloudflare Email Routing forwards incoming contact messages to the receiving mailbox. This email flow is separate from the GIF tool, which does not upload files.","Mail providers involved in delivery may process addressing information, message content and attachments. Send only information needed for your request and avoid confidential files. You can use the contact address on the About page for questions about this policy or your information."]},
-      {"heading": "Your controls and policy updates", "paragraphs": ["You can use the tool without providing personal profile information. To remove downloaded files, use your device's file manager. Switching language navigates to another page and does not transfer the current GIF to that page.", "If the site's data handling changes, this policy will be updated. The date shown here identifies the latest revision. About and the guide provide further information about the tool's capabilities and limitations."]}
-    ], "ctaTitle": "Extract frames locally", "ctaText": "Your browser does the processing. Your GIF stays with you."}
+    "guide": {
+      "eyebrow": "A practical GIF splitting guide",
+      "h1": "How to split a GIF into frames",
+      "intro": "An animated GIF contains a sequence of images, timing instructions and sometimes only the pixels that change. This guide takes you from an original GIF to a useful still image or numbered PNG sequence, with checks that help you understand what you downloaded.",
+      "sections": [
+        {
+          "heading": "1. Choose a real GIF",
+          "paragraphs": [
+            "Start with a file you own or have permission to use. Save the original animation to your device, rather than taking a screenshot of its playback. A screenshot contains one visible moment; it cannot provide the other frames. A static GIF is valid too, but it normally produces just one image. The extractor cannot invent motion missing from the source.",
+            "Check that the saved file is actually a GIF. Some websites deliver video even when their interface calls it a GIF, and changing a filename from .mp4 to .gif does not convert its contents. If the tool rejects the format, obtain the original GIF or convert your own source in a suitable editor before trying again. Keep the source unchanged for comparison."
+          ]
+        },
+        {
+          "heading": "2. Open it safely",
+          "paragraphs": [
+            "Open GIF Splitter and choose your file, or drag it into the drop area. The browser reads and decodes the GIF on your device; the conversion does not upload its bytes, filename or extracted images. Page analytics are a separate process described in the privacy policy. No account is needed, and the original file is not overwritten during extraction or export.",
+            "Use Try a sample GIF if you want to understand the workflow first. The site supplies an original geometric animation with 24 frames on a 480 × 300 canvas. Choosing the sample downloads that public file from the website. Wait for extraction to finish before selecting a frame. You can cancel processing, then choose another file if the animation is unsuitable."
+          ]
+        },
+        {
+          "heading": "3. Find the frame you need",
+          "paragraphs": [
+            "The results show the frame count, source dimensions and recorded duration. Play the preview to find a useful part of the motion, then pause and inspect adjacent frames with the arrows or slider. Click a thumbnail to bring that frame into the larger preview. A frame that looks clear when paused may contain a transition or motion blur visible only beside its neighbours.",
+            "Read the delay shown for each frame as information from the GIF, rather than a promise about playback speed. For a usable preview, this tool plays delays below 20 milliseconds at 100 milliseconds. The displayed delay and recorded duration still use the original values. For a tutorial image, choose the frame that communicates the action clearly; it need not be the middle frame."
+          ]
+        },
+        {
+          "heading": "4. Save one PNG",
+          "paragraphs": [
+            "With the desired frame in the preview, choose Download this frame. The result is a static PNG at the GIF logical canvas dimensions, not a screenshot of the smaller preview box. The tool adds no watermark. Transparent pixels remain transparent, and the checkerboard used behind the preview is not included in the downloaded file. Open the PNG in an image viewer to confirm your choice.",
+            "PNG stores the decoded image without introducing another lossy compression step, but it cannot restore colour detail, resolution or sharpness already absent from the GIF. Enlargement in another editor does not reveal hidden source detail. If you need a sharper still, return to a higher-resolution original where available. The exported PNG also has no animation, playback delay or looping instructions."
+          ]
+        },
+        {
+          "heading": "5. Export selected frames or a ZIP",
+          "paragraphs": [
+            "For several useful moments, tick their frame checkboxes and use Download selected. Clicking a thumbnail changes the preview; its checkbox controls selection. Download all frames instead packages the entire sequence into a ZIP. The archive contains separate PNG images in frame order. It is not a new animated GIF, and the browser may ask you where to save it depending on your download settings.",
+            "Extract the ZIP before opening the images in another application. Filenames retain the original frame numbers even when you export a selection, so a gap means omitted frames rather than a failed export. Keep that numbering when comparing images with the source. If you need to rebuild animation elsewhere, record the original frame delays separately because a numbered PNG sequence does not carry those instructions."
+          ]
+        },
+        {
+          "heading": "6. Understand complete frames and transparency",
+          "paragraphs": [
+            "Many GIFs save a changed rectangle rather than a full picture for every frame. Correct extraction combines these patches with earlier pixels and applies the instructions for keeping, clearing or restoring the canvas. GIF Splitter exports the resulting complete images. Saving only the internal patch would sometimes produce a floating fragment or missing background, even though the GIF plays correctly in a browser.",
+            "A transparent source does not necessarily make every output pixel transparent. Earlier opaque pixels may remain on the canvas, while a later transparent patch leaves them untouched. Inspect an exported PNG against both light and dark backgrounds before assuming transparency was lost. The transparency guide explains these cases with controlled examples and distinguishes a background already present in the source from the preview checkerboard."
+          ]
+        },
+        {
+          "heading": "7. Work within browser limits",
+          "paragraphs": [
+            "The input limit is 30 MiB and 1,000 frames. There are also safeguards of 8,192 pixels per side, 16 million pixels per frame, 128 million decoded patch pixels and 80 million output pixels across the sequence. A small compressed GIF can still expand into many large images. Passing the file-size check therefore does not guarantee that a long or high-resolution animation fits the pixel budgets.",
+            "Each ZIP is limited to 128 MiB of PNG data. When a complete ZIP exceeds that limit, download smaller selections instead. That helps an export-size problem after successful extraction; it does not bypass an extraction memory limit. For that limit, prepare a shorter or smaller source in another application. Actual capacity also depends on device memory, so a desktop may be more practical than a phone."
+          ]
+        },
+        {
+          "heading": "8. Check the output and report problems",
+          "paragraphs": [
+            "Compare your saved PNG with the paused source, check its dimensions and inspect transparent edges. For a ZIP, check the number of files and their retained frame numbers after extraction. A damaged or truncated source should be downloaded again from its original location. Repeatedly renaming it or retrying the same incomplete bytes will not repair it. The troubleshooting guide helps distinguish format, memory and download failures.",
+            "If an issue remains, contact the website operator with the browser, device, failing step and exact error message. You usually do not need to send your GIF or confidential images. Mention whether the public sample works, because that separates a general interface issue from a source-specific problem. Use the tool only for files you can lawfully process, and check your rights before republishing an extracted image."
+          ]
+        }
+      ],
+      "ctaTitle": "Choose the moment you need",
+      "ctaText": "Open your GIF, inspect the frames and save a checked PNG or numbered ZIP.",
+      "example": {
+        "label": "Try the 24-frame sample",
+        "caption": "The original geometric sample has 24 frames on a 480 × 300 canvas. Exported PNGs retain those dimensions."
+      }
+    },
+    "about": {
+      "eyebrow": "A focused browser tool",
+      "h1": "About GIF Splitter",
+      "intro": "GIF Splitter turns an animated GIF into useful still images. It is designed for choosing one moment, inspecting an animation or saving its entire frame sequence.",
+      "sections": [
+        {
+          "heading": "What you can do",
+          "paragraphs": [
+            "Open a local GIF, view each decoded frame and its timing, and save a single PNG. You can also select a few frames or download the complete sequence in a ZIP. Exported images use the original canvas size, with no added watermark.",
+            "The tool rebuilds full frames from the GIF's partial image updates. This makes the PNGs suitable for reviewing animation steps, selecting reference images or preparing assets for another editor. Use files you have permission to work with."
+          ]
+        },
+        {
+          "heading": "Why processing stays local",
+          "paragraphs": [
+            "GIF decoding, PNG encoding and ZIP creation run on your device. No account or file-upload service is required, and your original GIF is not modified. Available memory and device performance affect the animations your browser can handle.",
+            "Files are limited to 30 MB and 1,000 frames, with additional decoded-pixel safeguards. Each ZIP is limited to 128 MB of PNG data. A small compressed GIF can still require substantial memory when expanded."
+          ]
+        },
+        {
+          "heading": "A clear set of capabilities",
+          "paragraphs": [
+            "This site accepts GIFs and produces PNG images or ZIP archives. It does not edit frames, extract video, or build a new animation. PNG export cannot recover detail that was already missing from the GIF.",
+            "The guide explains frame timing, transparency and downloads. The privacy page describes local file handling, Cloudflare hosting and the use of Microsoft Clarity for website interaction analytics."
+          ]
+        },
+        {
+          "heading": "How extraction works",
+          "paragraphs": [
+            "The browser checks the GIF container and resource limits before decoding image patches. It places those patches on a canvas, handles transparent pixels and applies disposal instructions to rebuild the complete visible frames. Each resulting canvas is encoded as a PNG; selected PNGs can then be packaged into a ZIP.",
+            "This describes the conversion pipeline, not a claim that every third-party page service runs locally. Hosting, website analytics and messages you send have separate data flows described in the privacy policy. You can compare the public 24-frame sample and controlled examples in the guides with their stated dimensions, delays and expected pixels."
+          ]
+        },
+        {
+          "heading": "Editorial approach and corrections",
+          "paragraphs": [
+            "The guides are written around this tool’s actual controls, safeguards and reproducible image examples. Calculated pixel budgets and timing totals are identified as calculations rather than measured performance. We avoid claiming that one device result proves universal compatibility or that longer text guarantees an advertising approval.",
+            "If you find an inaccurate instruction or a misleading example, contact the operator with the page and the specific correction. We check reports against the implementation and update affected explanations and revision dates when a substantive correction is published. Localized pages should communicate the same capabilities clearly in their own language."
+          ]
+        }
+      ],
+      "contact": {
+        "heading": "Contact the website operator",
+        "paragraphs": [
+          "GIF Splitter is the name used to operate this tool at www.gifsplitter.com. You can contact the website operator using the email below to report an error, suggest a feature or ask a privacy question.",
+          "You do not need to send your GIF or private files to report a problem. A short description, your browser and device type, and any error message are usually enough. Leave out personal information unrelated to your request."
+        ]
+      },
+      "ctaTitle": "Look inside your GIF",
+      "ctaText": "No account or installation is needed. Choose a file to get started."
+    },
+    "privacy": {
+      "eyebrow": "Your files stay on your device",
+      "h1": "Privacy policy",
+      "intro": "This policy explains how GIF Splitter handles files and information associated with visiting and using the website. It applies to the tool and its language versions.",
+      "sections": [
+        {
+          "heading": "GIFs and exported images",
+          "paragraphs": [
+            "Your selected GIF is read by your browser. Decoding, frame previews, PNG encoding and ZIP creation take place on your device. The conversion does not upload your GIF, its frames or its filename to a server.",
+            "Working files are kept in browser memory rather than cookies, local storage or a remote account. Choosing another GIF or closing the page releases the current application state. Downloaded files remain in the location managed by your browser or operating system. Local processing is separate from the website services described below."
+          ]
+        },
+        {
+          "heading": "Website hosting",
+          "paragraphs": [
+            "Cloudflare hosts this website and serves its pages, scripts and images. Resource requests involve routine connection information such as IP address, request time, URL and browser headers. Cloudflare may process that information in hosting or security logs according to its own practices.",
+            "Choosing the optional sample downloads a public GIF from this website. It does not send your own files anywhere. The extraction tool does not use an external conversion or translation service. Your browser may independently manage download history and downloaded files."
+          ]
+        },
+        {
+          "heading": "Microsoft Clarity and cookies",
+          "paragraphs": [
+            "Microsoft Clarity loads by default on eligible pages of www.gifsplitter.com for usage analytics, heatmaps and session replay. The Privacy page is excluded from Clarity. Local and pages.dev previews do not load it. Clarity sends interaction and browser data to Microsoft and may set or read cookies according to its settings, consent signals and browser restrictions.",
+            "The extractor area, including filenames, previews and extracted frames, is configured for masking in Clarity. This does not mean all website analytics are disabled. The site has no account system and does not save a language preference. Microsoft privacy statement: https://www.microsoft.com/en-us/privacy/privacystatement. Advertising choices described below do not by themselves control Clarity."
+          ]
+        },
+        {
+          "heading": "Cloudflare Web Analytics and performance",
+          "paragraphs": [
+            "The production website loads the Cloudflare Web Analytics performance beacon through the site’s own template. It reports website visits and loading information, such as page paths, referring sites, browser and device types and timing measurements. This measurement is separate from hosting logs and Microsoft Clarity.",
+            "Cloudflare Web Analytics does not use cookies or local storage and does not fingerprint individual visitors. It does not receive your selected GIF or extracted images. These statements describe this analytics service; they do not imply that other services on the website never use cookies."
+          ]
+        },
+        {
+          "heading": "Google advertising: current and future use",
+          "paragraphs": [
+            "Google advertising is currently disabled on this website. The published ads.txt seller record alone does not load Google advertising code or display an ad. If advertising is enabled later, Google and third-party advertising partners may set or read cookies, use web beacons and process IP addresses and browser or device identifiers to deliver and measure ads, prevent fraud and personalize ads where permitted.",
+            "Before enabling advertising, the website must provide the notices and consent controls required for the actual implementation. The Advertising privacy settings entry is intended for advertising choices when that service is available; an unavailable control does not grant consent. Google data use: https://policies.google.com/technologies/partner-sites. Google advertising preferences: https://myadcenter.google.com/. These vendor controls do not manage Cloudflare or Clarity."
+          ]
+        },
+        {
+          "heading": "Messages you send us",
+          "paragraphs": [
+            "If you email the operator, your sender address and the content you provide are processed to handle and reply to your request. Cloudflare Email Routing forwards contact messages to the receiving mailbox. Email processing is separate from GIF conversion, which does not upload files.",
+            "Mail providers involved in delivery may process addressing information, message content and attachments. Send only information needed for your request and avoid confidential files. Use the public contact address on the About page for privacy questions, correction requests or concerns about an unavailable control."
+          ]
+        },
+        {
+          "heading": "Your controls and policy updates",
+          "paragraphs": [
+            "You can use the tool without providing a personal profile. Browser controls may restrict cookies or storage, and you can remove downloaded files with your file manager. Switching language opens another page and does not transfer the current GIF. When advertising consent controls are available, use Advertising privacy settings to review or change those choices.",
+            "The site does not treat opening a page or seeing a privacy link as consent. Google advertising choices and other analytics settings are distinct. When data handling changes, the policy and its revision date should be updated to reflect the implemented services. The presence of these disclosures does not claim that a CMP is configured, certified or regionally verified."
+          ]
+        }
+      ],
+      "ctaTitle": "Extract frames locally",
+      "ctaText": "Your browser does the processing. Your GIF stays with you.",
+      "advertisingLive": {
+        "heading": "Google advertising and your choices",
+        "paragraphs": [
+          "This website uses Google AdSense on eligible guide pages. Google and its advertising partners may use cookies, web beacons, IP addresses, and browser or device identifiers to deliver and measure ads, prevent fraud, and personalize ads where permitted by your choices. These services are separate from the GIF tool: your selected GIF, filename, and extracted frames remain on your device.",
+          "Use “Advertising privacy settings” to review or withdraw advertising consent. Google’s partner-site data-use explanation and My Ad Center are linked below. Microsoft Clarity and Cloudflare analytics are described separately in this policy. Google data use: https://policies.google.com/technologies/partner-sites. My Ad Center: https://myadcenter.google.com/."
+        ]
+      },
+      "advertisingConsent": {
+        "heading": "Advertising verification and privacy choices",
+        "paragraphs": [
+          "In this verification mode, Google advertising code and the configured consent service may load, but advertising requests are paused and ads are not displayed. Loading those services can transmit IP addresses and browser or device information and may involve cookies or other identifiers according to their operation and applicable choices. Your selected GIF and extracted images remain separate and are not uploaded by the conversion.",
+          "Use Advertising privacy settings to review or withdraw available advertising consent choices. A verification page is not proof of completed regional consent testing, CMP certification or approval to display ads. Required controls must operate before advertising requests that depend on them are enabled. Google data use: https://policies.google.com/technologies/partner-sites. Google preferences: https://myadcenter.google.com/. These advertising settings do not control Clarity or Cloudflare."
+        ]
+      }
+    },
+    "transparency": {
+      "eyebrow": "Understand the pixels behind the preview",
+      "h1": "GIF transparency, patches and complete PNG frames",
+      "intro": "A GIF can look correct during playback while its internal images look incomplete. Transparent pixels, frame patches and disposal instructions explain the difference. This guide follows the same canvas model used by the extractor and gives you checks for deciding whether an exported PNG is correct.",
+      "sections": [
+        {
+          "heading": "1. What GIF transparency represents",
+          "paragraphs": [
+            "GIF transparency marks a palette entry as transparent for an image. It is not a smooth range of alpha values like a PNG can store. A decoded patch pixel using that entry contributes no new colour to the canvas. It may reveal a transparent background, or it may leave an earlier opaque pixel visible. Those outcomes depend on the canvas state before the patch is drawn.",
+            "This matters around logos, icons and animated overlays. An edge that was reduced to GIF palette colours cannot regain the original antialiasing merely by being saved as PNG. The exported image preserves the decoded result; it does not reconstruct a richer source. When evaluating a transparent edge, compare with the original GIF on a similar background and distinguish existing colour fringes from an extraction error."
+          ]
+        },
+        {
+          "heading": "2. Why optimized GIFs use patches",
+          "paragraphs": [
+            "A full animation may contain a mostly stationary background and a small moving object. Saving the entire picture every time would repeat many pixels. GIF can instead store a smaller rectangle at a specified position on the logical canvas. Such a rectangle is often called a patch. Its size can be different from the dimensions shown for the overall animation.",
+            "The rectangle alone is not always the picture the viewer sees. Its transparent areas may expose earlier canvas pixels, while pixels outside the rectangle remain unchanged. An extractor that downloads each raw rectangle without compositing can therefore lose the background or show a moving object in an unexpectedly small image. Complete-frame export reconstructs the visible canvas at each step before creating a PNG."
+          ]
+        },
+        {
+          "heading": "3. Read the logical canvas",
+          "paragraphs": [
+            "Think of the logical canvas as the sheet on which patches are drawn. The GIF supplies its width and height, patch positions and relevant background information. GIF Splitter creates a canvas at those dimensions and composes each frame in order. Every exported PNG uses that complete canvas size. The visible object can occupy only a small part of it without changing the output dimensions.",
+            "Our public sample is 480 × 300 with 24 frames, so those are also the expected dimensions of its PNG exports. Use it to compare full-size output with a scaled preview. The sample is not evidence for every transparency case: controlled disposal examples are more useful for that purpose. Never infer a patch size, transparent background or disposal method solely from the compressed file size."
+          ]
+        },
+        {
+          "heading": "4. Disposal 2 clears a region",
+          "paragraphs": [
+            "A disposal instruction controls the canvas after a frame has been displayed and before the following frame is drawn. Method 2 removes the previous frame rectangle, restoring the relevant background treatment in that region. The instruction applies to that rectangle, not automatically to the entire canvas. Pixels elsewhere can remain visible and form part of the following completed image.",
+            "In a controlled example, draw a red square on a transparent canvas, then use method 2 before drawing a blue square elsewhere. The next full image should no longer contain the red square, while unrelated retained pixels remain. An opaque GIF with a defined logical background can restore that background colour instead. Compare the complete frame with the fixture expectation rather than expecting all disposal-2 output to be transparent."
+          ]
+        },
+        {
+          "heading": "5. Disposal 3 restores an earlier state",
+          "paragraphs": [
+            "Method 3 means restore to previous: the affected area returns to the canvas state from before the temporary frame was drawn. This differs from simply clearing the rectangle. If a temporary overlay covers part of an existing image, restoring previous brings those earlier pixels back. A decoder needs to retain that earlier state before it draws the overlay.",
+            "A useful controlled sequence shows a base shape, a temporary coloured overlay, and a subsequent patch. After the overlay is disposed, the base shape should reappear where it had been covered. If the exported next frame contains a blank hole or still shows the overlay, something differs from the expected composition. These fixtures explain the mechanism; they are not performance benchmarks or a guarantee for damaged GIFs."
+          ]
+        },
+        {
+          "heading": "6. Compare patches with complete frames",
+          "paragraphs": [
+            "When checking extraction, use the sequence of completed images rather than comparing every PNG to a single raw patch. Note the patch position, the pixels already on the canvas and the disposal instruction applied after the preceding frame. The completed frame is captured after drawing the current patch and before disposing it. Changing that order can make an otherwise plausible image wrong.",
+            "The extractor handles transparent patches and the clearing or restoration required by methods 2 and 3. It does not add a decorative background to the output. For a reproducible check, use original geometric fixture files with known rectangles and colours. Record expected pixels inside the moving object, in its old position and outside its patch. This is stronger evidence than judging one thumbnail at a reduced display size."
+          ]
+        },
+        {
+          "heading": "7. Check transparent PNGs on different backgrounds",
+          "paragraphs": [
+            "The preview checkerboard helps you see transparent areas, but it is an interface background rather than image data. Download a frame and open it in an application that displays transparency. Then place it over a white background and a dark background. If a checkerboard remains fixed inside the image itself, inspect the source: the pattern may already have been baked into that GIF.",
+            "Some viewers display transparent images on white or black without making transparency obvious. An apparent white rectangle therefore does not by itself prove that the PNG is opaque. Conversely, if the GIF already contains a solid white background, PNG conversion does not remove it. Background removal is a separate editing task. Check a pixel or alpha-channel view in your editor when visual inspection leaves the answer uncertain."
+          ]
+        },
+        {
+          "heading": "8. Choose the right remedy",
+          "paragraphs": [
+            "For missing fragments or unexpected trails, compare adjacent frames and try the known fixture before blaming the download step. For source-colour fringes, return to a better original or edit the edge deliberately in another application. For a baked-in background, use an editor that supports background removal. For a damaged source, obtain a fresh copy. These actions solve different problems and should not be treated as interchangeable.",
+            "A complete PNG is a still image: it preserves the current composed pixels, not the GIF patch instructions or future animation. When importing a sequence elsewhere, preserve order and separately carry over timing. If you report a suspected compositing issue, include the frame number, expected result and browser, using a non-confidential example if possible. Do not publish someone else’s source or extracted art without the necessary permission."
+          ]
+        }
+      ],
+      "ctaTitle": "Inspect the complete image",
+      "ctaText": "Extract a frame and check its dimensions and transparent areas against the original.",
+      "example": {
+        "label": "Compare disposal methods 2 and 3",
+        "caption": "The controlled 3 × 1 examples start with red pixels, add a green overlay, then a blue pixel. Method 2 leaves red, transparent, blue; method 3 restores red, red, blue."
+      }
+    },
+    "timing": {
+      "eyebrow": "Read the animation clock",
+      "h1": "GIF frame timing: recorded delays and preview playback",
+      "intro": "Frame numbers tell you order; delays tell you time. Those are different parts of an animation. Understanding them helps you select a useful still, compare preview playback and move a PNG sequence into another editor without assuming that every frame lasts equally long.",
+      "sections": [
+        {
+          "heading": "1. Frames and time are different",
+          "paragraphs": [
+            "An animated GIF contains image frames in sequence, but each frame can have its own delay. Twenty frames do not imply twenty equal steps or a particular frame rate. A long hold can use one frame with a large delay, while a brief movement can use several short frames. Count describes the available images; duration describes their recorded time.",
+            "Two adjacent frames can also produce similar or identical pictures while keeping different delays. Removing one because it looks redundant can change the animation’s timing. For a single exported still, that difference may not matter. For animation analysis or rebuilding a sequence, retain the association between each original frame number and its delay instead of relying only on the number of PNGs."
+          ]
+        },
+        {
+          "heading": "2. Read GIF delay units",
+          "paragraphs": [
+            "GIF delay values use hundredths of a second, so one unit is 10 milliseconds. The extractor displays the corresponding millisecond value, including zero when present. For example, a recorded delay of eight units appears as 80 ms. The recorded duration shown by this tool is the sum of the frame delays; it is not a measurement of how long your device took to play them.",
+            "A zero delay is metadata, not a command your browser can always execute instantaneously. Rendering, timers and playback rules affect the visible result. Read the number as a property of the source file and keep it distinct from measured playback. Looping also needs separate treatment: the duration of one recorded sequence does not tell you whether the original is set to repeat once or indefinitely."
+          ]
+        },
+        {
+          "heading": "3. Separate recorded time from preview playback",
+          "paragraphs": [
+            "GIF Splitter uses a practical preview rule: delays below 20 ms are played at 100 ms. This keeps very short or zero-delay frames inspectable. Delays of 20 ms or more use their recorded value for the requested preview interval. The delay label and recorded duration remain unchanged; the tool does not rewrite the source GIF or claim that its preview reproduces every browser’s playback behaviour.",
+            "Even the requested interval is not a guaranteed wall-clock measurement. Busy devices, background tabs and display refresh can alter when a frame appears. A slow preview therefore does not prove that the GIF contains slow delays. Pause and inspect the displayed values when timing is important. Exported PNG pixels do not change because the preview uses a longer interval."
+          ]
+        },
+        {
+          "heading": "4. Walk through the timing fixture",
+          "paragraphs": [
+            "The controlled timing example has four recorded delays: 0, 10, 20 and 80 ms. Adding them gives a raw duration of 110 ms. Under this tool’s preview rule, the first two intervals become 100 ms each, while the final two stay at 20 and 80 ms. Their requested preview intervals total 300 ms. These are calculated metadata values, not a measured speed benchmark.",
+            "Inspect the four frames individually and compare each delay label with that list. A correct result keeps the zero and 10 ms labels even though playback makes them easier to see. Export all four PNGs and check their original numbering. The PNG sequence should not claim a 110 ms or 300 ms duration on its own, because standalone PNG files contain no per-frame GIF playback schedule."
+          ]
+        },
+        {
+          "heading": "5. Choose the right still at a transition",
+          "paragraphs": [
+            "Play an animation to locate the event, then pause and move one frame at a time. Look at the picture before and after the candidate. A transition image might be useful for explaining motion, while a settled image may work better in a tutorial thumbnail. A large delay can help identify an intentional hold, but it cannot determine which still best communicates your particular purpose.",
+            "The slider selects by frame number, not by elapsed milliseconds. Moving halfway along a sequence therefore does not necessarily show the temporal midpoint. If you need the image associated with a particular recorded time, add the earlier delays and locate the corresponding interval. For zero-delay frames or differing player behaviour, document the selection convention instead of claiming a universal screenshot time."
+          ]
+        },
+        {
+          "heading": "6. Keep timing alongside PNG sequences",
+          "paragraphs": [
+            "Downloading one PNG saves a still image. Downloading all frames saves ordered still images in a ZIP, with original frame numbers in their names. Neither operation exports a timing manifest or a newly animated file. If another editor imports the sequence at a fixed frame rate, it assigns its own timing. That can make the rebuilt motion differ from a GIF with variable delays.",
+            "Before rebuilding an animation, note each required delay and the source’s looping behaviour in your own working notes. Check whether the receiving editor supports per-frame durations, and set them deliberately. Keep a copy of the original GIF for comparison. If you selected only some frames, the original numbers reveal which were omitted; you still need to decide how those omissions affect the intended animation."
+          ]
+        },
+        {
+          "heading": "7. Why animations appear to run differently",
+          "paragraphs": [
+            "Different GIF players can handle tiny delays differently. Device load and tab visibility introduce further variation, so visual speed alone is not a reliable reading of the file’s timing metadata. Comparing this tool’s preview with a website animation may also compare GIF with video, because some sites substitute a video file. Verify the actual source format before drawing conclusions.",
+            "A recorded frame sequence may also contain a long final hold or repeated visual states that make playback seem uneven. Inspect the delay list and neighbouring images to separate an authored pause from a preview scheduling effect. GIF Splitter exposes the original delays but does not offer timing edits, frame interpolation or a promise of synchronized playback across devices. Use an animation editor when those changes are the goal."
+          ]
+        },
+        {
+          "heading": "8. Troubleshoot timing without changing pixels",
+          "paragraphs": [
+            "If the motion looks slow here, first check for delays below 20 ms and apply the preview rule. If the recorded duration seems surprising, sum the individual labels and look for long holds or zero values. If a reimported PNG sequence plays differently, check the receiving editor’s default frame rate. These checks address timing without unnecessarily rescaling or recompressing the images.",
+            "When asking for help, distinguish the recorded delay, the requested preview interval and an observed playback duration. Include the relevant frame numbers and the browser, and use a controlled example when possible. Do not describe the calculated fixture totals as device measurements. For choosing a still, return to the image itself: timing is context for your decision, while the PNG preserves the selected composed pixels."
+          ]
+        }
+      ],
+      "ctaTitle": "Check a frame and its delay",
+      "ctaText": "Open a GIF, inspect adjacent frames and read the recorded millisecond values.",
+      "example": {
+        "label": "Inspect the four-frame timing example",
+        "caption": "The four recorded delays are 0, 10, 20 and 80 ms: 110 ms in total. Requested preview intervals total 300 ms under the short-delay rule; neither total is a measured benchmark."
+      }
+    },
+    "troubleshooting": {
+      "eyebrow": "Diagnose the step that failed",
+      "h1": "Troubleshooting large GIFs, memory limits and ZIP downloads",
+      "intro": "A failed download and a rejected GIF are different problems. This guide separates reading, decoding, previewing and exporting, then explains the exact safeguards used by GIF Splitter. Start with the error message and choose a remedy that applies to that stage.",
+      "sections": [
+        {
+          "heading": "1. Identify the failing step",
+          "paragraphs": [
+            "Note whether the tool rejects the file before showing frames, stops during extraction, displays results but cannot export, or completes a download you cannot find. Those stages involve different resources. Try the public sample, which has 24 frames at 480 × 300. A successful sample helps isolate a source-specific issue, although it does not prove that a much larger GIF should also fit.",
+            "Record the exact message, browser and device before retrying. You can cancel extraction and choose another file. Repeated retries of the same source do not reduce its dimensions or frame count. If the page becomes unresponsive, close it and reopen the tool with a smaller example. Avoid running multiple large extractions in separate tabs while trying to understand a memory-related failure."
+          ]
+        },
+        {
+          "heading": "2. Confirm the file format and completeness",
+          "paragraphs": [
+            "The tool accepts GIF image files, including static GIFs. A video, HTML download page or another image format renamed with a .gif extension remains the wrong format. Check how you obtained the file, and open the source in a suitable viewer if needed. A file-size value alone does not confirm valid GIF contents. Empty files cannot be decoded, even if their name looks correct.",
+            "A truncated or damaged GIF may lack required data even when a viewer partially displays it. Obtain a fresh copy of the original, preferably from the source you control, and compare its size with the failed copy. Changing the extension does not repair missing bytes. GIFs containing plain-text rendering blocks are unsupported by this extractor; use an image-only source or another suitable decoder for that case."
+          ]
+        },
+        {
+          "heading": "3. Understand compressed size and memory",
+          "paragraphs": [
+            "The input-size limit is 30 MiB, where one MiB is 1,048,576 bytes. A compressed GIF can be small because it reuses colours and stores limited changes, yet still require many full-size output images. PNG blobs, working canvases and decoder data also occupy memory. The input limit is therefore only one check, not a promise that every smaller file can be extracted.",
+            "The extractor decodes patches sequentially and applies pixel budgets to reduce excessive allocations. Your browser still needs enough available memory for the permitted work. A phone under load may struggle with a file that a desktop handles. Prepare a shorter or lower-resolution GIF in another application when the expanded sequence is too large. Clearing browser downloads does not shrink the source or its decoded pixel requirements."
+          ]
+        },
+        {
+          "heading": "4. Apply dimension and pixel limits",
+          "paragraphs": [
+            "A GIF can have sides up to 8,192 pixels, but each full frame must also stay within 16 million pixels. Both checks apply: 8,192 × 8,192 exceeds the per-frame budget even though neither side exceeds the side limit. The extractor additionally allows at most 128 million decoded patch pixels and 80 million full output pixels across the sequence. These are separate safeguards.",
+            "For example, 100 frames at 1,000 × 1,000 require 100 million output pixels, exceeding the 80 million output budget. The compressed file might still be under 30 MiB. Reducing that source to 800 × 800 gives 64 million output pixels, but all other checks and device resources still matter. These calculations explain a limit; they are not measured capacity or a guarantee that a proposed conversion succeeds."
+          ]
+        },
+        {
+          "heading": "5. Handle long animations",
+          "paragraphs": [
+            "A source with more than 1,000 image frames is rejected. A shorter animation can also hit the output-pixel budget if its canvas is large. Trimming the source duration or resizing it before extraction can address those causes. Selecting a few frames in the results does not help a source that fails extraction, because this tool reconstructs the sequence before presenting downloadable selections.",
+            "If you need only one moment from an oversized animation, use an editor that can trim or export that moment from your original source. Keep the original unchanged and work on a copy. Splitting an optimized GIF by copying isolated internal patches can lose the preceding canvas state. Use a decoder or editor that understands full-frame composition instead of assuming each stored image is independent."
+          ]
+        },
+        {
+          "heading": "6. Split large ZIP downloads",
+          "paragraphs": [
+            "Each ZIP is limited to 128 MiB of PNG data before archive overhead. If extraction succeeds but Download all frames exceeds that budget, select a smaller group and download it. Repeat for the remaining frames. A single PNG can also be downloaded from the current preview. This remedy addresses archive size; it does not bypass input, dimension, frame-count or extraction-memory limits.",
+            "Keep track of the selected frame numbers between groups. Export filenames retain the original numbers, so the archives can later be combined without renumbering the sequence. Unpack the ZIPs before editing their images. ZIP contains still PNG files, not a playable animation. Do not assume that a low compressed GIF size predicts a low PNG archive size: full-frame PNGs can store substantially more image data."
+          ]
+        },
+        {
+          "heading": "7. Recover from browser and device failures",
+          "paragraphs": [
+            "If the browser cannot create a canvas or encode a PNG, try a current browser and a smaller source, then compare with the sample. Close other memory-intensive tabs or use a device with more available memory when possible. A cancellation intentionally stops processing, so start a new extraction when ready. The tool releases its current working state when you choose another GIF or close the page.",
+            "If an export appears successful but no file is visible, check your browser’s download list and its chosen destination. A browser or operating system may ask for permission or a save location. On mobile, opening an archive can require the device’s file manager. These actions happen outside the extraction preview. Preserve the original source and check the downloaded PNG dimensions or ZIP entries before repeating the entire workflow."
+          ]
+        },
+        {
+          "heading": "8. Know when to use another workflow",
+          "paragraphs": [
+            "A desktop image or animation editor can be more suitable for very large sources, frame editing, resizing or creating a new animated file. This browser tool processes one GIF at a time and exports PNGs or ZIPs; it is not a batch converter or repair service. Choose another workflow for those requirements, and verify its handling of transparency, disposal instructions and timing against a controlled source.",
+            "For an unresolved issue, contact the operator with the failing stage, error message, browser and approximate dimensions or frame count if known. Mention whether the public sample works. You usually do not need to attach private files. A report with a small reproducible example is more useful than a claim that every GIF fails, and it allows a specific fix without exposing confidential source material."
+          ]
+        }
+      ],
+      "ctaTitle": "Try a smaller, known source",
+      "ctaText": "Use the sample to check the workflow, then apply the remedy that matches your error.",
+      "example": {
+        "label": "Test the output-pixel safeguard",
+        "caption": "This controlled GIF has a 4,000 × 4,000 canvas and six one-pixel patches. Its six complete frames require 96 million output pixels, exceeding the 80 million budget. A memory-limit error before image allocation is the expected result."
+      }
+    },
+    "terms": {
+      "eyebrow": "Using this focused tool",
+      "h1": "Terms of use",
+      "intro": "These terms describe the intended use of GIF Splitter at www.gifsplitter.com and its language versions. They explain your responsibilities for source files and the practical limits of this browser-based service.",
+      "sections": [
+        {
+          "heading": "1. Service and operator",
+          "paragraphs": [
+            "GIF Splitter is the name used to operate this free browser tool. It reads a GIF selected on your device and provides composed PNG frames or ZIP downloads. The public contact address for questions, problems and privacy requests is contact@gifsplitter.com.",
+            "No account is required. The tool is intended for ordinary image extraction and inspection. It does not provide a paid storage service, publish your files or promise that an exported image is suitable for every intended purpose. Check the result before relying on it."
+          ]
+        },
+        {
+          "heading": "2. Permitted use and ownership",
+          "paragraphs": [
+            "Use only files you own or have permission to process. You remain responsible for the rights, privacy interests and other restrictions that apply to source images and extracted frames. Being able to download a GIF from a website does not automatically grant permission to reuse its artwork.",
+            "Do not use the service for unlawful activity, to infringe another person’s rights or to disrupt the website. The local extraction workflow does not transfer ownership of your source or output to the operator. Before republishing a frame, check the permissions that apply to your particular use."
+          ]
+        },
+        {
+          "heading": "3. Files and downloads",
+          "paragraphs": [
+            "GIF reading, decoding, PNG encoding and ZIP creation happen in your browser. The conversion does not upload your selected GIF, filename or frames. Keep a separate copy of your original file; the tool is not a backup system. Website analytics and contact emails follow the privacy policy.",
+            "Downloaded files are managed by your browser and operating system. You are responsible for checking the chosen destination, opening archives and confirming the exported images. A PNG is a still image, and a ZIP of PNGs does not preserve animation timing as a playable GIF."
+          ]
+        },
+        {
+          "heading": "4. Availability and limitations",
+          "paragraphs": [
+            "The service has input, frame, dimension, pixel and archive limits explained in its guides. Browser capabilities, device resources and the condition of a source file can affect whether extraction succeeds. The tool may reject unsupported or damaged GIFs and does not repair missing source data.",
+            "We aim to keep the tool useful, but do not promise uninterrupted availability, flawless output or compatibility with every file and device. Features and safeguards may change. Verify important work against the original, and use another suitable workflow when a task exceeds this service’s capabilities."
+          ]
+        },
+        {
+          "heading": "5. Third-party services and privacy",
+          "paragraphs": [
+            "Cloudflare provides hosting and website performance measurement. Microsoft Clarity is used on the permitted production pages for interaction analytics. Google advertising, if enabled, involves additional third-party processing and applicable privacy choices. The privacy policy describes the services actually used and distinguishes them from local file conversion.",
+            "If advertising services are enabled, their data uses, advertising partners, consent requirements and available controls are described in the current Privacy policy. Their operation depends on applicable choices and requirements, so review that policy for the services actually in use. Links to vendor explanations and controls open services governed by those providers’ own terms and privacy policies. Advertising choices do not necessarily control other analytics; contact the operator if a website control is unclear or unavailable."
+          ]
+        },
+        {
+          "heading": "6. Reporting problems and changes",
+          "paragraphs": [
+            "To report a copyright concern about content published on this website, email contact@gifsplitter.com. Include the affected page URL, identify the work involved and the rights you hold or the basis on which you represent the rights holder, explain the concern, and provide a contact address for a reply. This helps the operator locate the content and assess your request. For an ordinary feature, content or technical report, identify the page or behaviour and include relevant browser, device and error details. You usually do not need to send a private GIF or unrelated personal information.",
+            "These terms may be updated when the service changes. The displayed revision date identifies the latest published wording. Updates do not remove any rights that applicable law gives you. Consult the current terms and privacy policy when a change affects how you use the tool."
+          ]
+        }
+      ],
+      "ctaTitle": "Use files you can lawfully process",
+      "ctaText": "Check the source, extract locally and verify the images you download."
+    }
   },
-  "footer": {"tagline": "A simple tool for the moments between the motion.", "copyright": "© 2026 GIF Splitter"}
+  "footer": {
+    "tagline": "A simple tool for the moments between the motion.",
+    "copyright": "© 2026 GIF Splitter"
+  }
 }

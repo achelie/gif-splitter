@@ -1,10 +1,8 @@
 # GIF Splitter
 
-A purely static, ten-language SEO tool live at **[www.gifsplitter.com](https://www.gifsplitter.com/)**. The canonical production origin is **https://www.gifsplitter.com**. GIF decoding, compositing, PNG export and ZIP generation happen locally in the browser. No backend, accounts or file uploads are needed. The production site uses Microsoft Clarity for usage analytics.
+A ten-language GIF tool at [www.gifsplitter.com](https://www.gifsplitter.com/). Decoding, full-frame compositing, PNG export and ZIP creation happen in the browser. Selected files are not uploaded. Advertising `off` builds run as static Cloudflare Pages with SHA-256 CSP and no Functions requests. Future `consent`/`live` builds use the prepared edge worker to supply a fresh CSP nonce to each HTML response.
 
-The current brand is **GIF Splitter**. The primary keyword is **gif splitter**, the secondary keyword is **gif frame extractor**, and supporting phrases are **split GIF into frames** and **GIF to PNG**. The English homepage title is **GIF Splitter — Free Online GIF Frame Extractor**, and its H1 is **GIF Splitter — Split GIFs into PNG Frames**. Other languages lead with the GIF Splitter brand and use natural local wording for conversion and frame extraction.
-
-## Local development
+## Development and verification
 
 Requires Node.js 22.12+ (tested with 22.19).
 
@@ -14,32 +12,63 @@ npm run dev
 npm test
 npm run build
 npm run check:site
-npm run preview
+npx wrangler pages dev dist --ip 127.0.0.1 --port 8788
 ```
 
-Built with Vite, vanilla JavaScript/CSS, gifuct-js and fflate. `dist/` is the complete deployable site. All 40 content pages contain static, crawlable HTML; JavaScript powers extraction and enhances the language menu, not page translation.
+Wrangler Pages exercises the actual static headers, or the worker and HTMLRewriter in Google-enabled builds. Vite development and preview are useful for editing but do not exercise Cloudflare headers. Browser artifacts belong under ignored `output/playwright/`.
 
-## Languages and content
+Tests cover real GIF bytes, compositing pixels, timing, memory guards, cancellation, translations, all templates, advertising consent transitions and edge responses. The built-site check covers assets, links, anchors, sitemap and indexing.
 
-English retains the original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (`/fr/`), German (`/de/`), Italian (`/it/`), Korean (`/ko/`), Brazilian Portuguese (`/pt-br/`), Russian (`/ru/`) and Traditional Chinese for Taiwan (`/zh-hant/`) use language prefixes. Each has the same four page types below. The language menu links to the equivalent page type and never redirects by IP or browser language. Changing language navigates to a new page and does not retain a selected GIF or store a language preference.
+## Languages and pages
 
-`src/locales/*.json` contains complete plain-text content: metadata, static pages, controls, accessibility labels, status and errors. `src/site/render.js` is the shared HTML template; `src/site/config.js` owns routes and the canonical origin. The Vite development middleware renders these templates locally. During builds, `scripts/seo-build.mjs` uses Vite's manifest to reference the hashed JavaScript/CSS and writes all 40 HTML files, the sitemap, robots.txt and Cloudflare headers.
+English retains its original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (`/fr/`), German (`/de/`), Italian (`/it/`), Korean (`/ko/`), Brazilian Portuguese (`/pt-br/`), Russian (`/ru/`) and Traditional Chinese (`/zh-hant/`) use prefixes. Each has eight page types, for 80 pages:
 
-To edit wording, update the relevant locale JSON. Keep placeholders such as `{count}` and `{current}` unchanged. `src/site/content.js` rejects missing/empty translations, mismatched keys, arrays or placeholders, and missing plural categories during every build. Dynamic messages use `Intl.NumberFormat` and `Intl.PluralRules`; decoder errors expose stable codes while the interface selects local wording. Do not add user-visible English fallbacks to the app.
+- `/` — extraction tool, steps, capabilities, FAQs and guide links
+- `/how-to-extract-gif-frames/` — selecting a GIF and three download methods
+- `/gif-transparency-and-disposal/` — transparent patches and disposal 2/3
+- `/gif-frame-timing/` — stored delays, preview delays and duration
+- `/large-gif-extraction-troubleshooting/` — limits and recovery steps
+- `/about/` — processing, editorial corrections and Contact
+- `/privacy/` — actual file, hosting, analytics and advertising data handling
+- `/terms/` — usage, rights, limitations and copyright feedback
 
-Every page has a self-referencing production canonical, localized title/description/H1, Open Graph metadata, structured data and ten reciprocal hreflang links plus English `x-default`. The HTML language tags are `pt-BR` and `zh-Hant` for the corresponding regional/script editions. Research evidence and its limits are recorded in [docs/keyword-research.md](docs/keyword-research.md). Localized headings follow both GIF-to-PNG and frame-extraction intent. The historical research does not establish stable traffic for every phrase, and its `split gif` observations are not search-volume evidence for `gif splitter`.
+`/404.html` is a separate real error page. Language navigation links to the equivalent page without automatic regional redirects. Changing pages releases the current GIF; no language preference is stored.
 
-Homepages explain frame selection, individual PNG and numbered ZIP downloads, full-frame reconstruction, transparency, browser memory limits and mobile use. The English `home` dictionary contains approximately 1,218 words; translations preserve the information without imposing an English word-count or keyword-density target. The homepage H1 has no decorative trailing period. Frame previews are created only after decoding, with the GIF's actual width and height set before loading their image source; thumbnails use the same original dimensions and retain their fixed display containers.
+`src/locales/*.json` contains complete plain-text metadata, content and controls. `src/site/content.js` rejects missing translations, mismatched keys/arrays/parameters and missing plural categories. Keep parameters such as `{count}` intact. The route config owns dates and the canonical origin; the shared template escapes content. Publication and material revision dates are distinct. English guide lengths are an editorial target, not a Google eligibility threshold.
 
-## Deployment
+Each page has one H1, a unique localized title, self canonical, ten reciprocal hreflang entries plus English `x-default`, Open Graph data and structured data. Four guide types include contents, reproducible examples, related guides and tool links. Historical keyword research remains in [docs/keyword-research.md](docs/keyword-research.md).
 
-Cloudflare Pages project: `gifframeextractor`, production branch: `main`.
+## Examples and processing limits
 
-```sh
-npm run deploy
-```
+One GIF at a time, up to 30 MiB and 1,000 frames. Further guards: 8,192 pixels per side, 16 million pixels per frame, 128 million decoded patch pixels, 80 million output pixels and 128 MiB of PNG data per ZIP. Smaller devices can run out of practical memory earlier.
 
-The default deployment command runs a production build, validates production indexing and URLs, then uploads only `dist/`:
+The decoder handles transparent patches and disposal 2/3. Original delays, including zero, are retained as metadata; delays below 20 ms use 100 ms in the preview. PNG does not encode animation delays. ZIP names retain original frame numbers. The app releases object URLs, supports cancellation and batched thumbnails, and respects reduced motion.
+
+`node scripts/make-guide-examples.mjs` regenerates committed deterministic GIFs and the comparison SVG in `public/examples/`. Timing stores 0/10/20/80 ms (110 ms raw, 300 ms preview). Disposal samples distinguish background restoration from previous-content restoration. The six-frame 4000×4000 sample triggers the output guard before canvas allocation. Decoder tests reproduce these outcomes. `scripts/make-assets.py` optionally regenerates the original 24-frame sample and social image; Python is not needed to build.
+
+## Advertising and analytics
+
+Advertising defaults to `off`. This site is under AdSense review; do not resubmit or activate live advertising before this domain is Ready. Preserve the existing publisher and `public/ads.txt`.
+
+Build variables are listed in [.env.example](.env.example). The generator reads the process environment: export variables in the shell or configure the Pages build environment. Copying that file alone does not activate them.
+
+| Mode | Behavior |
+| --- | --- |
+| `off` | Static Pages, SHA-256 CSP, no Function invocation, Google loader, CMP configuration, ad unit or placeholder. |
+| `consent` | Official Google tag loads with requests paused; Google services can still use the network and identifiers. |
+| `live` | Requires explicit Ready, published/verified CMP, disabled Auto Ads and a real numeric unit ID. Unknown/rejected consent or API failure stays closed. |
+
+Only four guide types can show one responsive manual unit after section two. Home, About, Privacy, Terms and 404 have no ads. The official CMP runs on eligible production Home/guide routes in non-off modes. Privacy never loads Clarity, advertising or CMP tags; its settings link opens the same-language Home withdrawal flow. An unavailable CMP shows an explanation and hides the unusable button. Withdrawal pauses requests, hides an existing unit and does not refresh ads or clear the tool's GIF.
+
+Follow [docs/adsense-console-setup.md](docs/adsense-console-setup.md) for Google Privacy & messaging, TCF v2.3, fallback languages and actual regional evidence. Code tests do not certify the CMP or establish Google approval.
+
+Clarity project `ysiz2atokr` defaults on for the 70 production routes outside Privacy. An origin guard excludes localhost and Pages previews. Tool filenames and images are masked with `data-clarity-mask="true"`. No synthetic consent-granted signal is sent. Actual Clarity regional consent behavior requires independent verification.
+
+Cloudflare Web Analytics explicitly loads the existing beacon. Static off builds hash the Clarity/beacon bootstrap bytes and use `no-transform`; Google-enabled builds add a response nonce and use `no-store, no-transform`. Verify one beacon on production. Contact uses direct `mailto:` and `email_off` markers. Cloudflare measurement is separate from Clarity and ads.
+
+## Deployment and indexing
+
+Pages project: `gifframeextractor`; production branch: `main`.
 
 ```sh
 npm run build:production
@@ -47,51 +76,14 @@ npm run check:site -- --production-domain
 npx wrangler pages deploy dist --project-name gifframeextractor --branch main
 ```
 
-Wrangler needs a Cloudflare account with Pages write permissions. If the environment requires its existing local proxy, set `HTTP_PROXY` and `HTTPS_PROXY` for the command; no proxy is needed by the deployed site.
+`npm run deploy` runs those steps. The current `off` build emits neither `_worker.js` nor `_routes.json`: HTML and the tool use static Pages, independent of Workers Free request/CPU quotas. `_headers` supplies one static CSP with exact executable bootstrap hashes, explicit analytics script hosts and security headers. Hashed assets retain one-year immutable caching.
 
-### Production domain, previews and SEO
+Before a future `consent`/`live` release, check Functions/Workers quota and use fail closed. In those modes each HTML request invokes `_worker.js`; `_routes.json` excludes static assets, examples, robots, sitemap and ads.txt. Google-enabled routes use Google's supported nonce/strict-dynamic policy. Do not enable Google tags in the static off build.
 
-The production site is served at [www.gifsplitter.com](https://www.gifsplitter.com/), using the existing `gifframeextractor` Cloudflare Pages project. Canonicals, hreflang URLs, sitemap entries, structured data and social URLs use `https://www.gifsplitter.com`.
+Wrangler needs existing Pages write access. If needed, configure the existing local proxy through `HTTP_PROXY` and `HTTPS_PROXY`; the deployed site needs no local proxy.
 
-- A production build marks all 40 content pages `index, follow`. Responses from the production hostname contain no `noindex` directive.
-- `npm run build` remains the local preview build and emits `noindex, follow`. Use `npm run deploy` for a checked production deployment.
-- [gifframeextractor.pages.dev](https://gifframeextractor.pages.dev/) and deployment preview hosts matching `:version.gifframeextractor.pages.dev` remain accessible without redirecting. Host-specific `X-Robots-Tag: noindex, follow` headers keep these copies out of the indexing target even when they serve a production build.
-- The apex redirect is managed separately in Cloudflare zone rules, outside this Pages deployment. Match only `gifsplitter.com`, use HTTP 301 with the dynamic destination `concat("https://www.gifsplitter.com", http.request.uri.path)`, and enable **Preserve query string**. The complete path must be preserved without adding a slash to files; for example, `https://gifsplitter.com/robots.txt?check=1` must redirect to `https://www.gifsplitter.com/robots.txt?check=1`. Pages deployment permissions do not grant access to edit this zone rule.
+Canonical origin is `https://www.gifsplitter.com`. Production builds use `index, follow`; Pages previews and true 404 responses retain noindex. Local builds are noindex. The apex 301 is a separate zone rule preserving path and query. After release verify 80 routes, static CSP hashes (or fresh nonces for Google-enabled builds), CSP errors, real 404, sitemap, ads.txt, previews and redirects. Publishing does not establish indexing, ranking or AdSense approval.
 
-After deployments, verify canonical URLs, response headers, robots.txt, sitemap.xml and apex redirects on the live hostnames. An indexable production release does not guarantee search-engine indexing or ranking.
+Public contact is `contact@gifsplitter.com`. Existing Email Routing/DNS does not prove delivery: the owner must send a test from an external mailbox and confirm receipt. Private receiving addresses are not published.
 
-### Microsoft Clarity
-
-The shared HTML template includes project `ysiz2atokr` on all 40 production pages. A runtime origin check loads it only on `https://www.gifsplitter.com`; local builds omit the snippet, and Pages preview hosts do not load it. No private API key is required. Cloudflare's CSP allows Clarity scripts and collection requests using the [documented domains](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-csp).
-
-The extractor region uses `data-clarity-mask="true"` to mask filenames, frame previews and other content in recordings, following [Clarity's masking API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-masking). GIF processing stays in the browser. All ten privacy pages disclose Clarity. The integration does not send a consent-granted signal on the visitor's behalf; cookie behavior follows Clarity's settings and consent handling.
-
-### Contact and AdSense preparation
-
-Every language's About page includes a `#contact` section. Footer contact links stay in the current language, and the public address is `contact@gifsplitter.com`. Cloudflare Email Routing forwards that address to a verified destination; the destination is private and is not included in the website. Routing and DNS configuration do not by themselves prove message delivery.
-
-The privacy pages describe contact emails, default Clarity loading, Cloudflare Web Analytics performance measurement, and the data Google and advertising partners may process if AdSense is enabled later. The site currently has no Google ad loader, ad units or advertising CMP. Publishing disclosures does not prove regional consent compliance or Google site approval.
-
-Cloudflare injects its Web Analytics beacon on the live site. CSP permits only its script origin, `https://static.cloudflareinsights.com`; the proxied beacon submits performance data to the same-origin `/cdn-cgi/rum` endpoint. Local builds do not inject this beacon. Existing preview indexing exclusions and the AdSense seller line remain in place.
-
-## Included page types (each in all ten languages)
-
-- `/` — interactive extraction tool, use cases, how-to steps and FAQs
-- `/how-to-extract-gif-frames/` — practical extraction guide
-- `/about/` — tool description and limits
-- `/privacy/` — local processing and hosting disclosure
-- `/404.html` — real not-found page for Cloudflare Pages
-
-## Processing and limits
-
-One GIF at a time, up to 30 MiB and 1,000 frames. Additional safeguards: 8,192 pixels per side, 16 million pixels per frame, 128 million decoded patch pixels, and 80 million output pixels across all frames. Decoding applies transparent patches and disposal methods 2/3 and exports each full composited image as PNG. Frame timing metadata is preserved, including zero-delay frames; playback delays below 20 ms are displayed at 100 ms for a usable preview. ZIP filenames preserve original frame numbers. Original files are never modified.
-
-The UI creates and releases object URLs, supports cancellation, renders thumbnail batches, uses native accessible controls, and respects reduced-motion preferences. A single ZIP export is limited to 128 MiB of PNG data; larger results can be downloaded in smaller selections. Resource limits reduce browser memory risk; actual capacity still depends on the device. There is no service worker or offline-install feature.
-
-## Verification
-
-`npm test` uses small, real GIF byte sequences and a pixel-aware canvas double to verify transparency, frame patches, disposal modes, delays, invalid files, limits and cancellation. It also checks language schemas, plural rules, every static template, reciprocal language links, metadata, structured data and escaping. `npm run check:site` audits the actual built output, including all routes, bundled assets, internal links and sitemap/header indexing mode.
-
-Browser QA verifies each language's sample extraction, frame counts, progress, error messages and equivalent-page navigation; it also covers PNG and ZIP downloads, real canvas pixels, cancellation, disabled JavaScript and mobile layouts. Local screenshots and download artifacts belong under the ignored `output/playwright/` directory.
-
-`scripts/make-assets.py` optionally regenerates the original sample animation and social image with Pillow and Windows Segoe UI fonts. Generated assets are committed; Python is not needed to build or run the site.
+The implementation audit and all 73 ADS IDs are in [docs/adsense-remediation-2026-10-05.md](docs/adsense-remediation-2026-10-05.md).

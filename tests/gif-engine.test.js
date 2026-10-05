@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { extractGif, GIF_LIMITS } from '../src/gif-engine.js';
+import { readFile } from 'node:fs/promises';
 
 const colors = [[0, 0, 0], [255, 0, 0], [0, 255, 0], [0, 0, 255]];
 const rgba = (index) => index === null ? [0, 0, 0, 0] : [...colors[index], 255];
@@ -173,4 +174,28 @@ test('supports cancellation before loading and between frames', async () => {
     signal: during.signal,
     onProgress({ completed }) { if (completed === 1) during.abort(); },
   }), { name: 'AbortError' });
+});
+
+test('published timing example preserves 110 ms metadata independently of preview normalization', async () => {
+  const bytes = await readFile(new URL('../public/examples/timing.gif', import.meta.url));
+  const result = await extractGif(new Blob([bytes]));
+  assert.deepEqual(result.frames.map(frame => frame.delay), [0, 10, 20, 80]);
+  assert.equal(result.duration, 110);
+  assert.equal(result.frames.reduce((sum, frame) => sum + (frame.delay < 20 ? 100 : frame.delay), 0), 300);
+});
+
+for (const [disposal, expected] of [[2, [1, null, 3]], [3, [1, 1, 3]]]) {
+  test(`published disposal ${disposal} example matches the documented complete canvas`, async () => {
+    const bytes = await readFile(new URL(`../public/examples/disposal-${disposal}.gif`, import.meta.url));
+    const result = await extractGif(new Blob([bytes]));
+    assert.deepEqual([result.width, result.height, result.frames.length], [3, 1, 3]);
+    assert.deepEqual(await pixelsOf(result.frames[1]), [...rgba(1), ...rgba(2), ...rgba(1)]);
+    assert.deepEqual(await pixelsOf(result.frames[2]), expected.flatMap(rgba));
+  });
+}
+
+test('published small memory example fails the output pixel budget before raster allocation', async () => {
+  const bytes = await readFile(new URL('../public/examples/memory-limit.gif', import.meta.url));
+  assert.ok(bytes.length < 1024);
+  await assert.rejects(extractGif(new Blob([bytes])), { code: 'MEMORY_LIMIT' });
 });

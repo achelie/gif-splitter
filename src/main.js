@@ -2,6 +2,7 @@ import { zip } from 'fflate';
 import { extractGif } from './gif-engine.js';
 import './site.js';
 import { createTranslator } from './i18n.js';
+import { EXAMPLE_FILES } from './site/examples.js';
 
 const $ = (id) => document.getElementById(id);
 const messages = JSON.parse($('locale-messages').textContent);
@@ -239,21 +240,23 @@ $('choose-file').addEventListener('click', () => $('file-input').click());
 $('file-input').addEventListener('change', (event) => openFile(event.target.files[0]));
 $('start-over').addEventListener('click', () => { reset(); $('file-input').click(); });
 $('cancel-button').addEventListener('click', () => { reset(); status(t('runtime.cancelled')); });
-$('sample-button').addEventListener('click', async () => {
+async function loadExample(example = 'sample') {
+  if (!Object.hasOwn(EXAMPLE_FILES, example)) return;
   const sampleJob = ++job;
   $('sample-button').disabled = true;
   status(t('runtime.openingSample'));
   try {
-    const response = await fetch('/sample.gif');
+    const response = await fetch(EXAMPLE_FILES[example]);
     if (!response.ok) throw new Error('Sample unavailable');
     const blob = await response.blob();
-    if (sampleJob === job) await openFile(new File([blob], 'little-orbit.gif', { type: 'image/gif' }));
+    if (sampleJob === job) await openFile(new File([blob], example === 'sample' ? 'little-orbit.gif' : `${example}.gif`, { type: 'image/gif' }));
   } catch {
     if (sampleJob === job) status(t('errors.SAMPLE_LOAD'), true);
   } finally {
     $('sample-button').disabled = false;
   }
-});
+}
+$('sample-button').addEventListener('click', () => loadExample());
 
 let dragDepth = 0;
 document.addEventListener('dragover', (event) => { if (event.dataTransfer.types.includes('Files')) event.preventDefault(); });
@@ -300,3 +303,5 @@ $('select-all').addEventListener('click', () => {
   updateSelection();
 });
 $('show-more').addEventListener('click', appendCards);
+const example = new URLSearchParams(window.location.search).get('example');
+if (example && Object.hasOwn(EXAMPLE_FILES, example)) loadExample(example);

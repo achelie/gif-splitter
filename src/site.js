@@ -1,4 +1,5 @@
 import './style.css';
+import './advertising.js';
 
 const menu = document.querySelector('.language-menu');
 if (menu) {
