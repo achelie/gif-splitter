@@ -64,7 +64,7 @@ Follow [docs/adsense-console-setup.md](docs/adsense-console-setup.md) for Google
 
 Clarity project `ysiz2atokr` defaults on for the 70 production routes outside Privacy. An origin guard excludes localhost and Pages previews. Tool filenames and images are masked with `data-clarity-mask="true"`. No synthetic consent-granted signal is sent. Actual Clarity regional consent behavior requires independent verification.
 
-Cloudflare Web Analytics explicitly loads the existing beacon. Static off builds hash the Clarity/beacon bootstrap bytes and use `no-transform`; Google-enabled builds add a response nonce and use `no-store, no-transform`. Verify one beacon on production. Contact uses direct `mailto:` and `email_off` markers. Cloudflare measurement is separate from Clarity and ads.
+Cloudflare Web Analytics explicitly loads the existing beacon and preserves its token. Its implemented `send.to` option targets the Cloudflare-managed `/cdn-cgi/rum` endpoint on the production domain; an isolated browser verified a 204 response there, while the default cross-origin endpoint rejected the existing zone beacon with CORS. This option is present in the official beacon implementation; the public setup guide describes the default manual endpoint instead. Do not add a Worker proxy or modify this reserved endpoint. Static off builds hash the Clarity/beacon bootstrap bytes and use `no-transform`; Google-enabled builds add a response nonce and use `no-store, no-transform`. Verify one beacon on production. Contact uses direct `mailto:` and `email_off` markers. Cloudflare measurement is separate from Clarity and ads.
 
 ## Deployment and indexing
 
