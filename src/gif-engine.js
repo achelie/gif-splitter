@@ -1,4 +1,4 @@
-import { parseGIF, decompressFrames } from 'gifuct-js';
+import { createGifDecoder } from './gif-decoder-client.js';
 
 export const GIF_LIMITS = Object.freeze({
   maxBytes: 30 * 1024 * 1024,
@@ -41,13 +41,18 @@ function inspectGif(bytes) {
   }
 
   const hasGlobalPalette = Boolean(bytes[10] & 0x80);
-  let cursor = 13 + (hasGlobalPalette ? 3 * 2 ** ((bytes[10] & 7) + 1) : 0);
+  let cursor = 13;
   let decodedPixels = 0;
   let control;
   const frames = [];
   const requireBytes = (count) => {
     if (cursor + count > bytes.length) throw invalidGif();
   };
+  const readPalette = (count) => {
+    requireBytes(count * 3);
+    return Array.from({ length: count }, () => [bytes[cursor++], bytes[cursor++], bytes[cursor++]]);
+  };
+  const gct = hasGlobalPalette ? readPalette(2 ** ((bytes[10] & 7) + 1)) : undefined;
   const skipBlocks = () => {
     let dataLength = 0;
     for (;;) {
@@ -97,26 +102,45 @@ function inspectGif(bytes) {
     if (!frameWidth || !frameHeight || left + frameWidth > width || top + frameHeight > height) throw invalidGif();
     const hasLocalPalette = Boolean(packed & 0x80);
     if (!hasGlobalPalette && !hasLocalPalette) throw invalidGif();
-    if (hasLocalPalette) {
-      const paletteLength = 3 * 2 ** ((packed & 7) + 1);
-      requireBytes(paletteLength);
-      cursor += paletteLength;
-    }
+    const lct = hasLocalPalette ? readPalette(2 ** ((packed & 7) + 1)) : undefined;
     requireBytes(1);
     const codeSize = bytes[cursor++];
-    if (codeSize < 2 || codeSize > 8 || !skipBlocks()) throw invalidGif();
-    frames.push({ gce: control });
-    control = undefined;
+    if (codeSize < 2 || codeSize > 8) throw invalidGif();
+    const blocksStart = cursor;
+    const dataLength = skipBlocks();
+    if (!dataLength) throw invalidGif();
     decodedPixels += frameWidth * frameHeight;
-    if (frames.length > GIF_LIMITS.maxFrames) {
+    const frameCount = frames.length + 1;
+    if (frameCount > GIF_LIMITS.maxFrames) {
       throw new GifError('FRAME_LIMIT', 'This GIF has more than 1,000 frames. Please choose a shorter GIF.');
     }
-    if (decodedPixels > GIF_LIMITS.maxDecodedPixels || pixels * frames.length > GIF_LIMITS.maxOutputPixels) {
+    if (decodedPixels > GIF_LIMITS.maxDecodedPixels || pixels * frameCount > GIF_LIMITS.maxOutputPixels) {
       throw new GifError('MEMORY_LIMIT', 'This GIF needs too much browser memory to extract safely. Please choose a shorter GIF or reduce its dimensions.');
     }
+    // Copy once into an exactly sized byte array. Retaining a view or object
+    // for every tiny sub-block or metadata extension would amplify memory
+    // independently of the input bytes and frame/pixel budgets.
+    const blocks = new Uint8Array(dataLength);
+    let blockCursor = blocksStart;
+    let position = 0;
+    for (let length; (length = bytes[blockCursor++]);) {
+      blocks.set(bytes.subarray(blockCursor, blockCursor + length), position);
+      blockCursor += length;
+      position += length;
+    }
+    frames.push({
+      gce: control,
+      image: {
+        descriptor: { left, top, width: frameWidth, height: frameHeight,
+          lct: { exists: hasLocalPalette, interlaced: Boolean(packed & 0x40) } },
+        lct,
+        data: { minCodeSize: codeSize, blocks },
+      },
+    });
+    control = undefined;
   }
   if (!frames.length) throw new GifError('NO_FRAMES', 'This GIF does not contain any image frames. Please choose another GIF.');
-  return { width, height, frames };
+  return { width, height, frames, gct, backgroundColorIndex: bytes[11] };
 }
 
 function makeCanvas(width, height) {
@@ -152,14 +176,7 @@ export async function extractGif(file, { onProgress, signal } = {}) {
   checkAbort(signal);
   if (buffer.byteLength > GIF_LIMITS.maxBytes) throw new GifError('FILE_SIZE', 'This file is larger than 30 MB. Please choose a smaller GIF.');
   const metadata = inspectGif(new Uint8Array(buffer));
-  let gif;
-  try {
-    gif = parseGIF(buffer);
-  } catch {
-    throw invalidGif();
-  }
-  const sourceFrames = gif.frames.filter((frame) => frame.image);
-  if (sourceFrames.length !== metadata.frames.length) throw invalidGif();
+  const sourceFrames = metadata.frames;
   const { width, height } = metadata;
   const { canvas, context } = makeCanvas(width, height);
   const { canvas: patchCanvas, context: patchContext } = makeCanvas(1, 1);
@@ -168,25 +185,29 @@ export async function extractGif(file, { onProgress, signal } = {}) {
   // Transparent animations start clear. Opaque animations use their logical
   // background, which also matters when an opaque frame uses disposal method 2.
   const transparentBackground = metadata.frames[0].gce?.extras.transparentColorGiven;
-  const background = !transparentBackground && gif.gct?.[gif.lsd.backgroundColorIndex];
+  const background = !transparentBackground && metadata.gct?.[metadata.backgroundColorIndex];
   if (background) {
     context.fillStyle = `rgb(${background[0]}, ${background[1]}, ${background[2]})`;
     context.fillRect(0, 0, width, height);
   }
-  onProgress?.({ completed: 0, total: sourceFrames.length, percent: 0 });
-
+  let decoder;
   try {
+    decoder = createGifDecoder({ signal });
+    onProgress?.({ completed: 0, total: sourceFrames.length, percent: 0 });
     for (let i = 0; i < sourceFrames.length; i += 1) {
       checkAbort(signal);
-      // Decode one patch at a time: decompressFrames(all) retains every expanded
-      // pixel array simultaneously, even when the source GIF is very small.
+      // Decode one bounded patch at a time in a terminable Worker. The complete
+      // canvas stays on the main thread so PNG export needs no OffscreenCanvas.
       let frame;
       const source = { ...sourceFrames[i], gce: metadata.frames[i].gce };
       try {
-        [frame] = decompressFrames({ ...gif, frames: [source] }, true);
-      } catch {
+        frame = await decoder.decode(source, metadata.gct);
+      } catch (error) {
+        if (error.name === 'AbortError') throw error;
+        if (error.code === 'UNKNOWN') throw new GifError('UNKNOWN', error.message);
         throw invalidGif();
       }
+      checkAbort(signal);
       const { left, top, width: patchWidth, height: patchHeight } = frame.dims;
       const restore = frame.disposalType === 3 ? context.getImageData(left, top, patchWidth, patchHeight) : null;
       patchCanvas.width = patchWidth;
@@ -217,6 +238,7 @@ export async function extractGif(file, { onProgress, signal } = {}) {
     }
     return { width, height, frames: output, duration };
   } finally {
+    decoder?.close();
     // Release the canvas backing stores, including when the job was cancelled.
     canvas.width = canvas.height = 0;
     patchCanvas.width = patchCanvas.height = 0;

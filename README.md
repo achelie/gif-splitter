@@ -12,12 +12,16 @@ npm run dev
 npm test
 npm run build
 npm run check:site
+npx playwright install chromium
+npm run test:browser
 npx wrangler pages dev dist --ip 127.0.0.1 --port 8788
 ```
 
 Wrangler Pages exercises the actual static headers, or the worker and HTMLRewriter in Google-enabled builds. Vite development and preview are useful for editing but do not exercise Cloudflare headers. Browser artifacts belong under ignored `output/playwright/`.
 
-Tests cover real GIF bytes, compositing pixels, timing, memory guards, cancellation, translations, all templates, advertising consent transitions and edge responses. The built-site check covers assets, links, anchors, sitemap and indexing.
+Tests cover real GIF bytes, bounded LZW decoding, damaged dictionaries and pixel data, interlacing, compositing pixels, timing, memory guards, Worker cancellation, translations, all templates, advertising consent transitions and edge responses. The built-site check covers images and social images, same-origin links and anchors, 404 resources, the complete Vite asset graph (including the decoder Worker), sitemap and indexing.
+
+`npm run test:browser` starts and stops its own local Wrangler Pages server against the existing `dist`, exercises real CSP and decoder Workers, and verifies upload, playback, PNG/ZIP downloads, damaged input, cancellation/recovery and ten-language mobile layouts. It saves browser artifacts under `output/playwright/`. Install Chromium once as shown above, or set `BROWSER_EXECUTABLE_PATH` to an existing Chrome/Chromium executable. GitHub Actions runs unit tests, a production build, site checks and browser regression tests for pushes and pull requests.
 
 ## Languages and pages
 
@@ -42,7 +46,9 @@ Each page has one H1, a unique localized title, self canonical, ten reciprocal h
 
 One GIF at a time, up to 30 MiB and 1,000 frames. Further guards: 8,192 pixels per side, 16 million pixels per frame, 128 million decoded patch pixels, 80 million output pixels and 128 MiB of PNG data per ZIP. Smaller devices can run out of practical memory earlier.
 
-The decoder handles transparent patches and disposal 2/3. Original delays, including zero, are retained as metadata; delays below 20 ms use 100 ms in the preview. PNG does not encode animation delays. ZIP names retain original frame numbers. The app releases object URLs, supports cancellation and batched thumbnails, and respects reduced motion.
+The decoder handles transparent patches and disposal 2/3. LZW dictionaries and expansion stacks have a fixed 4,096-entry limit; invalid dictionary references, missing/early end codes, extra pixels and palette indices outside the active table are rejected. The container scanner skips metadata without retaining per-extension objects and packs each frame's compressed bytes into one array, so tiny sub-blocks cannot amplify parser memory. Frames decode one at a time in a browser Worker, which is terminated on cancellation and after extraction; RGBA patches transfer back for canvas compositing and PNG export. Environments without Workers use the same bounded decoder with a yield before each frame. `gifuct-js` is a test-only parser for independent decoder fixtures.
+
+Original delays, including zero, are retained as metadata; delays below 20 ms use 100 ms in the preview. PNG does not encode animation delays. ZIP names retain original frame numbers. The app releases object URLs, supports cancellation and batched thumbnails, and respects reduced motion.
 
 `node scripts/make-guide-examples.mjs` regenerates committed deterministic GIFs and the comparison SVG in `public/examples/`. Timing stores 0/10/20/80 ms (110 ms raw, 300 ms preview). Disposal samples distinguish background restoration from previous-content restoration. The six-frame 4000×4000 sample triggers the output guard before canvas allocation. Decoder tests reproduce these outcomes. `scripts/make-assets.py` optionally regenerates the original 24-frame sample and social image; Python is not needed to build.
 

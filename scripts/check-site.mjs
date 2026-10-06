@@ -6,11 +6,15 @@ import { loadLocales } from '../src/site/content.js';
 import { escapeHtml } from '../src/site/render.js';
 import { adPolicyFromEnv } from '../src/site/ad-policy.js';
 import { prepareStaticHtml } from './static-security.mjs';
+import { createSiteResourceChecker } from './site-resources.mjs';
 
 const locales = await loadLocales();
 const production = process.argv.includes('--production-domain');
 const useEdgeWorker = adPolicyFromEnv().mode !== 'off';
 const pages = new Map(await Promise.all(ROUTES.map(async route => [route.path, await readFile(join('dist', route.path.slice(1), 'index.html'), 'utf8')])));
+const resources = createSiteResourceChecker({ distDir: 'dist', origin: ORIGIN, pages, contactEmail: PUBLIC_CONTACT_EMAIL });
+const manifest = JSON.parse(await readFile('dist/.vite/manifest.json', 'utf8'));
+await resources.checkManifest(manifest, '/.vite/manifest.json', { requiredEntries: ['src/main.js', 'src/site.js'] });
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 assert.equal(sitemapUrls.length, ROUTES.length);
@@ -34,24 +38,7 @@ for (const route of ROUTES) {
   assert.ok(sitemap.includes(`<loc>${ORIGIN}${route.path}</loc>`), route.path);
   for (const id of LOCALES) assert.ok(html.includes(`hreflang="${locales[id].htmlLang}" href="${ORIGIN}${pagePath(id, route.type)}"`), route.path);
   assert.ok(html.includes(`hreflang="x-default" href="${ORIGIN}${pagePath('en', route.type)}"`), route.path);
-  for (const match of html.matchAll(/<(?:script|link|a)\b[^>]*\b(?:href|src)="([^"]+)"/g)) {
-    const target = match[1];
-    if (target.startsWith('https://')) continue;
-    if (target.startsWith('mailto:')) {
-      assert.equal(target, `mailto:${PUBLIC_CONTACT_EMAIL}`, `Unexpected contact address: ${route.path}`);
-      continue;
-    }
-    const resolved = new URL(target, ORIGIN + route.path);
-    const path = resolved.pathname;
-    const anchor = resolved.hash.slice(1);
-    if (pages.has(path)) {
-      const destination = pages.get(path);
-      if (anchor) assert.ok(destination.includes(`id="${anchor}"`), `Broken anchor: ${route.path} → ${target}`);
-    } else {
-      assert.ok(path.startsWith('/'), `Unexpected relative URL: ${target}`);
-      await access(join('dist', path.slice(1)));
-    }
-  }
+  await resources.checkHtml(html, route.path);
   const ld = html.match(/<script\b[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/s);
   assert.equal(JSON.parse(ld[1]).inLanguage, l.htmlLang);
 }
@@ -85,6 +72,7 @@ assert.ok(robots.includes(`Sitemap: ${ORIGIN}/sitemap.xml`));
 assert.ok(!robots.includes('Disallow: /'));
 await access('dist/404.html');
 const notFound = await readFile('dist/404.html', 'utf8');
+await resources.checkHtml(notFound, '/404.html');
 assert.ok(notFound.includes('GIF Splitter'));
 assert.ok(!notFound.includes('GIF Frame Extractor'));
 assert.ok(/<meta\s+name="robots"\s+content="noindex"\s*>/.test(notFound), '404 must remain noindex');
@@ -109,4 +97,4 @@ if (useEdgeWorker) {
     for (const hash of prepareStaticHtml(html).hashes) assert.ok(cspLines[0].includes(hash), `Unapproved inline script: ${path}`);
   }
 }
-console.log(`PASS: ${ROUTES.length} built pages, unique titles/H1, canonical, reciprocal hreflang, language attributes, static links, bundled assets, sitemap, ${useEdgeWorker ? 'nonce edge worker' : 'static CSP without Functions'} and indexing mode.`);
+console.log(`PASS: ${ROUTES.length} built pages and 404 resources, unique titles/H1, canonical, reciprocal hreflang, language attributes, links/anchors/images, Vite asset graph, sitemap, ${useEdgeWorker ? 'nonce edge worker' : 'static CSP without Functions'} and indexing mode.`);

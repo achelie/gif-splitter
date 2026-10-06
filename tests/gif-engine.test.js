@@ -7,7 +7,7 @@ const colors = [[0, 0, 0], [255, 0, 0], [0, 255, 0], [0, 0, 255]];
 const rgba = (index) => index === null ? [0, 0, 0, 0] : [...colors[index], 255];
 
 // A small GIF writer with clear codes between pixels keeps code width fixed.
-// This feeds actual encoded bytes through gifuct-js rather than mocking decoding.
+// This feeds actual encoded bytes through the parser and bounded decoder.
 function makeGif({ width = 2, height = 1, frames, background = 0 }) {
   const word = (n) => [n & 255, n >> 8];
   const bytes = [...Buffer.from('GIF89a'), ...word(width), ...word(height), 0x81, background, 0, ...colors.flat()];
@@ -96,6 +96,30 @@ class RasterCanvas {
 globalThis.document = { createElement: () => new RasterCanvas() };
 const pixelsOf = async (frame) => Array.from(new Uint8Array(await frame.blob.arrayBuffer()));
 
+test('extracts a GIF whose only palette is local to its image frame', async () => {
+  const bytes = new Uint8Array(await makeGif({ frames: [{ pixels: [1, 3] }] }).arrayBuffer());
+  const header = bytes.slice(0, 13);
+  header[10] &= 0x7f;
+  // Move the four-color GCT after the image descriptor and set its LCT flag.
+  const image = bytes.indexOf(0x2c, 25);
+  const file = new Blob([header, bytes.subarray(25, image + 9), Uint8Array.of(0x81),
+    bytes.subarray(13, 25), bytes.subarray(image + 10)]);
+  const result = await extractGif(file);
+  assert.deepEqual(await pixelsOf(result.frames[0]), [...rgba(1), ...rgba(3)]);
+});
+
+test('extracts every known pixel of the independently encoded interlaced fixture', async () => {
+  const bytes = await readFile(new URL('./fixtures/pillow-interlaced.gif', import.meta.url));
+  const result = await extractGif(new Blob([bytes]));
+  assert.deepEqual([result.width, result.height, result.frames.length], [96, 96, 1]);
+  const expected = new Uint8Array(96 * 96 * 4);
+  for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+    const index = ((x * 73 + y * 151 + ((x * y * 17) >> 3)) ^ (x * 11 + y * 31)) & 255;
+    expected.set([index, (index * 73) & 255, (index * 151) & 255, 255], (y * 96 + x) * 4);
+  }
+  assert.deepEqual(new Uint8Array(await result.frames[0].blob.arrayBuffer()), expected);
+});
+
 test('composites transparent pixels over earlier frames and preserves raw delays', async () => {
   const progress = [];
   const result = await extractGif(makeGif({ frames: [
@@ -153,6 +177,16 @@ test('rejects non-GIF input, truncated data and zero dimensions before rendering
   const zero = new Uint8Array(valid);
   zero[6] = 0;
   await assert.rejects(extractGif(new Blob([zero])), /incomplete or damaged/);
+});
+
+test('rejects dictionary cycles and incomplete LZW pixels through the extraction API', async () => {
+  const container = [71, 73, 70, 56, 57, 97, 5, 0, 1, 0, 129, 0, 0,
+    0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255,
+    44, 0, 0, 0, 0, 5, 0, 1, 0, 0, 2, 2];
+  for (const compressed of [[182, 11], [76, 1]]) {
+    const file = new Blob([Uint8Array.from([...container, ...compressed, 0, 59])]);
+    await assert.rejects(extractGif(file), { name: 'GifError', code: 'INVALID_GIF' });
+  }
 });
 
 test('rejects oversized files, dimensions, frame counts and total pixel budgets', async () => {
