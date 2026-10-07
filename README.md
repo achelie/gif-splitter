@@ -1,5 +1,61 @@
 # GIF Splitter
 
+GIF Splitter 是一个支持 10 种语言的在线 GIF 拆帧工具。GIF 解码、完整影格合成、PNG 导出和 ZIP 打包均在浏览器中完成，所选 GIF 文件不会上传到服务器。
+
+**生产域名 / 在线工具：[https://www.gifsplitter.com/](https://www.gifsplitter.com/)**
+
+| 入口 | 链接 |
+| --- | --- |
+| 生产网站 | [www.gifsplitter.com](https://www.gifsplitter.com/) |
+| 繁体中文版本 | [www.gifsplitter.com/zh-hant/](https://www.gifsplitter.com/zh-hant/) |
+| GitHub 仓库 | [achelie/gif-splitter](https://github.com/achelie/gif-splitter) |
+| 使用指南 | [如何提取 GIF 影格](https://www.gifsplitter.com/zh-hant/how-to-extract-gif-frames/) |
+| 联系邮箱 | [contact@gifsplitter.com](mailto:contact@gifsplitter.com) |
+
+## 主要功能
+
+- 本地解析 GIF，正确合成透明区域和 disposal 2/3 影格。
+- 支持文件选择和拖拽、动画播放及逐帧预览。
+- 下载单张 PNG，将选中影格或全部影格打包为 ZIP。
+- 使用 Web Worker 逐帧解码，支持取消处理、分批生成缩略图和资源释放。
+- 支持英语、日语、西班牙语、法语、德语、意大利语、韩语、巴西葡萄牙语、俄语和繁体中文，共 80 个页面。
+- 提供拆帧、透明度、影格时长、大文件排错指南，以及 About、Privacy 和 Terms 页面。
+
+## 技术栈与目录
+
+项目使用原生 JavaScript（ES Modules）、Vite、Canvas、Web Worker 和 `fflate`，通过 Cloudflare Pages 部署。`gifuct-js` 仅用于测试中的独立解析对照，不参与生产解码。
+
+```text
+src/                      # 工具交互、GIF 解码及合成
+  locales/                # 10 种语言的文案与元数据
+  site/                   # 路由、页面模板、指南与广告策略
+public/                   # 示例 GIF、图标、社交图片及 ads.txt
+scripts/                  # 静态页面生成、站点检查及浏览器回归
+tests/                    # 单元测试与 GIF 测试样本
+docs/                     # 发布记录、关键词研究和广告配置说明
+.github/workflows/        # GitHub Actions 验证流程
+wrangler.jsonc            # Cloudflare Pages 配置
+```
+
+## 快速开始
+
+需要 Node.js 22.12 或更高版本，项目已使用 Node.js 22.19 验证。
+
+```sh
+git clone https://github.com/achelie/gif-splitter.git
+cd gif-splitter
+npm ci
+npm run dev
+```
+
+开发服务监听 `127.0.0.1`，具体地址以 Vite 的终端输出为准。生产部署使用 `npm run deploy`，该命令依次执行生产构建、站点检查和 Cloudflare Pages 上传，需要已有的 Pages 写入权限。
+
+生产配置：域名 `https://www.gifsplitter.com`，Pages 项目 `gifframeextractor`，分支 `main`，构建目录 `dist/`。普通本地构建与 Pages 预览带有 `noindex`，生产发布须使用 `npm run build:production`。
+
+## Technical maintenance reference
+
+The English reference below preserves detailed testing, processing limits, advertising, analytics and deployment instructions.
+
 A ten-language GIF tool at [www.gifsplitter.com](https://www.gifsplitter.com/). Decoding, full-frame compositing, PNG export and ZIP creation happen in the browser. Selected files are not uploaded. Advertising `off` builds run as static Cloudflare Pages with SHA-256 CSP and no Functions requests. Future `consent`/`live` builds use the prepared edge worker to supply a fresh CSP nonce to each HTML response.
 
 ## Development and verification
