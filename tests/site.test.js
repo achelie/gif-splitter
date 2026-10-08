@@ -94,6 +94,10 @@ for (const route of ROUTES) {
     const meta = tags(html, 'meta');
     const documentLinks = tags(html, 'link');
 
+    assert.deepEqual(documentLinks.filter((tag) => tag.rel === 'icon'), [
+      { rel: 'icon', href: '/favicon.png', type: 'image/png', sizes: '256x256' },
+    ], 'every language and page must expose the stable Google-supported favicon');
+
     assert.equal(tags(html, 'html')[0].lang, dictionary.htmlLang);
     assert.deepEqual(tags(html, 'body')[0], { 'data-locale': locale, 'data-page': type });
     const titles = [...html.matchAll(/<title>([\s\S]*?)<\/title>/g)];

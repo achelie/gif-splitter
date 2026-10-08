@@ -59,7 +59,7 @@ https://:version.gifframeextractor.pages.dev/*
   Cache-Control: public, max-age=31536000, immutable
 `);
 if (useEdgeWorker) {
-  await writeFile('dist/_routes.json', JSON.stringify({ version: 1, include: ['/*'], exclude: ['/assets/*', '/examples/*', '/robots.txt', '/sitemap.xml', '/ads.txt', '/sample.gif', '/og.png', '/favicon.svg'] }, null, 2));
+  await writeFile('dist/_routes.json', JSON.stringify({ version: 1, include: ['/*'], exclude: ['/assets/*', '/examples/*', '/robots.txt', '/sitemap.xml', '/ads.txt', '/sample.gif', '/og.png', '/favicon.svg', '/favicon.png', '/favicon.ico'] }, null, 2));
   await build({
   configFile: false,
   publicDir: false,

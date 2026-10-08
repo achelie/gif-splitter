@@ -125,7 +125,7 @@ export function renderPage(locales, route, assets, { production = false, adPolic
   <title>${e(seo.title)}</title><meta name="description" content="${e(seo.description)}"><meta name="robots" content="${production ? 'index, follow' : 'noindex, follow'}">
   <link rel="canonical" href="${canonical}">
   ${LOCALES.map(id => `<link rel="alternate" hreflang="${e(locales[id].htmlLang)}" href="${ORIGIN}${pagePath(id, type)}">`).join('\n  ')}
-  <link rel="alternate" hreflang="x-default" href="${ORIGIN}${pagePath('en', type)}"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="x-default" href="${ORIGIN}${pagePath('en', type)}"><link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
   <meta property="og:type" content="${GUIDE_TYPES.includes(type) ? 'article' : 'website'}"><meta property="og:site_name" content="${BRAND_NAME}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${canonical}"><meta property="og:locale" content="${e(l.ogLocale)}"><meta property="og:image" content="${ORIGIN}/og.png">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${e(seo.title)}"><meta name="twitter:description" content="${e(seo.description)}"><meta name="twitter:image" content="${ORIGIN}/og.png">
   ${assets.styles.map(path => `<link rel="stylesheet" nonce="${nonce}" href="${e(path)}">`).join('\n  ')}

@@ -15,6 +15,29 @@ const pages = new Map(await Promise.all(ROUTES.map(async route => [route.path, a
 const resources = createSiteResourceChecker({ distDir: 'dist', origin: ORIGIN, pages, contactEmail: PUBLIC_CONTACT_EMAIL });
 const manifest = JSON.parse(await readFile('dist/.vite/manifest.json', 'utf8'));
 await resources.checkManifest(manifest, '/.vite/manifest.json', { requiredEntries: ['src/main.js', 'src/site.js'] });
+const faviconLink = '<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">';
+const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+function checkIconPng(bytes, size) {
+  assert.ok(bytes.subarray(0, 8).equals(pngSignature), 'Favicon must be a real PNG');
+  assert.equal(bytes.toString('ascii', 12, 16), 'IHDR');
+  assert.equal(bytes.readUInt32BE(16), size, 'Favicon width');
+  assert.equal(bytes.readUInt32BE(20), size, 'Favicon height');
+}
+checkIconPng(await readFile('dist/favicon.png'), 256);
+const ico = await readFile('dist/favicon.ico');
+assert.equal(ico.readUInt16LE(0), 0);
+assert.equal(ico.readUInt16LE(2), 1, 'Fallback must be a real ICO');
+const iconSizes = [16, 32, 48, 64, 128, 256];
+assert.equal(ico.readUInt16LE(4), iconSizes.length);
+for (const [index, size] of iconSizes.entries()) {
+  const entry = 6 + index * 16;
+  assert.equal(ico[entry] || 256, size);
+  assert.equal(ico[entry + 1] || 256, size);
+  const length = ico.readUInt32LE(entry + 8);
+  const offset = ico.readUInt32LE(entry + 12);
+  assert.ok(offset >= 6 + iconSizes.length * 16 && offset + length <= ico.length);
+  checkIconPng(ico.subarray(offset, offset + length), size);
+}
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 assert.equal(sitemapUrls.length, ROUTES.length);
@@ -23,6 +46,7 @@ assert.deepEqual(new Set(sitemapUrls), new Set(ROUTES.map(route => ORIGIN + rout
 const titles = new Set();
 for (const route of ROUTES) {
   const html = pages.get(route.path);
+  assert.ok(html.includes(faviconLink), `Missing supported favicon: ${route.path}`);
   const l = locales[route.locale];
   const title = escapeHtml(l.seo[route.type].title);
   assert.ok(!titles.has(title), `Duplicate title: ${route.path}`);
@@ -72,6 +96,7 @@ assert.ok(robots.includes(`Sitemap: ${ORIGIN}/sitemap.xml`));
 assert.ok(!robots.includes('Disallow: /'));
 await access('dist/404.html');
 const notFound = await readFile('dist/404.html', 'utf8');
+assert.ok(notFound.includes(faviconLink), '404 must use the same favicon');
 await resources.checkHtml(notFound, '/404.html');
 assert.ok(notFound.includes('GIF Splitter'));
 assert.ok(!notFound.includes('GIF Frame Extractor'));
@@ -83,6 +108,9 @@ if (useEdgeWorker) {
   const workerRoutes = JSON.parse(await readFile('dist/_routes.json', 'utf8'));
   assert.ok(workerRoutes.exclude.includes('/assets/*'));
   assert.ok(workerRoutes.exclude.includes('/ads.txt'));
+  for (const icon of ['/favicon.svg', '/favicon.png', '/favicon.ico']) {
+    assert.ok(workerRoutes.exclude.includes(icon), `Favicon must bypass Functions: ${icon}`);
+  }
 } else {
   for (const file of ['dist/_worker.js', 'dist/_routes.json']) {
     await assert.rejects(access(file), error => error.code === 'ENOENT', `Static off build must not contain ${file}`);

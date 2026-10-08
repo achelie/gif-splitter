@@ -56,6 +56,8 @@ npm run dev
 
 The English reference below preserves detailed testing, processing limits, advertising, analytics and deployment instructions.
 
+The site declares a stable 256×256 PNG at `/favicon.png` for Google Search and supplies `/favicon.ico` with 16/32/48/64/128/256-pixel images for browser fallback. The original brand artwork remains in `public/favicon.svg`. To regenerate both raster assets after changing the artwork, install Chromium as described below and run `node scripts/make-favicons.mjs`; the committed assets need no extra generation step during deployment. The site check verifies the PNG/ICO dimensions and favicon declaration on all 80 pages and the 404 page. See [Google's favicon requirements](https://developers.google.com/search/docs/appearance/favicon-in-search).
+
 A ten-language GIF tool at [www.gifsplitter.com](https://www.gifsplitter.com/). Decoding, full-frame compositing, PNG export and ZIP creation happen in the browser. Selected files are not uploaded. Advertising `off` builds run as static Cloudflare Pages with SHA-256 CSP and no Functions requests. Future `consent`/`live` builds use the prepared edge worker to supply a fresh CSP nonce to each HTML response.
 
 ## Development and verification
