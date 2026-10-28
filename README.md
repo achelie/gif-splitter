@@ -15,10 +15,13 @@ GIF Splitter 是一个支持 10 种语言的在线 GIF 拆帧工具。GIF 解码
 ## 主要功能
 
 - 本地解析 GIF，正确合成透明区域和 disposal 2/3 影格。
+- GIF Merger 将 2–10 个 GIF 按顺序合并为一个动画，全部在浏览器本地处理。
+- GIF to JPG / GIF to WebP 支持静态帧导出，可下载单张或选中／全部帧 ZIP；JPG 可设置透明区域的背景色。
+- Resize GIF 和 Crop GIF 分别支持按比例调整尺寸和拖选或输入坐标裁剪，输出保留逐帧时长和循环设置的 GIF。
 - 支持文件选择和拖拽、动画播放及逐帧预览。
 - 下载单张 PNG，将选中影格或全部影格打包为 ZIP。
 - 使用 Web Worker 逐帧解码，支持取消处理、分批生成缩略图和资源释放。
-- 支持英语、日语、西班牙语、法语、德语、意大利语、韩语、巴西葡萄牙语、俄语和繁体中文，共 80 个页面。
+- 拆帧、合并、转换、缩放和裁剪工具及指南支持 10 种语言，共 130 个页面。
 - 提供拆帧、透明度、影格时长、大文件排错指南，以及 About、Privacy 和 Terms 页面。
 
 ## 技术栈与目录
@@ -56,7 +59,7 @@ npm run dev
 
 The English reference below preserves detailed testing, processing limits, advertising, analytics and deployment instructions.
 
-The site declares a stable 256×256 PNG at `/favicon.png` for Google Search and supplies `/favicon.ico` with 16/32/48/64/128/256-pixel images for browser fallback. The original brand artwork remains in `public/favicon.svg`. To regenerate both raster assets after changing the artwork, install Chromium as described below and run `node scripts/make-favicons.mjs`; the committed assets need no extra generation step during deployment. The site check verifies the PNG/ICO dimensions and favicon declaration on all 80 pages and the 404 page. See [Google's favicon requirements](https://developers.google.com/search/docs/appearance/favicon-in-search).
+The site declares a stable 256×256 PNG at `/favicon.png` for Google Search and supplies `/favicon.ico` with 16/32/48/64/128/256-pixel images for browser fallback. The original brand artwork remains in `public/favicon.svg`. To regenerate both raster assets after changing the artwork, install Chromium as described below and run `node scripts/make-favicons.mjs`; the committed assets need no extra generation step during deployment. The site check verifies the PNG/ICO dimensions and favicon declaration on all 130 pages and the 404 page. See [Google's favicon requirements](https://developers.google.com/search/docs/appearance/favicon-in-search).
 
 A ten-language GIF tool at [www.gifsplitter.com](https://www.gifsplitter.com/). Decoding, full-frame compositing, PNG export and ZIP creation happen in the browser. Selected files are not uploaded. Advertising `off` builds run as static Cloudflare Pages with SHA-256 CSP and no Functions requests. Future `consent`/`live` builds use the prepared edge worker to supply a fresh CSP nonce to each HTML response.
 
@@ -72,6 +75,10 @@ npm run build
 npm run check:site
 npx playwright install chromium
 npm run test:browser
+npm run test:merger
+npm run test:converter
+npm run test:editor
+npm run test:localized-tools
 npx wrangler pages dev dist --ip 127.0.0.1 --port 8788
 ```
 
@@ -81,9 +88,17 @@ Tests cover real GIF bytes, bounded LZW decoding, damaged dictionaries and pixel
 
 `npm run test:browser` starts and stops its own local Wrangler Pages server against the existing `dist`, exercises real CSP and decoder Workers, and verifies upload, playback, PNG/ZIP downloads, damaged input, cancellation/recovery and ten-language mobile layouts. It saves browser artifacts under `output/playwright/`. Install Chromium once as shown above, or set `BROWSER_EXECUTABLE_PATH` to an existing Chrome/Chromium executable. GitHub Actions runs unit tests, a production build, site checks and browser regression tests for pushes and pull requests.
 
+`npm run test:merger` tests the merger on a local Pages build: selection, reordering, cancellation and recovery, and a downloaded GIF's dimensions, pixels, transparency, timing and loop with an independent decoder. It also checks that the local workflow sends no POST requests. Artifacts go to `output/merger-browser/`. Set `BROWSER_ENGINE=webkit` and install Playwright WebKit to exercise that engine; simulated viewports and Playwright WebKit do not replace tests on actual phones or Safari.
+
+`npm run test:converter` checks both conversion pages with actual downloads: JPEG and WebP signatures, output dimensions, JPEG background, WebP transparency, selected/all ZIPs, cancellation, recovery and simulated unsupported WebP encoding. Artifacts go to `output/converter-browser/`; it supports the same browser environment options.
+
+`npm run test:editor` checks resize and crop with actual GIF downloads: dimensions, aspect ratio, crop pixels and transparency, frame timing and finite loop, visual selection, limits and cancellation. Chromium also tests simulated touch; artifacts go to `output/editor-browser/`.
+
+`npm run test:localized-tools` checks the five tools in every language, including mobile layouts, translated controls and dynamic messages, real processing and downloads, and canonical/alternate links. It supports the same browser environment options.
+
 ## Languages and pages
 
-English retains its original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (`/fr/`), German (`/de/`), Italian (`/it/`), Korean (`/ko/`), Brazilian Portuguese (`/pt-br/`), Russian (`/ru/`) and Traditional Chinese (`/zh-hant/`) use prefixes. Each has eight page types, for 80 pages:
+English retains its original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (`/fr/`), German (`/de/`), Italian (`/it/`), Korean (`/ko/`), Brazilian Portuguese (`/pt-br/`), Russian (`/ru/`) and Traditional Chinese (`/zh-hant/`) use prefixes. Each language has these eight page types:
 
 - `/` — extraction tool, steps, capabilities, FAQs and guide links
 - `/how-to-extract-gif-frames/` — selecting a GIF and three download methods
@@ -94,15 +109,23 @@ English retains its original URLs. Japanese (`/ja/`), Spanish (`/es/`), French (
 - `/privacy/` — actual file, hosting, analytics and advertising data handling
 - `/terms/` — usage, rights, limitations and copyright feedback
 
+Each language also has `/gif-merger/`, `/gif-to-jpg/`, `/gif-to-webp/`, `/resize-gif/` and `/crop-gif/` under its respective prefix, for 130 pages in total. Language navigation and alternate links point to equivalent versions.
+
 `/404.html` is a separate real error page. Language navigation links to the equivalent page without automatic regional redirects. Changing pages releases the current GIF; no language preference is stored.
 
-`src/locales/*.json` contains complete plain-text metadata, content and controls. `src/site/content.js` rejects missing translations, mismatched keys/arrays/parameters and missing plural categories. Keep parameters such as `{count}` intact. The route config owns dates and the canonical origin; the shared template escapes content. Publication and material revision dates are distinct. English guide lengths are an editorial target, not a Google eligibility threshold.
+`src/locales/*.json` and `src/locales/tools/*.json` contain complete plain-text metadata, content and controls. `src/site/content.js` rejects missing translations, mismatched keys/arrays/parameters and missing plural categories. Keep parameters such as `{count}` intact. The route config owns dates and the canonical origin; the shared template escapes content. Publication and material revision dates are distinct. English guide lengths are an editorial target, not a Google eligibility threshold. Localized keyword research and its limitations are recorded in [docs/localized-keyword-research-2026-10-28.md](docs/localized-keyword-research-2026-10-28.md).
 
-Each page has one H1, a unique localized title, self canonical, ten reciprocal hreflang entries plus English `x-default`, Open Graph data and structured data. Four guide types include contents, reproducible examples, related guides and tool links. Historical keyword research remains in [docs/keyword-research.md](docs/keyword-research.md).
+Each page has one H1, a localized title unique within its language, self canonical, ten reciprocal hreflang entries plus English `x-default`, Open Graph data and structured data. Four guide types include contents, reproducible examples, related guides and tool links. Historical keyword research remains in [docs/keyword-research.md](docs/keyword-research.md).
 
 ## Examples and processing limits
 
-One GIF at a time, up to 30 MiB and 1,000 frames. Further guards: 8,192 pixels per side, 16 million pixels per frame, 128 million decoded patch pixels, 80 million output pixels and 128 MiB of PNG data per ZIP. Smaller devices can run out of practical memory earlier.
+The splitter accepts one GIF at a time, up to 30 MiB and 1,000 frames. Further guards: 8,192 pixels per side, 16 million pixels per frame, 128 million decoded patch pixels, 80 million output pixels and 128 MiB of PNG data per ZIP. Smaller devices can run out of practical memory earlier.
+
+The merger accepts 2–10 GIFs, 30 MiB combined and 400 frames combined. The output canvas is at most 4,096 pixels per side, 4 million pixels per frame and 20 million output pixels in total. Differently sized inputs remain unscaled and are centered on a transparent canvas. The original frame delays are retained, the result loops indefinitely, and re-quantization may change colors. Encoding runs in a cancellable Worker using the MIT-licensed `gifenc` library.
+
+JPG and WebP conversion use the splitter's input and pixel limits and a 128 MiB encoded-image budget per ZIP. Both produce static frames, not animations; JPG uses a chosen opaque background and WebP preserves transparency when the browser supports encoding it. Output MIME and signatures are checked so a browser's PNG fallback is not mislabeled as WebP.
+
+The resize and crop tools accept one GIF up to 30 MiB and 400 frames. Output is limited to 4,096 pixels per side, 4 million pixels per frame and 20 million canvas pixels across all frames; the source also has decoder pixel limits. The same resize or crop is applied to all frames. Frame delays and the source's finite, infinite or absent loop setting are retained; GIF re-encoding may change colors or edges. A Worker performs encoding and supports cancellation.
 
 The decoder handles transparent patches and disposal 2/3. LZW dictionaries and expansion stacks have a fixed 4,096-entry limit; invalid dictionary references, missing/early end codes, extra pixels and palette indices outside the active table are rejected. The container scanner skips metadata without retaining per-extension objects and packs each frame's compressed bytes into one array, so tiny sub-blocks cannot amplify parser memory. Frames decode one at a time in a browser Worker, which is terminated on cancellation and after extraction; RGBA patches transfer back for canvas compositing and PNG export. Environments without Workers use the same bounded decoder with a yield before each frame. `gifuct-js` is a test-only parser for independent decoder fixtures.
 
@@ -122,11 +145,11 @@ Build variables are listed in [.env.example](.env.example). The generator reads 
 | `consent` | Official Google tag loads with requests paused; Google services can still use the network and identifiers. |
 | `live` | Requires explicit Ready, published/verified CMP, disabled Auto Ads and a real numeric unit ID. Unknown/rejected consent or API failure stays closed. |
 
-Only four guide types can show one responsive manual unit after section two. Home, About, Privacy, Terms and 404 have no ads. The official CMP runs on eligible production Home/guide routes in non-off modes. Privacy never loads Clarity, advertising or CMP tags; its settings link opens the same-language Home withdrawal flow. An unavailable CMP shows an explanation and hides the unusable button. Withdrawal pauses requests, hides an existing unit and does not refresh ads or clear the tool's GIF.
+Only four guide types can show one responsive manual unit after section two. Home, merger, converters, editors, About, Privacy, Terms and 404 have no ads. The official CMP runs on eligible production Home/guide routes in non-off modes. Privacy never loads Clarity, advertising or CMP tags; its settings link opens the same-language Home withdrawal flow. An unavailable CMP shows an explanation and hides the unusable button. Withdrawal pauses requests, hides an existing unit and does not refresh ads or clear the tool's GIF.
 
 Follow [docs/adsense-console-setup.md](docs/adsense-console-setup.md) for Google Privacy & messaging, TCF v2.3, fallback languages and actual regional evidence. Code tests do not certify the CMP or establish Google approval.
 
-Clarity project `ysiz2atokr` defaults on for the 70 production routes outside Privacy. An origin guard excludes localhost and Pages previews. Tool filenames and images are masked with `data-clarity-mask="true"`. No synthetic consent-granted signal is sent. Actual Clarity regional consent behavior requires independent verification.
+Clarity project `ysiz2atokr` defaults on for the 120 production routes outside Privacy. An origin guard excludes localhost and Pages previews. Tool filenames and images are masked with `data-clarity-mask="true"`. No synthetic consent-granted signal is sent. Actual Clarity regional consent behavior requires independent verification.
 
 Cloudflare Web Analytics explicitly loads the existing beacon and preserves its token. Its implemented `send.to` option targets the Cloudflare-managed `/cdn-cgi/rum` endpoint on the production domain; an isolated browser verified a 204 response there, while the default cross-origin endpoint rejected the existing zone beacon with CORS. This option is present in the official beacon implementation; the public setup guide describes the default manual endpoint instead. Do not add a Worker proxy or modify this reserved endpoint. Static off builds hash the Clarity/beacon bootstrap bytes and use `no-transform`; Google-enabled builds add a response nonce and use `no-store, no-transform`. Verify one beacon on production. Contact uses direct `mailto:` and `email_off` markers. Cloudflare measurement is separate from Clarity and ads.
 
@@ -146,7 +169,7 @@ Before a future `consent`/`live` release, check Functions/Workers quota and use 
 
 Wrangler needs existing Pages write access. If needed, configure the existing local proxy through `HTTP_PROXY` and `HTTPS_PROXY`; the deployed site needs no local proxy.
 
-Canonical origin is `https://www.gifsplitter.com`. Production builds use `index, follow`; Pages previews and true 404 responses retain noindex. Local builds are noindex. The apex 301 is a separate zone rule preserving path and query. After release verify 80 routes, static CSP hashes (or fresh nonces for Google-enabled builds), CSP errors, real 404, sitemap, ads.txt, previews and redirects. Publishing does not establish indexing, ranking or AdSense approval.
+Canonical origin is `https://www.gifsplitter.com`. Production builds use `index, follow`; Pages previews and true 404 responses retain noindex. Local builds are noindex. The apex 301 is a separate zone rule preserving path and query. After release verify 130 routes, static CSP hashes (or fresh nonces for Google-enabled builds), CSP errors, real 404, sitemap, ads.txt, previews and redirects. Publishing does not establish indexing, ranking or AdSense approval.
 
 Public contact is `contact@gifsplitter.com`. Existing Email Routing/DNS does not prove delivery: the owner must send a test from an external mailbox and confirm receipt. Private receiving addresses are not published.
 

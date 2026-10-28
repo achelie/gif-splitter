@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { ORIGIN, PUBLIC_CONTACT_EMAIL, ROUTES, LOCALES, pagePath } from '../src/site/config.js';
+import { ORIGIN, PUBLIC_CONTACT_EMAIL, ROUTES, TOOL_TYPES, localesForPage, pagePath } from '../src/site/config.js';
 import { loadLocales } from '../src/site/content.js';
 import { escapeHtml } from '../src/site/render.js';
 import { adPolicyFromEnv } from '../src/site/ad-policy.js';
@@ -14,7 +14,7 @@ const useEdgeWorker = adPolicyFromEnv().mode !== 'off';
 const pages = new Map(await Promise.all(ROUTES.map(async route => [route.path, await readFile(join('dist', route.path.slice(1), 'index.html'), 'utf8')])));
 const resources = createSiteResourceChecker({ distDir: 'dist', origin: ORIGIN, pages, contactEmail: PUBLIC_CONTACT_EMAIL });
 const manifest = JSON.parse(await readFile('dist/.vite/manifest.json', 'utf8'));
-await resources.checkManifest(manifest, '/.vite/manifest.json', { requiredEntries: ['src/main.js', 'src/site.js'] });
+await resources.checkManifest(manifest, '/.vite/manifest.json', { requiredEntries: ['src/main.js', 'src/site.js', 'src/merger.js', 'src/converter.js', 'src/editor.js'] });
 const faviconLink = '<link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">';
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 function checkIconPng(bytes, size) {
@@ -48,9 +48,12 @@ for (const route of ROUTES) {
   const html = pages.get(route.path);
   assert.ok(html.includes(faviconLink), `Missing supported favicon: ${route.path}`);
   const l = locales[route.locale];
-  const title = escapeHtml(l.seo[route.type].title);
-  assert.ok(!titles.has(title), `Duplicate title: ${route.path}`);
-  titles.add(title);
+  const title = escapeHtml((TOOL_TYPES.includes(route.type) ? l.tools.pages[route.type].seo : l.seo[route.type]).title);
+  // Different languages can naturally share a title (e.g. Spanish and
+  // Portuguese). Detect duplicates within each locale instead of globally.
+  const titleKey = `${route.locale}\0${title}`;
+  assert.ok(!titles.has(titleKey), `Duplicate title: ${route.path}`);
+  titles.add(titleKey);
   assert.ok(html.includes(`<title>${title}</title>`), route.path);
   assert.equal([...html.matchAll(/<h1(?:\s|>)/g)].length, 1, route.path);
   assert.ok(html.includes(`<html lang="${l.htmlLang}">`), route.path);
@@ -60,7 +63,8 @@ for (const route of ROUTES) {
   assert.ok(html.includes('<meta property="og:site_name" content="GIF Splitter">'), route.path);
   assert.ok(html.includes(`<meta name="robots" content="${production ? 'index' : 'noindex'}, follow">`), route.path);
   assert.ok(sitemap.includes(`<loc>${ORIGIN}${route.path}</loc>`), route.path);
-  for (const id of LOCALES) assert.ok(html.includes(`hreflang="${locales[id].htmlLang}" href="${ORIGIN}${pagePath(id, route.type)}"`), route.path);
+  for (const id of localesForPage(route.type)) assert.ok(html.includes(`hreflang="${locales[id].htmlLang}" href="${ORIGIN}${pagePath(id, route.type)}"`), route.path);
+  assert.equal([...html.matchAll(/rel="alternate" hreflang=/g)].length, localesForPage(route.type).length + 1, `Unexpected language alternate: ${route.path}`);
   assert.ok(html.includes(`hreflang="x-default" href="${ORIGIN}${pagePath('en', route.type)}"`), route.path);
   await resources.checkHtml(html, route.path);
   const ld = html.match(/<script\b[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/s);

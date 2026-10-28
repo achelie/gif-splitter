@@ -53,8 +53,8 @@
     "dropTitle": "Drop your GIF here",
     "dropText": "or choose a file to see what's inside",
     "choose": "Choose GIF",
-    "fileHint": "Animated GIF · Up to 30 MB",
-    "outputHint": "PNG frames · Original dimensions",
+    "fileHint": "One GIF · Up to 30 MiB · 1,000 frames",
+    "outputHint": "Free · No account needed",
     "local": "Your GIF stays on your device",
     "sample": "Try a sample GIF",
     "inputLabel": "Choose a GIF file",
@@ -151,9 +151,9 @@
     "CANVAS": "Your browser could not create an image canvas. Please try a current browser.",
     "PNG_EXPORT": "Your browser could not export this frame. Please try a smaller GIF.",
     "EMPTY_FILE": "Please choose a non-empty GIF file.",
-    "FILE_SIZE": "This file is larger than 30 MB. Please choose a smaller GIF.",
+    "FILE_SIZE": "This file is larger than 30 MiB. Please choose a smaller GIF.",
     "UNKNOWN": "This GIF could not be read. Please try a different file.",
-    "ZIP_LIMIT": "These PNGs exceed the 128 MB ZIP limit. Select fewer frames and download them in smaller batches.",
+    "ZIP_LIMIT": "These PNGs exceed the 128 MiB ZIP limit. Select fewer frames and download them in smaller batches.",
     "ZIP_CREATE": "The ZIP could not be created. Try downloading fewer frames at a time.",
     "SAMPLE_LOAD": "The sample could not be loaded. You can still choose your own GIF.",
     "MULTIPLE_FILES": "Please choose one GIF at a time."
@@ -162,7 +162,7 @@
     "eyebrow": "Free online GIF splitter",
     "h1": "GIF Splitter — Split GIFs into PNG Frames",
     "lede": "Save one moment or the complete frame sequence.",
-    "description": "Use this GIF frame extractor to turn an animated GIF into individual PNG images. Preview every frame, choose the images you need, and download one PNG or a numbered ZIP. Your GIF and exported images stay on your device.",
+    "description": "Extract GIF frames in your browser. Download one PNG or a numbered ZIP; your GIF stays on your device.",
     "how": {
       "label": "From motion to still images",
       "title": "How to use the GIF splitter",
@@ -170,7 +170,7 @@
       "steps": [
         {
           "title": "Choose a GIF to split",
-          "text": "Drop a GIF onto the tool or choose one from your device. Open one file at a time, up to 30 MB and 1,000 frames. Extraction runs in your browser, and the progress indicator shows how many frames are ready. If you only want to explore the controls, try the sample GIF before opening your own file."
+          "text": "Drop a GIF onto the tool or choose one from your device. Open one file at a time, up to 30 MiB and 1,000 frames. Extraction runs in your browser, and the progress indicator shows how many frames are ready. If you only want to explore the controls, try the sample GIF before opening your own file."
         },
         {
           "title": "Preview and select frames",
@@ -206,6 +206,10 @@
       "intro": "Answers about extracting one image, preserving frames, handling larger GIFs, and downloading on a phone.",
       "items": [
         {
+          "q": "Can I convert a GIF to PNG?",
+          "a": "Yes. Choose a GIF, preview the frame you want, and download it as a PNG. To save several or all frames, select them or download the complete sequence as a numbered ZIP. Each PNG is a still image, so it will not play the animation. This tool does not create animated PNG (APNG) files."
+        },
+        {
           "q": "How do I split a GIF into frames?",
           "a": "Choose a GIF from your device and wait for the frame list to appear. The results show the number of frames, canvas dimensions, and recorded duration. Download all frames gives you a ZIP of numbered PNG images in their original order. For a tutorial or reference sheet, check only the frames that show the steps you need and download that selection."
         },
@@ -227,7 +231,7 @@
         },
         {
           "q": "Is the GIF splitter free, and what are its limits?",
-          "a": "It is free, with no account or added watermark. Open one GIF at a time, up to 30 MB and 1,000 frames. Pixel and memory safeguards may reject an animation below 30 MB: hundreds of full images can take much more space once decoded. Each ZIP supports up to 128 MB of PNG data. If a download exceeds that limit, select fewer frames and save smaller batches. If extraction itself fails on size or memory limits, try a shorter GIF or a version with smaller dimensions."
+          "a": "It is free, with no account or added watermark. Open one GIF at a time, up to 30 MiB and 1,000 frames. Pixel and memory safeguards may reject an animation below 30 MiB: hundreds of full images can take much more space once decoded. Each ZIP supports up to 128 MiB of PNG data. If a download exceeds that limit, select fewer frames and save smaller batches. If extraction itself fails on size or memory limits, try a shorter GIF or a version with smaller dimensions."
         },
         {
           "q": "Why can some split frames look identical?",
@@ -304,7 +308,7 @@
         }
       ],
       "ctaTitle": "Choose the moment you need",
-      "ctaText": "Open your GIF, inspect the frames and save a checked PNG or numbered ZIP.",
+      "ctaText": "Open your GIF, inspect the frames and save one PNG or a numbered ZIP.",
       "example": {
         "label": "Try the 24-frame sample",
         "caption": "The original geometric sample has 24 frames on a 480 × 300 canvas. Exported PNGs retain those dimensions."
@@ -326,13 +330,13 @@
           "heading": "Why processing stays local",
           "paragraphs": [
             "GIF decoding, PNG encoding and ZIP creation run on your device. No account or file-upload service is required, and your original GIF is not modified. Available memory and device performance affect the animations your browser can handle.",
-            "Files are limited to 30 MB and 1,000 frames, with additional decoded-pixel safeguards. Each ZIP is limited to 128 MB of PNG data. A small compressed GIF can still require substantial memory when expanded."
+            "These limits apply to the frame extractor. Files are limited to 30 MiB and 1,000 frames, with additional decoded-pixel safeguards. Each ZIP is limited to 128 MiB of PNG data. A small compressed GIF can still require substantial memory when expanded."
           ]
         },
         {
           "heading": "A clear set of capabilities",
           "paragraphs": [
-            "This site accepts GIFs and produces PNG images or ZIP archives. It does not edit frames, extract video, or build a new animation. PNG export cannot recover detail that was already missing from the GIF.",
+            "The English GIF Merger also combines GIF files into a new animation. The splitter does not edit frames or extract video; PNG export cannot restore detail absent from the source. The English JPG and WebP converters also export static GIF frames. The English GIF resize and crop tools edit animated GIFs locally.",
             "The guide explains frame timing, transparency and downloads. The privacy page describes local file handling, Cloudflare hosting and the use of Microsoft Clarity for website interaction analytics."
           ]
         },
@@ -369,7 +373,7 @@
         {
           "heading": "GIFs and exported images",
           "paragraphs": [
-            "Your selected GIF is read by your browser. Decoding, frame previews, PNG encoding and ZIP creation take place on your device. The conversion does not upload your GIF, its frames or its filename to a server.",
+            "Your selected GIF is read by your browser. Decoding, frame previews, PNG encoding and ZIP creation take place on your device. The conversion does not upload your GIF, its frames or its filename to a server. GIF Merger and the JPG and WebP converters also process their inputs and outputs on your device without uploading them for conversion. The English GIF resize and crop tools also process files locally without uploading them.",
             "Working files are kept in browser memory rather than cookies, local storage or a remote account. Choosing another GIF or closing the page releases the current application state. Downloaded files remain in the location managed by your browser or operating system. Local processing is separate from the website services described below."
           ]
         },
@@ -384,7 +388,7 @@
           "heading": "Microsoft Clarity and cookies",
           "paragraphs": [
             "Microsoft Clarity loads by default on eligible pages of www.gifsplitter.com for usage analytics, heatmaps and session replay. The Privacy page is excluded from Clarity. Local and pages.dev previews do not load it. Clarity sends interaction and browser data to Microsoft and may set or read cookies according to its settings, consent signals and browser restrictions.",
-            "The extractor area, including filenames, previews and extracted frames, is configured for masking in Clarity. This does not mean all website analytics are disabled. The site has no account system and does not save a language preference. Microsoft privacy statement: https://www.microsoft.com/en-us/privacy/privacystatement. Advertising choices described below do not by themselves control Clarity."
+            "The extractor, merger and converter areas, including filenames, previews and extracted frames, are configured for masking in Clarity. This does not mean all website analytics are disabled. The site has no account system and does not save a language preference. Microsoft privacy statement: https://www.microsoft.com/en-us/privacy/privacystatement. Advertising choices described below do not by themselves control Clarity. The GIF editing areas, including filenames and previews, are also configured for masking."
           ]
         },
         {
@@ -648,7 +652,7 @@
         {
           "heading": "1. Service and operator",
           "paragraphs": [
-            "GIF Splitter is the name used to operate this free browser tool. It reads a GIF selected on your device and provides composed PNG frames or ZIP downloads. The public contact address for questions, problems and privacy requests is contact@gifsplitter.com.",
+            "GIF Splitter is the name used to operate this free browser tool. It reads a GIF selected on your device and provides composed PNG frames or ZIP downloads. The public contact address for questions, problems and privacy requests is contact@gifsplitter.com. A separate English GIF Merger combines multiple GIFs locally. The English JPG and WebP converters also export static GIF frames. The English GIF resize and crop tools edit animated GIFs locally.",
             "No account is required. The tool is intended for ordinary image extraction and inspection. It does not provide a paid storage service, publish your files or promise that an exported image is suitable for every intended purpose. Check the result before relying on it."
           ]
         },

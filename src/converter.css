@@ -1,0 +1,19 @@
+.converter-results{padding-bottom:36px}
+.converter-workspace{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:grid;grid-template-columns:1.1fr 1fr;overflow:hidden}
+.converter-preview-panel{padding:24px;border-right:1px solid var(--line);min-width:0}
+.converter-stage{height:280px;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.converter-stage img{max-width:100%;max-height:100%;object-fit:contain}
+.converter-frame-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin:15px 0;color:var(--muted);font-size:13px}
+#converter-frame-slider,#converter-quality{width:100%;accent-color:var(--brand)}
+.converter-options{padding:30px;min-width:0}
+#converter-file-name{overflow-wrap:anywhere;font-size:18px}
+.converter-option{margin:22px 0 8px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:14px;font-weight:600}
+.converter-option input[type=color]{width:44px;height:34px;padding:2px;border:1px solid var(--line);background:var(--surface);border-radius:5px}
+.converter-note{color:var(--muted);font-size:13px;line-height:1.6;margin-top:8px}
+.converter-download{margin-top:22px}
+.converter-options .converter-download{width:100%}
+.converter-output{margin-top:24px;padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.converter-output p{font-size:14px}
+@media(max-width:600px){.converter-workspace{grid-template-columns:1fr}.converter-preview-panel{border-right:0;border-bottom:1px solid var(--line);padding:20px}.converter-stage{height:230px}.converter-options{padding:20px}.converter-output{flex-wrap:wrap}}
+.has-converter-results .intro{padding:28px 0;text-align:left}.has-converter-results .intro h1{font-size:30px}.has-converter-results .intro .eyebrow,.has-converter-results .intro .lede,.has-converter-results .intro-description{display:none}
+@media(max-width:600px){.has-converter-results .intro{padding:16px 0}.has-converter-results .intro h1{font-size:27px}}

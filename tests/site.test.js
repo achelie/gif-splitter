@@ -1,13 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { loadLocales } from '../src/site/content.js';
-import { ORIGIN, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, GUIDE_TYPES, PAGE_DATES, ROUTES, pagePath } from '../src/site/config.js';
+import { ORIGIN, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, TOOL_TYPES, GUIDE_TYPES, PAGE_DATES, ROUTES, pagePath } from '../src/site/config.js';
 import { renderPage } from '../src/site/render.js';
 import { createAdPolicy } from '../src/site/ad-policy.js';
 
 const locales = await loadLocales();
 const suffixes = { home: '', guide: 'how-to-extract-gif-frames/', transparency: 'gif-transparency-and-disposal/', timing: 'gif-frame-timing/', troubleshooting: 'large-gif-extraction-troubleshooting/', about: 'about/', privacy: 'privacy/', terms: 'terms/' };
-const expectedPath = (locale, type) => `${locale === 'en' ? '/' : `/${locale}/`}${suffixes[type]}`;
+const toolSuffixes = { merger: 'gif-merger/', jpg: 'gif-to-jpg/', webp: 'gif-to-webp/', resize: 'resize-gif/', crop: 'crop-gif/' };
+const expectedPath = (locale, type) => `${locale === 'en' ? '/' : `/${locale}/`}${suffixes[type] || toolSuffixes[type] || ''}`;
 const decodeHtml = (value) => value.replace(/&(amp|lt|gt|quot|#39);/g, (_, entity) => ({ amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'" })[entity]);
 const textOf = (html) => decodeHtml(html.replace(/<[^>]*>/g, ''));
 const attributes = (tag) => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map((match) => [match[1], decodeHtml(match[2])]));
@@ -19,6 +20,7 @@ const scriptContents = (html, filter) => [...html.matchAll(/<script\b([^>]*)>([\
 const assetPaths = { styles: ['/assets/site-test.css'], scripts: ['/assets/site-test.js'] };
 const rendered = new Map(ROUTES.map((route) => [route.path, renderPage(locales, route, assetPaths)]));
 const routesByPath = new Map(ROUTES.map((route) => [route.path, route]));
+const standardRoutes = ROUTES.filter(route => PAGE_TYPES.includes(route.type));
 
 function languageMenu(html) {
   const match = html.match(/<nav class="language-options"[^>]*>([\s\S]*?)<\/nav>/);
@@ -51,10 +53,10 @@ function checkInternalLinks(html, route) {
 test('routes cover ten languages and eight complete page types without changing existing URLs', () => {
   assert.equal(ORIGIN, 'https://www.gifsplitter.com');
   assert.deepEqual(PAGE_TYPES, ['home', 'guide', 'transparency', 'timing', 'troubleshooting', 'about', 'privacy', 'terms']);
-  assert.equal(ROUTES.length, 80);
-  assert.equal(new Set(ROUTES.map((route) => route.path)).size, 80);
+  assert.equal(ROUTES.length, 130);
+  assert.equal(new Set(ROUTES.map((route) => route.path)).size, 130);
   for (const locale of LOCALES) {
-    for (const type of Object.keys(suffixes)) {
+    for (const type of [...PAGE_TYPES, ...TOOL_TYPES]) {
       const path = expectedPath(locale, type);
       assert.equal(pagePath(locale, type), path);
       assert.equal(ROUTES.filter((route) => route.locale === locale && route.type === type && route.path === path).length, 1);
@@ -62,6 +64,16 @@ test('routes cover ten languages and eight complete page types without changing 
   }
   assert.equal(pagePath('en'), '/');
   assert.equal(pagePath('en', 'guide'), '/how-to-extract-gif-frames/');
+  assert.equal(pagePath('en', 'merger'), '/gif-merger/');
+  assert.equal(pagePath('en', 'jpg'), '/gif-to-jpg/');
+  assert.equal(pagePath('en', 'webp'), '/gif-to-webp/');
+  assert.equal(pagePath('en', 'resize'), '/resize-gif/');
+  assert.equal(pagePath('en', 'crop'), '/crop-gif/');
+  assert.equal(pagePath('ja', 'merger'), '/ja/gif-merger/');
+  assert.equal(pagePath('ja', 'jpg'), '/ja/gif-to-jpg/');
+  assert.equal(pagePath('ja', 'webp'), '/ja/gif-to-webp/');
+  assert.equal(pagePath('ja', 'resize'), '/ja/resize-gif/');
+  assert.equal(pagePath('ja', 'crop'), '/ja/crop-gif/');
   assert.throws(() => pagePath('xx', 'home'), /Unknown site route/);
   assert.throws(() => pagePath('ja', 'unknown'), /Unknown site route/);
 });
@@ -81,10 +93,10 @@ test('all eighty pages have their own localized title, description and H1', () =
     assert.equal(descriptions.size, 10, `${type} descriptions must not reuse an English fallback`);
     assert.equal(headings.size, 10, `${type} H1 headings must not reuse an English fallback`);
   }
-  assert.equal(new Set(ROUTES.map(({ locale, type }) => locales[locale].seo[type].title)).size, 80);
+  assert.equal(new Set(standardRoutes.map(({ locale, type }) => locales[locale].seo[type].title)).size, 80);
 });
 
-for (const route of ROUTES) {
+for (const route of standardRoutes) {
   test(`${route.path}: localized static content, SEO alternates, navigation and structured data`, () => {
     const { locale, type } = route;
     const dictionary = locales[locale];
@@ -157,7 +169,7 @@ for (const route of ROUTES) {
         assert.ok(content.includes(item.title));
         assert.ok(content.includes(item.text));
       }
-      assert.equal(dictionary.home.faq.items.length, 8);
+      assert.ok(dictionary.home.faq.items.length >= 9, 'the FAQ must retain the GIF-to-PNG explanation');
       for (const item of dictionary.home.faq.items) {
         assert.ok(content.includes(item.q), 'FAQ question must be in static HTML');
         assert.ok(content.includes(item.a), 'FAQ answer must be in static HTML');
@@ -213,6 +225,8 @@ for (const route of ROUTES) {
       assert.equal(structured.headline, dictionary.pages[type].h1);
       assert.equal(structured.mainEntityOfPage, canonical);
       assert.equal(structured.publisher.url, ORIGIN);
+      assert.equal(structured.datePublished, PAGE_DATES[type].published);
+      assert.equal(structured.dateModified, PAGE_DATES[type].modified);
     }
 
     const runtimeScripts = scriptContents(html, (tag) => tag.id === 'locale-messages' && tag.type === 'application/json');
@@ -227,6 +241,57 @@ for (const route of ROUTES) {
     }
   });
 }
+
+for (const locale of LOCALES) for (const type of TOOL_TYPES) {
+  test(`${locale}/${type}: translated tool, localized navigation and complete alternates`, () => {
+    const route = routesByPath.get(pagePath(locale, type));
+    const html = rendered.get(route.path);
+    const canonical = ORIGIN + route.path;
+    const dictionary = locales[locale];
+    assert.equal(route.locale, locale);
+    assert.ok(links(rendered.get(pagePath(locale))).some(link => link.href === route.path), 'homepage links to its localized tool');
+    assert.equal(tags(html, 'html')[0].lang, dictionary.htmlLang);
+    assert.equal(tags(html, 'link').find(tag => tag.rel === 'canonical')?.href, canonical);
+    const alternates = tags(html, 'link').filter(tag => tag.rel === 'alternate');
+    assert.equal(alternates.length, LOCALES.length + 1);
+    for (const id of LOCALES) assert.equal(alternates.find(tag => tag.hreflang === locales[id].htmlLang)?.href, ORIGIN + pagePath(id, type));
+    assert.equal(alternates.find(tag => tag.hreflang === 'x-default')?.href, ORIGIN + pagePath('en', type));
+    assert.deepEqual(links(languageMenu(html)).map(link => link.href), LOCALES.map(id => pagePath(id, type)));
+    const id = type === 'merger' ? 'merger' : ['jpg', 'webp'].includes(type) ? 'converter' : 'editor';
+    assert.ok(tags(html, 'section').some(tag => tag.id === id && tag['data-clarity-mask'] === 'true'));
+    assert.ok(tags(html, 'div').some(tag => tag.id === `${id}-app`));
+    assert.equal([...html.matchAll(/<h1\b/g)].length, 1);
+    assert.ok(html.includes('<noscript>'));
+    assert.equal(textOf([...html.matchAll(/<title>([\s\S]*?)<\/title>/g)][0][1]), dictionary.tools.pages[type].seo.title);
+    assert.equal(tags(html, 'meta').find(tag => tag.name === 'description')?.content, dictionary.tools.pages[type].seo.description);
+    assert.deepEqual(JSON.parse(scriptContents(html, tag => tag.id === 'tool-messages')[0]), dictionary.tools.ui);
+    checkInternalLinks(html, route);
+    const [schema] = scriptContents(html, tag => tag.type === 'application/ld+json').map(JSON.parse);
+    assert.equal(schema['@type'], 'WebApplication');
+    assert.equal(schema.url, canonical);
+    assert.equal(schema.inLanguage, dictionary.htmlLang);
+    assert.equal(schema.isAccessibleForFree, true);
+  });
+}
+
+test('each home and guide link to the right localized tool and working example', () => {
+  assert.ok(PAGE_DATES.guide.modified >= '2026-10-27', 'a substantive guide revision should have an updated date');
+  for (const locale of LOCALES) {
+    const home = rendered.get(pagePath(locale));
+    const guide = rendered.get(pagePath(locale, 'guide'));
+    const howSection = home.match(/<section class="how-section[\s\S]*?<\/section>/)?.[0];
+    assert.ok(howSection && links(howSection).some(link => link.href === pagePath(locale, 'guide')), `${locale}: home must link to the localized guide`);
+    const quickActions = guide.match(/<div class="article-quick-actions"[^>]*>([\s\S]*?)<\/div>/)?.[1];
+    assert.ok(quickActions, `${locale}: guide must have a tool entry near the start`);
+    const destinations = links(quickActions).map(link => link.href);
+    assert.ok(destinations.includes(`${pagePath(locale)}#extractor`), `${locale}: open the localized extractor`);
+    assert.ok(destinations.includes(`${pagePath(locale)}?example=sample`), `${locale}: open the localized sample`);
+    const sampleImage = tags(guide, 'img').find(img => img.class === 'guide-sample');
+    assert.equal(sampleImage?.src, '/sample.gif');
+    assert.ok(Object.hasOwn(sampleImage, 'alt'), `${locale}: sample image must declare alternative text`);
+    assert.ok(textOf(guide).includes(locales[locale].pages.guide.example.caption), `${locale}: sample must have its localized caption`);
+  }
+});
 
 test('production indexing is explicit and leaves all production canonical URLs stable', () => {
   for (const route of ROUTES) {

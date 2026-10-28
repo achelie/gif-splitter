@@ -29,10 +29,14 @@ function assetsFor(entry) {
 }
 const appAssets = assetsFor('src/main.js');
 const siteAssets = assetsFor('src/site.js');
+const mergerAssets = assetsFor('src/merger.js');
+const converterAssets = assetsFor('src/converter.js');
+const editorAssets = assetsFor('src/editor.js');
 for (const route of ROUTES) {
   const dir = join('dist', route.path.slice(1));
   await mkdir(dir, { recursive: true });
-  let html = renderPage(locales, route, route.type === 'home' ? appAssets : siteAssets, { production, adPolicy });
+  const assets = route.type === 'home' ? appAssets : route.type === 'merger' ? mergerAssets : ['jpg', 'webp'].includes(route.type) ? converterAssets : ['resize', 'crop'].includes(route.type) ? editorAssets : siteAssets;
+  let html = renderPage(locales, route, assets, { production, adPolicy });
   if (!useEdgeWorker) {
     const prepared = prepareStaticHtml(html);
     html = prepared.html;

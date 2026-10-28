@@ -1,0 +1,28 @@
+.merger-dropzone{border:1px dashed #c9c9c0;border-radius:14px;background:var(--surface);padding:36px 20px;text-align:center}
+.merger-dropzone.is-dragging{border-color:var(--brand);background:var(--accent)}
+.merger-drop-icon{width:48px;height:48px;border-radius:14px;margin:0 auto 14px;display:grid;place-items:center;background:var(--accent);color:var(--brand);font-size:30px;line-height:1}
+.merger-dropzone h2,.merger-workspace h2,.merger-result h2{font-size:22px;letter-spacing:-.025em;line-height:1.3}
+.merger-dropzone>p,.merger-list-heading p{color:var(--muted);font-size:14px;margin-top:6px}
+.merger-dropzone .button{margin-top:18px}
+.merger-dropzone .merger-hint{font-size:12px;margin-top:16px}
+.merger-local{text-align:center;color:var(--muted);font-size:13px;margin:12px 0 20px}
+.merger-workspace,.merger-result{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:28px;margin:22px 0}
+.merger-list-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.merger-list-heading>div{min-width:0}
+.merger-list-heading .merger-overline,.merger-result .merger-overline{color:var(--brand);font-size:11px;letter-spacing:.08em;font-weight:600;margin:0 0 5px}
+.merger-list{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px}
+.merger-file{display:flex;align-items:center;gap:14px;padding:13px;border:1px solid var(--line);border-radius:9px;min-width:0}
+.merger-file-order{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:7px;background:var(--subtle);font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.merger-file-details{display:grid;gap:2px;min-width:0;flex:1}
+.merger-file-details strong{font-size:14px;overflow-wrap:anywhere;line-height:1.4}
+.merger-file-details span{font-size:12px;color:var(--muted)}
+.merger-file-actions{display:flex;align-items:center;gap:6px;flex:none}
+.merger-file-actions .merger-move{min-width:40px;font-size:18px;padding:5px}
+.merger-controls{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:20px}
+.merger-details{color:var(--muted);font-size:13px;line-height:1.7;margin-top:16px;max-width:72ch}
+.merger-result{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.merger-result>div{min-width:0}
+.merger-result-summary,#merger-result-summary{color:var(--muted);font-size:14px;margin:10px 0 18px}
+.merger-preview{height:260px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.merger-preview img{max-width:100%;max-height:100%;object-fit:contain}
+@media(max-width:600px){.merger-dropzone{padding:25px 14px}.merger-drop-icon{display:none}.merger-workspace,.merger-result{padding:18px}.merger-result{grid-template-columns:1fr;gap:18px}.merger-preview{height:220px}.merger-file{gap:8px;flex-wrap:wrap}.merger-file-details{min-width:0;flex:1 1 calc(100% - 50px)}.merger-file-actions{width:100%;justify-content:flex-end}.merger-list-heading{align-items:flex-start;gap:12px}.merger-list-heading>.button{flex:none}}

@@ -1,5 +1,9 @@
-import { ORIGIN, BRAND_NAME, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, GUIDE_TYPES, PAGE_DATES, CLOUDFLARE_BEACON_TOKEN, pagePath } from './config.js';
+import { ORIGIN, BRAND_NAME, PUBLIC_CONTACT_EMAIL, LOCALES, PAGE_TYPES, TOOL_TYPES, GUIDE_TYPES, PAGE_DATES, CLOUDFLARE_BEACON_TOKEN, pagePath, localesForPage } from './config.js';
 import { createAdPolicy } from './ad-policy.js';
+import { mergerPage } from './merger-page.js';
+import { converterPage } from './converter-page.js';
+import { editorPage } from './editor-page.js';
+import { localizeToolMarkup } from './tools-i18n.js';
 
 export const escapeHtml = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const e = escapeHtml;
@@ -32,8 +36,8 @@ function header(locales, locale, type) {
   return `<a class="skip-link" href="#content">${e(u.skip)}</a>
 <header class="site-header wrap">
   ${brand(locale, u.homeLabel)}
-  <nav class="primary-nav" aria-label="${e(u.mainNav)}"><a ${type === 'home' ? 'class="nav-active"' : ''} href="${pagePath(locale)}#extractor">${e(u.extract)}</a><a href="${type === 'home' ? '#how-it-works' : pagePath(locale, 'guide')}">${e(u.how)}</a><a href="${pagePath(locale, 'privacy')}" class="nav-privacy">${e(u.privacy)} ${icon('lock')}</a></nav>
-  <details class="language-menu"><summary aria-label="${e(u.languageNav)}: ${e(l.label)}"><span lang="${e(l.htmlLang)}">${e(l.label)}</span>${icon('chevron')}</summary><nav class="language-options" aria-label="${e(u.languageNav)}">${LOCALES.map(id => `<a href="${pagePath(id, type)}" lang="${e(locales[id].htmlLang)}" hreflang="${e(locales[id].htmlLang)}"${id === locale ? ' aria-current="page"' : ''}>${e(locales[id].label)}${id === locale ? '<span class="current-language-dot" aria-hidden="true"></span>' : ''}</a>`).join('')}</nav></details>
+  <nav class="primary-nav${locale === 'en' ? ' has-merger-nav' : ''}" aria-label="${e(u.mainNav)}"><a ${type === 'home' ? 'class="nav-active"' : ''} href="${pagePath(locale)}#extractor">${e(u.extract)}</a>${locale === 'en' ? `<a ${type === 'merger' ? 'class="nav-active"' : ''} href="${pagePath('en', 'merger')}">GIF Merger</a>` : ''}<a href="${['home', 'merger', 'jpg', 'webp', 'resize', 'crop'].includes(type) ? '#how-it-works' : pagePath(locale, 'guide')}">${e(u.how)}</a><a href="${pagePath(locale, 'privacy')}" class="nav-privacy">${e(u.privacy)} ${icon('lock')}</a></nav>
+  <details class="language-menu"><summary aria-label="${e(u.languageNav)}: ${e(l.label)}"><span lang="${e(l.htmlLang)}">${e(l.label)}</span>${icon('chevron')}</summary><nav class="language-options" aria-label="${e(u.languageNav)}">${localesForPage(type).map(id => `<a href="${pagePath(id, type)}" lang="${e(locales[id].htmlLang)}" hreflang="${e(locales[id].htmlLang)}"${id === locale ? ' aria-current="page"' : ''}>${e(locales[id].label)}${id === locale ? '<span class="current-language-dot" aria-hidden="true"></span>' : ''}</a>`).join('')}</nav></details>
 </header>`;
 }
 
@@ -41,11 +45,12 @@ function footer(l, type, policy, production) {
   const settings = production && policy.mode !== 'off' ? (cmpTypes.includes(type)
     ? `<button type="button" class="text-button" id="privacy-settings" hidden>${e(l.ui.privacySettings)}</button>`
     : `<a href="${pagePath(l.locale)}?privacy-settings=1">${e(l.ui.privacySettings)}</a>`) : '';
-  return `<footer class="site-footer wrap"><div class="footer-top">${brand(l.locale, l.ui.homeLabel, false)}<p>${e(l.footer.tagline)}</p></div><div class="footer-bottom"><span>${e(l.footer.copyright)}</span><nav aria-label="${e(l.ui.footerNav)}"><a href="${pagePath(l.locale, 'guide')}">${e(l.ui.guide)}</a><a href="${pagePath(l.locale, 'about')}">${e(l.ui.about)}</a><a href="${pagePath(l.locale, 'about')}#contact">${e(l.ui.contact)}</a><a href="${pagePath(l.locale, 'terms')}">${e(l.ui.terms)}</a><a href="${pagePath(l.locale, 'privacy')}">${e(l.ui.privacy)}</a>${settings}</nav></div>${production && policy.mode !== 'off' && cmpTypes.includes(type) ? `<p id="privacy-status" class="privacy-status" role="status" aria-live="polite"></p>` : ''}</footer>`;
+  return `<footer class="site-footer wrap"><div class="footer-top">${brand(l.locale, l.ui.homeLabel, false)}<p>${e(l.footer.tagline)}</p></div><div class="footer-bottom"><span>${e(l.footer.copyright)}</span><nav aria-label="${e(l.ui.footerNav)}"><a href="${pagePath(l.locale, 'guide')}">${e(l.ui.guide)}</a>${l.locale === 'en' ? `<a href="${pagePath('en', 'jpg')}">GIF to JPG</a><a href="${pagePath('en', 'webp')}">GIF to WebP</a>` : ''}<a href="${pagePath(l.locale, 'about')}">${e(l.ui.about)}</a><a href="${pagePath(l.locale, 'about')}#contact">${e(l.ui.contact)}</a><a href="${pagePath(l.locale, 'terms')}">${e(l.ui.terms)}</a><a href="${pagePath(l.locale, 'privacy')}">${e(l.ui.privacy)}</a>${settings}</nav></div>${production && policy.mode !== 'off' && cmpTypes.includes(type) ? `<p id="privacy-status" class="privacy-status" role="status" aria-live="polite"></p>` : ''}</footer>`;
 }
 
 function knowledge(l, current) {
-  return `<section class="knowledge-section section-rule"><h2>${e(l.ui.knowledgeTitle)}</h2><p>${e(l.ui.knowledgeIntro)}</p><ul>${GUIDE_TYPES.filter(type => type !== current).map(type => `<li><a href="${pagePath(l.locale, type)}">${e(l.pages[type].h1)}</a><p>${e(l.seo[type].description)}</p></li>`).join('')}</ul></section>`;
+  const toolLinks = [['merger', 'GIF Merger', 'Combine GIFs in sequence into one animation.'], ['jpg', 'GIF to JPG', 'Save GIF frames as JPEG images with a chosen background.'], ['webp', 'GIF to WebP', 'Save GIF frames as static WebP images.'], ['resize', 'Resize GIF', 'Change the dimensions of an animated GIF.'], ['crop', 'Crop GIF', 'Keep a selected area across every frame.']];
+  return `<section class="knowledge-section section-rule"><h2>${e(l.ui.knowledgeTitle)}</h2><p>${e(l.ui.knowledgeIntro)}</p><ul>${GUIDE_TYPES.filter(type => type !== current).map(type => `<li><a href="${pagePath(l.locale, type)}">${e(l.pages[type].h1)}</a><p>${e(l.seo[type].description)}</p></li>`).join('')}${current === 'home' ? toolLinks.map(([type, title, description]) => `<li><a href="${pagePath(l.locale, type)}">${e(l.tools.navigation[title])}</a><p>${e(l.tools.navigation[description])}</p></li>`).join('') : ''}</ul></section>`;
 }
 
 function home(l) {
@@ -91,12 +96,13 @@ function article(l, type, policy, production) {
     ? p[policy.mode === 'live' ? 'advertisingLive' : 'advertisingConsent'] : section);
   const ad = production && policy.mode === 'live' && isGuide ? `<aside id="article-ad-region" class="article-ad" hidden aria-label="${e(l.ui.advertisements)}"><p>${e(l.ui.advertisements)}</p><ins class="adsbygoogle" style="display:block" data-ad-client="${e(policy.client)}" data-ad-slot="${e(policy.articleSlotId)}" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>` : '';
   const samples = { guide: ['sample'], transparency: ['disposal-2', 'disposal-3'], timing: ['timing'], troubleshooting: ['memory-limit'] };
-  const example = isGuide && p.example ? `<figure class="article-example">${type === 'transparency' ? `<img src="/examples/disposal-comparison.svg" width="720" height="280" loading="lazy" alt="${e(p.example.caption)}">` : ''}<figcaption>${e(p.example.caption)}</figcaption><div>${samples[type].map(sample => `<a class="inline-link" href="${pagePath(l.locale)}?example=${sample}">${e(p.example.label)}${samples[type].length > 1 ? ` (${sample === 'disposal-2' ? '2' : '3'})` : ''}</a>`).join(' ')}</div></figure>` : '';
+  const example = isGuide && p.example ? `<figure class="article-example">${type === 'transparency' ? `<img src="/examples/disposal-comparison.svg" width="720" height="280" loading="lazy" alt="${e(p.example.caption)}">` : type === 'guide' ? '<img class="guide-sample" src="/sample.gif" width="480" height="300" loading="lazy" alt="">' : ''}<figcaption>${e(p.example.caption)}</figcaption><div>${samples[type].map(sample => `<a class="inline-link" href="${pagePath(l.locale)}?example=${sample}">${e(p.example.label)}${samples[type].length > 1 ? ` (${sample === 'disposal-2' ? '2' : '3'})` : ''}</a>`).join(' ')}</div></figure>` : '';
   const updated = new Intl.DateTimeFormat(l.htmlLang, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`));
   return `<main class="article-main wrap" id="content"><article>
     <p class="section-label">${e(p.eyebrow)}</p><h1>${e(p.h1)}</h1><p class="article-lead">${e(p.intro)}</p><p class="article-meta">${e(l.ui.updated)}: <time datetime="${date}">${e(updated)}</time></p>
+    ${type === 'guide' ? `<div class="article-quick-actions"><a class="button primary" href="${pagePath(l.locale)}#extractor">${e(l.ui.openTool)}${icon('arrow')}</a><a class="button" href="${pagePath(l.locale)}?example=sample">${e(p.example.label)}</a></div>` : ''}
     ${isGuide ? `<nav class="article-toc" aria-label="${e(l.ui.onThisPage)}"><h2>${e(l.ui.onThisPage)}</h2><ol>${sections.map((section, i) => `<li><a href="#section-${i + 1}">${e(section.heading)}</a></li>`).join('')}</ol></nav>` : ''}
-    ${sections.map((section, i) => `<section id="section-${i + 1}"><h2>${e(section.heading)}</h2>${section.paragraphs.map(text => `<p>${paragraph(text)}</p>`).join('')}</section>${i === 1 ? ad : ''}${i === 2 ? example : ''}`).join('')}
+    ${sections.map((section, i) => `<section id="section-${i + 1}"><h2>${e(section.heading)}</h2>${section.paragraphs.map(text => `<p>${paragraph(text)}</p>`).join('')}${type === 'guide' && i === 5 ? `<a class="inline-link" href="${pagePath(l.locale, 'transparency')}">${e(l.pages.transparency.h1)}${icon('arrow')}</a>` : ''}${type === 'guide' && i === 7 ? `<a class="inline-link" href="${pagePath(l.locale, 'troubleshooting')}">${e(l.pages.troubleshooting.h1)}${icon('arrow')}</a>` : ''}</section>${i === 1 ? ad : ''}${i === (type === 'guide' ? 1 : 2) ? example : ''}`).join('')}
     ${type === 'about' ? `<section id="contact" aria-labelledby="contact-heading"><h2 id="contact-heading">${e(p.contact.heading)}</h2>${p.contact.paragraphs.map(text => `<p>${paragraph(text)}</p>`).join('')}<p><!--email_off--><a class="inline-link" href="mailto:${e(PUBLIC_CONTACT_EMAIL)}">${e(PUBLIC_CONTACT_EMAIL)}</a><!--/email_off--></p></section>` : ''}
     ${isGuide ? knowledge(l, type) : ''}
     <aside class="article-cta"><h2>${e(p.ctaTitle)}</h2><p>${e(p.ctaText)}</p><a class="button primary" href="${pagePath(l.locale)}">${e(l.ui.openTool)}${icon('arrow')}</a></aside>
@@ -107,12 +113,12 @@ function article(l, type, policy, production) {
 export function renderPage(locales, route, assets, { production = false, adPolicy = createAdPolicy() } = {}) {
   const { locale, type } = route;
   const l = locales[locale];
-  const seo = l.seo[type];
+  const seo = TOOL_TYPES.includes(type) ? l.tools.pages[type].seo : l.seo[type];
   const canonical = ORIGIN + pagePath(locale, type);
-  const structured = type === 'home' ? {
-    '@context': 'https://schema.org', '@type': 'WebApplication', name: BRAND_NAME, url: canonical, inLanguage: l.htmlLang,
+  const structured = ['home', 'merger', 'jpg', 'webp', 'resize', 'crop'].includes(type) ? {
+    '@context': 'https://schema.org', '@type': 'WebApplication', name: type === 'home' ? BRAND_NAME : seo.title, url: canonical, inLanguage: l.htmlLang,
     description: seo.description, applicationCategory: 'MultimediaApplication', operatingSystem: 'Any', isAccessibleForFree: true,
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, featureList: l.ui.capabilities,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, ...(type === 'home' ? { featureList: l.ui.capabilities } : {}),
   } : {
     '@context': 'https://schema.org', '@type': GUIDE_TYPES.includes(type) ? 'Article' : 'WebPage', name: seo.title, headline: l.pages[type].h1,
     description: seo.description, inLanguage: l.htmlLang, url: canonical, mainEntityOfPage: canonical,
@@ -124,7 +130,7 @@ export function renderPage(locales, route, assets, { production = false, adPolic
   <meta property="csp-nonce" nonce="${nonce}">
   <title>${e(seo.title)}</title><meta name="description" content="${e(seo.description)}"><meta name="robots" content="${production ? 'index, follow' : 'noindex, follow'}">
   <link rel="canonical" href="${canonical}">
-  ${LOCALES.map(id => `<link rel="alternate" hreflang="${e(locales[id].htmlLang)}" href="${ORIGIN}${pagePath(id, type)}">`).join('\n  ')}
+  ${localesForPage(type).map(id => `<link rel="alternate" hreflang="${e(locales[id].htmlLang)}" href="${ORIGIN}${pagePath(id, type)}">`).join('\n  ')}
   <link rel="alternate" hreflang="x-default" href="${ORIGIN}${pagePath('en', type)}"><link rel="icon" href="/favicon.png" type="image/png" sizes="256x256">
   <meta property="og:type" content="${GUIDE_TYPES.includes(type) ? 'article' : 'website'}"><meta property="og:site_name" content="${BRAND_NAME}"><meta property="og:title" content="${e(seo.title)}"><meta property="og:description" content="${e(seo.description)}"><meta property="og:url" content="${canonical}"><meta property="og:locale" content="${e(l.ogLocale)}"><meta property="og:image" content="${ORIGIN}/og.png">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${e(seo.title)}"><meta name="twitter:description" content="${e(seo.description)}"><meta name="twitter:image" content="${ORIGIN}/og.png">
@@ -141,9 +147,10 @@ export function renderPage(locales, route, assets, { production = false, adPolic
   </script>` : ''}
 </head><body data-locale="${e(locale)}" data-page="${e(type)}">
 ${header(locales, locale, type)}
-${type === 'home' ? home(l) : article(l, type, adPolicy, production)}
+${type === 'home' ? home(l) : TOOL_TYPES.includes(type) ? localizeToolMarkup(type === 'merger' ? mergerPage() : ['jpg', 'webp'].includes(type) ? converterPage(type) : editorPage(type), locale, type, l.tools) : article(l, type, adPolicy, production)}
 ${footer(l, type, adPolicy, production)}
 ${type === 'home' ? `<script id="locale-messages" type="application/json" nonce="${nonce}">${json({ locale: l.htmlLang, ui: l.ui, runtime: l.runtime, errors: l.errors })}</script>` : ''}
+${TOOL_TYPES.includes(type) ? `<script id="tool-messages" type="application/json" nonce="${nonce}">${json(l.tools.ui)}</script>` : ''}
 ${production && adPolicy.mode !== 'off' && cmpTypes.includes(type) ? `<script id="advertising-config" type="application/json" nonce="${nonce}">${json({ mode: adPolicy.mode, client: adPolicy.client, articleSlotId: adPolicy.articleSlotId, articleEligible: GUIDE_TYPES.includes(type), privacySettings: l.ui.privacySettings, privacyUnavailable: l.ui.privacyUnavailable, privacyPending: l.ui.privacyPending, privacyUpdated: l.ui.privacyUpdated })}</script>` : ''}
 ${assets.scripts.map(path => `<script type="module" nonce="${nonce}" src="${e(path)}"></script>`).join('\n')}
 ${production ? `<script nonce="${nonce}">if(window.location.origin===${json(ORIGIN)}){const b=document.createElement('script');b.src='https://static.cloudflareinsights.com/beacon.min.js';b.defer=true;b.nonce=document.querySelector('meta[property="csp-nonce"]').nonce;b.setAttribute('data-cf-beacon',${json(JSON.stringify({ token: CLOUDFLARE_BEACON_TOKEN, spa: false, send: { to: '/cdn-cgi/rum' } }))});document.body.appendChild(b);}</script>` : ''}

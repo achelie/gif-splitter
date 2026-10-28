@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:net';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
-import { chromium } from 'playwright';
+import { chromium, webkit } from 'playwright';
 import { unzipSync } from 'fflate';
 import { encodeExample } from './make-guide-examples.mjs';
 import { LOCALES, pagePath } from '../src/site/config.js';
@@ -17,8 +17,12 @@ const artifacts = join(root, 'output', 'playwright');
 const english = JSON.parse(await readFile(join(root, 'src', 'locales', 'en.json'), 'utf8'));
 const sample = await readFile(join(root, 'public', 'sample.gif'));
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+const oversizedPath = join(artifacts, 'over-30-mib.gif');
 const failures = [];
 const checks = [];
+const browserName = process.env.BROWSER_ENGINE || 'chromium';
+assert.ok(['chromium', 'webkit'].includes(browserName), `Unsupported BROWSER_ENGINE: ${browserName}`);
+const browserType = browserName === 'webkit' ? webkit : chromium;
 let server;
 let serverError;
 let serverOutput = '';
@@ -69,6 +73,7 @@ async function cleanup() {
     await browser?.close().catch(() => {});
     await stopProcess(browserInstaller);
     await stopProcess(server);
+    await unlink(oversizedPath).catch(() => {});
     await writeFile(join(artifacts, 'wrangler.log'), serverOutput);
   })();
   return cleanupPromise;
@@ -90,6 +95,12 @@ async function freePort() {
 }
 
 async function ensureChromium() {
+  if (browserName === 'webkit') {
+    await access(webkit.executablePath()).catch(() => {
+      throw new Error('WebKit is not installed. Run npx playwright install webkit.');
+    });
+    return undefined;
+  }
   if (process.env.BROWSER_EXECUTABLE_PATH) {
     await access(process.env.BROWSER_EXECUTABLE_PATH);
     return process.env.BROWSER_EXECUTABLE_PATH;
@@ -178,7 +189,7 @@ async function visit(path, expectedStatus = 200) {
 try {
   const executablePath = await ensureChromium();
   const origin = await startServer();
-  browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
+  browser = await browserType.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
   context = await browser.newContext({ baseURL: origin, acceptDownloads: true, viewport: { width: 1280, height: 900 } });
   await context.tracing.start({ screenshots: true, snapshots: true });
   await context.exposeBinding('__recordCspViolation', (_, violation) => failures.push(`CSP: ${JSON.stringify(violation)}`));
@@ -224,7 +235,49 @@ try {
   const entries = unzipSync(archive.bytes);
   assert.deepEqual(Object.keys(entries), ['little-orbit-frame-0001.png', 'little-orbit-frame-0005.png']);
   for (const [name, bytes] of Object.entries(entries)) checkPng(bytes, name);
-  checks.push('single PNG and selected ZIP frame numbers');
+  const allArchive = await download('#download-all', 'all-frames.zip');
+  const allEntries = unzipSync(allArchive.bytes);
+  assert.deepEqual(Object.keys(allEntries), Array.from({ length: 24 }, (_, index) => `little-orbit-frame-${String(index + 1).padStart(4, '0')}.png`));
+  for (const [name, bytes] of Object.entries(allEntries)) checkPng(bytes, name);
+  checks.push('single PNG, selected ZIP frame numbers, and complete ZIP frame order');
+
+  // Compare actual browser downloads with independent Pillow-composited RGBA.
+  // This fixture includes transparent patches and disposal methods 1, 2 and 3.
+  const composite = await readFile(join(root, 'tests', 'fixtures', 'pillow-composite.gif'));
+  const expectedRgba = await readFile(join(root, 'tests', 'fixtures', 'pillow-composite.rgba'));
+  const compositeWidth = composite.readUInt16LE(6);
+  const compositeHeight = composite.readUInt16LE(8);
+  const frameBytes = compositeWidth * compositeHeight * 4;
+  async function verifyCompositePng(bytes, index) {
+    const decoded = await page.evaluate(async base64 => {
+      const binary = atob(base64);
+      const url = URL.createObjectURL(new Blob([Uint8Array.from(binary, c => c.charCodeAt(0))], { type: 'image/png' }));
+      try {
+        const image = new Image();
+        image.src = url;
+        await image.decode();
+        const canvas = document.createElement('canvas');
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        const context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0);
+        return { width: canvas.width, height: canvas.height, rgba: [...context.getImageData(0, 0, canvas.width, canvas.height).data] };
+      } finally { URL.revokeObjectURL(url); }
+    }, Buffer.from(bytes).toString('base64'));
+    assert.deepEqual([decoded.width, decoded.height], [compositeWidth, compositeHeight]);
+    assert.deepEqual(Buffer.from(decoded.rgba), expectedRgba.subarray(index * frameBytes, (index + 1) * frameBytes), `Composite frame ${index + 1}: RGBA`);
+  }
+  await page.locator('#file-input').setInputFiles({ name: 'composite.gif', mimeType: 'image/gif', buffer: composite });
+  await waitForFrames(4);
+  const compositeSingle = await download('#download-frame', 'composite-single.png');
+  await verifyCompositePng(compositeSingle.bytes, 0);
+  const compositeZip = await download('#download-all', 'composite-all.zip');
+  const compositeEntries = unzipSync(compositeZip.bytes);
+  assert.deepEqual(Object.keys(compositeEntries), Array.from({ length: 4 }, (_, index) => `composite-frame-${String(index + 1).padStart(4, '0')}.png`));
+  for (let index = 0; index < 4; index++) await verifyCompositePng(compositeEntries[`composite-frame-${String(index + 1).padStart(4, '0')}.png`], index);
+  checks.push('downloaded PNG and all ZIP PNG pixels match independent Pillow transparent/composited frames');
+  await page.locator('#file-input').setInputFiles({ name: 'little-orbit.gif', mimeType: 'image/gif', buffer: sample });
+  await waitForFrames();
 
   const initialFrame = await page.locator('#frame-slider').inputValue();
   await page.locator('#play-button').click();
@@ -249,7 +302,13 @@ try {
   await page.locator('#file-input').setInputFiles({ name: 'recovered.gif', mimeType: 'image/gif', buffer: sample });
   await waitForFrames();
   assert.equal(await page.locator('#file-name').textContent(), 'recovered.gif');
-  checks.push('both corrupt 41-byte GIFs reject and re-upload recovers');
+  const chooserPromise = page.waitForEvent('filechooser');
+  await page.locator('#start-over').click();
+  const chooser = await chooserPromise;
+  await chooser.setFiles({ name: 'restarted.gif', mimeType: 'image/gif', buffer: sample });
+  await waitForFrames();
+  assert.equal(await page.locator('#file-name').textContent(), 'restarted.gif');
+  checks.push('corrupt GIFs reject, re-upload recovers, and choose another GIF restarts');
 
   const beforeCancel = await page.evaluate(() => ({ ...window.__workerActivity }));
   await page.evaluate(() => {
@@ -281,6 +340,28 @@ try {
   assert.equal(await page.locator('#file-name').textContent(), 'after-cancel.gif');
   checks.push('cancel during decoding terminates Worker and next upload succeeds');
 
+  await page.locator('#file-input').setInputFiles({ name: 'at-frame-limit.gif', mimeType: 'image/gif', buffer: manyFrames });
+  await page.waitForFunction(() => !document.getElementById('results').hidden && document.getElementById('stat-frames').textContent === '1,000', null, { timeout: 60_000 });
+  checks.push('1000-frame GIF completes extraction at the stated frame limit');
+
+  const tooManyFrames = Buffer.from(encodeExample({
+    width: 2, height: 1,
+    frames: Array.from({ length: 1001 }, (_, index) => ({ pixels: [1, index % 3 + 1], delay: 5 })),
+  }));
+  await page.locator('#file-input').setInputFiles({ name: 'too-many.gif', mimeType: 'image/gif', buffer: tooManyFrames });
+  await page.waitForFunction(expected => document.getElementById('status').textContent === expected, english.errors.FRAME_LIMIT);
+  assert.equal(await page.locator('#results').evaluate(element => element.hidden), true);
+  await writeFile(oversizedPath, Buffer.alloc(30 * 1024 * 1024 + 1));
+  await page.locator('#file-input').setInputFiles(oversizedPath);
+  await page.waitForFunction(expected => document.getElementById('status').textContent === expected, english.errors.FILE_SIZE);
+  assert.equal(await page.locator('#results').evaluate(element => element.hidden), true);
+  const memoryLimit = await readFile(join(root, 'public', 'examples', 'memory-limit.gif'));
+  await page.locator('#file-input').setInputFiles({ name: 'memory-limit.gif', mimeType: 'image/gif', buffer: memoryLimit });
+  await page.waitForFunction(expected => document.getElementById('status').textContent === expected, english.errors.MEMORY_LIMIT);
+  await page.locator('#file-input').setInputFiles({ name: 'after-limits.gif', mimeType: 'image/gif', buffer: sample });
+  await waitForFrames();
+  checks.push('1001 frames, 30 MiB + 1 byte and output-pixel budget show specific limit messages and recover');
+
   await page.setViewportSize({ width: 320, height: 900 });
   for (const locale of LOCALES) {
     await visit(pagePath(locale));
@@ -288,14 +369,42 @@ try {
     await page.locator('#sample-button').click();
     await waitForFrames();
     await assertNoOverflow(`${locale} extracted sample at 320px`);
+    if (locale === 'en') {
+      const mobilePng = await download('#download-frame', 'mobile-single-frame.png');
+      checkPng(mobilePng.bytes, mobilePng.name);
+      const mobileZip = await download('#download-all', 'mobile-all-frames.zip');
+      const mobileEntries = unzipSync(mobileZip.bytes);
+      assert.equal(Object.keys(mobileEntries).length, 24, 'Mobile ZIP contains all frames');
+      for (const [name, bytes] of Object.entries(mobileEntries)) checkPng(bytes, name);
+    }
     await page.locator('.language-menu summary').click();
     await assertNoOverflow(`${locale} language menu at 320px`);
     await page.locator('.language-menu summary').click();
     if (locale === 'zh-hant') await page.screenshot({ path: join(artifacts, 'sample-mobile-zh-hant.png'), fullPage: true });
-  }
-  checks.push('all 10 languages at 320px without horizontal overflow');
 
-  await visit(pagePath('en', 'guide'));
+    await page.locator('.how-section .inline-link').click();
+    assert.equal(new URL(page.url()).pathname, pagePath(locale, 'guide'), `${locale}: home opens its localized guide`);
+    await assertNoOverflow(`${locale} guide at 320px`);
+    assert.ok(await page.locator('.article-toc').isVisible());
+    const sampleImage = page.locator('img.guide-sample');
+    await sampleImage.scrollIntoViewIfNeeded();
+    await sampleImage.evaluate(image => image.decode());
+    assert.ok(await sampleImage.evaluate(image => image.naturalWidth > 0 && image.naturalHeight > 0), `${locale}: guide sample image loads`);
+
+    await page.locator('.article-quick-actions a').first().click();
+    assert.equal(new URL(page.url()).pathname, pagePath(locale), `${locale}: guide opens its localized tool`);
+    assert.equal(new URL(page.url()).hash, '#extractor');
+    await visit(pagePath(locale, 'guide'));
+    await page.locator('.article-quick-actions a').nth(1).click();
+    assert.equal(new URL(page.url()).pathname, pagePath(locale), `${locale}: sample keeps its language`);
+    assert.equal(new URL(page.url()).search, '?example=sample');
+    await waitForFrames();
+  }
+  checks.push('all 10 languages at 320px: home and guide navigation, working sample and image, mobile viewport downloads, no horizontal overflow');
+
+  // This guide was already visited above. A fresh URL avoids WebKit reporting
+  // a conditional 304 as the navigation response for the cached document.
+  await visit(`${pagePath('en', 'guide')}?browser-check=1`);
   assert.equal(await page.locator('h1').count(), 1);
   assert.ok(await page.locator('.article-toc').isVisible());
   await assertNoOverflow('guide at 320px');
@@ -306,7 +415,7 @@ try {
 
   assert.deepEqual(failures, [], 'Browser runtime errors or CSP violations');
   await writeFile(join(artifacts, 'summary.json'), JSON.stringify({ status: 'PASS', checks, failures }, null, 2));
-  console.log(`PASS: ${checks.length} browser checks; sample, PNG/ZIP, corrupt GIFs, playback/cancel, 10 mobile languages, guide/404; no runtime or CSP errors. Artifacts: output/playwright/`);
+  console.log(`PASS: ${checks.length} browser checks in ${browserName} ${browser.version()}; sample, PNG/ZIP, corrupt GIFs, playback/cancel, 10 mobile languages, guide/404; no runtime or CSP errors. Artifacts: output/playwright/`);
 } catch (error) {
   await page?.screenshot({ path: join(artifacts, 'failure.png'), fullPage: true }).catch(() => {});
   await writeFile(join(artifacts, 'summary.json'), JSON.stringify({ status: 'FAIL', checks, error: error.stack || String(error), failures }, null, 2));

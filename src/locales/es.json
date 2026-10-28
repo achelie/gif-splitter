@@ -53,8 +53,8 @@
     "dropTitle": "Arrastra aquí tu GIF",
     "dropText": "o elige un archivo para ver sus fotogramas",
     "choose": "Elegir GIF",
-    "fileHint": "GIF animado · Hasta 30 MB",
-    "outputHint": "Fotogramas PNG · Tamaño original",
+    "fileHint": "Un GIF · Hasta 30 MiB · 1000 fotogramas",
+    "outputHint": "Gratis · Sin crear una cuenta",
     "local": "Tu GIF permanece en tu dispositivo",
     "sample": "Probar un GIF de ejemplo",
     "inputLabel": "Elegir un archivo GIF",
@@ -155,9 +155,9 @@
     "CANVAS": "Tu navegador no ha podido crear un lienzo de imagen. Prueba con un navegador actualizado.",
     "PNG_EXPORT": "Tu navegador no ha podido exportar este fotograma. Prueba con un GIF más pequeño.",
     "EMPTY_FILE": "Elige un archivo GIF que no esté vacío.",
-    "FILE_SIZE": "Este archivo supera los 30 MB. Elige un GIF más pequeño.",
+    "FILE_SIZE": "Este archivo supera los 30 MiB. Elige un GIF más pequeño.",
     "UNKNOWN": "No se ha podido leer este GIF. Prueba con otro archivo.",
-    "ZIP_LIMIT": "Estos PNG superan el límite de 128 MB por ZIP. Selecciona menos fotogramas y descárgalos en grupos más pequeños.",
+    "ZIP_LIMIT": "Estos PNG superan el límite de 128 MiB por ZIP. Selecciona menos fotogramas y descárgalos en grupos más pequeños.",
     "ZIP_CREATE": "No se ha podido crear el ZIP. Prueba a descargar menos fotogramas a la vez.",
     "SAMPLE_LOAD": "No se ha podido cargar el ejemplo. Puedes elegir tu propio GIF.",
     "MULTIPLE_FILES": "Elige un solo GIF a la vez."
@@ -166,7 +166,7 @@
     "eyebrow": "Extractor de fotogramas GIF gratis online",
     "h1": "GIF Splitter — Divide un GIF en fotogramas PNG",
     "lede": "Guarda un instante o la secuencia completa.",
-    "description": "Usa este extractor de fotogramas GIF para convertir un GIF animado en imágenes PNG independientes. Previsualiza todos los fotogramas, elige los que necesitas y descarga un PNG o un ZIP numerado. Tu GIF y las imágenes extraídas permanecen en tu dispositivo.",
+    "description": "Extrae fotogramas en el navegador. Descarga un PNG o un ZIP numerado; tu GIF permanece en tu dispositivo.",
     "how": {
       "label": "De una animación a imágenes fijas",
       "title": "Cómo usar GIF Splitter",
@@ -174,7 +174,7 @@
       "steps": [
         {
           "title": "Elige el GIF que quieres descomponer",
-          "text": "Arrastra un GIF a la herramienta o pulsa Elegir GIF para seleccionarlo desde tu dispositivo. Abre un archivo a la vez, de hasta 30 MB y 1000 fotogramas. La extracción se realiza en el navegador y el indicador de progreso muestra cuántos fotogramas están listos. Para conocer los controles antes de abrir tu archivo, puedes pulsar Probar un GIF de ejemplo."
+          "text": "Arrastra un GIF a la herramienta o pulsa Elegir GIF para seleccionarlo desde tu dispositivo. Abre un archivo a la vez, de hasta 30 MiB y 1000 fotogramas. La extracción se realiza en el navegador y el indicador de progreso muestra cuántos fotogramas están listos. Para conocer los controles antes de abrir tu archivo, puedes pulsar Probar un GIF de ejemplo."
         },
         {
           "title": "Previsualiza y selecciona fotogramas",
@@ -210,6 +210,10 @@
       "intro": "Respuestas sobre extraer una imagen, conservar fotogramas, trabajar con GIF grandes y descargar desde el móvil.",
       "items": [
         {
+          "q": "¿Puedo convertir un GIF a PNG?",
+          "a": "Sí. Elige un GIF, previsualiza el fotograma que quieras y descárgalo como PNG. También puedes guardar varios fotogramas o la secuencia completa como PNG numerados en un ZIP. Cada PNG es una imagen fija y no reproduce la animación. Esta herramienta no crea archivos PNG animados (APNG)."
+        },
+        {
           "q": "¿Cómo descomponer un GIF en fotogramas?",
           "a": "Elige un GIF de tu dispositivo y espera a que aparezca la lista de fotogramas. Los resultados muestran la cantidad de fotogramas, las dimensiones del lienzo y la duración registrada. Descargar todos los fotogramas te da un ZIP de imágenes PNG numeradas en su orden original. Para un tutorial o una hoja de referencia, marca solo los fotogramas que muestran los pasos que necesitas y descarga esa selección."
         },
@@ -231,7 +235,7 @@
         },
         {
           "q": "¿GIF Splitter es gratis y qué límites tiene?",
-          "a": "Es gratis, sin cuenta ni marcas de agua añadidas. Abre un GIF a la vez, de hasta 30 MB y 1000 fotogramas. Las protecciones de píxeles y memoria pueden rechazar una animación de menos de 30 MB: cientos de imágenes completas ocupan mucho más espacio tras la decodificación. Cada ZIP admite hasta 128 MB de datos PNG. Si una descarga supera ese límite, selecciona menos fotogramas y guarda grupos más pequeños. Si la propia extracción falla por límites de tamaño o memoria, prueba un GIF más corto o una versión con dimensiones menores."
+          "a": "Es gratis, sin cuenta ni marcas de agua añadidas. Abre un GIF a la vez, de hasta 30 MiB y 1000 fotogramas. Las protecciones de píxeles y memoria pueden rechazar una animación de menos de 30 MiB: cientos de imágenes completas ocupan mucho más espacio tras la decodificación. Cada ZIP admite hasta 128 MiB de datos PNG. Si una descarga supera ese límite, selecciona menos fotogramas y guarda grupos más pequeños. Si la propia extracción falla por límites de tamaño o memoria, prueba un GIF más corto o una versión con dimensiones menores."
         },
         {
           "q": "¿Por qué algunos fotogramas extraídos parecen idénticos?",
@@ -330,13 +334,13 @@
           "heading": "Por qué el procesamiento es local",
           "paragraphs": [
             "La lectura del GIF, la codificación PNG y la creación del ZIP se ejecutan en tu dispositivo. No necesitas una cuenta ni un servicio para subir archivos, y el GIF original no se modifica. La memoria disponible y el rendimiento del dispositivo influyen en el tamaño de las animaciones que puede manejar el navegador.",
-            "Se admiten archivos de hasta 30 MB y 1000 fotogramas, con protecciones adicionales para limitar los píxeles decodificados. Cada ZIP admite hasta 128 MB de datos PNG. Un GIF que ocupa poco espacio comprimido puede necesitar mucha memoria al descomponerse en imágenes."
+            "Estos límites corresponden al extractor de fotogramas. Se admiten archivos de hasta 30 MiB y 1000 fotogramas, con protecciones adicionales para limitar los píxeles decodificados. Cada ZIP admite hasta 128 MiB de datos PNG. Un GIF que ocupa poco espacio comprimido puede necesitar mucha memoria al descomponerse en imágenes."
           ]
         },
         {
           "heading": "Funciones y límites",
           "paragraphs": [
-            "El sitio acepta archivos GIF y genera imágenes PNG o archivos ZIP. No edita los fotogramas, no extrae imágenes de vídeos ni crea una animación nueva. La exportación PNG no puede recuperar detalles que ya faltaban en el GIF.",
+            "GIF Merger, disponible en inglés, también combina GIF en una nueva animación. El separador no edita fotogramas ni extrae imágenes de vídeo; PNG no recupera detalles ausentes del original. Los conversores de JPG y WebP en inglés también exportan fotogramas GIF estáticos. Las herramientas de redimensionar y recortar GIF, disponibles en inglés, editan GIF animados localmente.",
             "La guía explica los tiempos de los fotogramas, la transparencia y las descargas. La página de privacidad describe el tratamiento local de los archivos, el alojamiento en Cloudflare y el uso de Microsoft Clarity para analizar las interacciones con el sitio."
           ]
         },
@@ -373,7 +377,7 @@
         {
           "heading": "Archivos GIF e imágenes exportadas",
           "paragraphs": [
-            "Tu navegador lee el GIF que seleccionas. La decodificación, las vistas previas, la codificación PNG y la creación del ZIP se realizan en tu dispositivo. La herramienta no sube tu GIF, sus fotogramas ni su nombre de archivo a un servidor.",
+            "Tu navegador lee el GIF que seleccionas. La decodificación, las vistas previas, la codificación PNG y la creación del ZIP se realizan en tu dispositivo. La herramienta no sube tu GIF, sus fotogramas ni su nombre de archivo a un servidor. GIF Merger y los conversores JPG y WebP también procesan los archivos y resultados en tu dispositivo sin subirlos para convertirlos. Las herramientas de redimensionar y recortar GIF en inglés también procesan los archivos en el dispositivo sin subirlos.",
             "La aplicación mantiene los datos de trabajo en la memoria del navegador. No guarda tus GIF en cookies, almacenamiento local ni una cuenta remota. Al elegir otro GIF o cerrar la página, se libera el estado de trabajo actual de la aplicación. Los archivos descargados permanecen en la ubicación que gestiona tu navegador o sistema operativo."
           ]
         },
@@ -388,7 +392,7 @@
           "heading": "Microsoft Clarity y cookies",
           "paragraphs": [
             "Microsoft Clarity se carga por defecto en las páginas admitidas de www.gifsplitter.com para estadísticas, mapas de calor y reproducción de sesiones. La página de Privacidad queda excluida, al igual que el entorno local y las vistas pages.dev. Se envían datos de interacción y navegador a Microsoft; puede leer o establecer cookies según ajustes, señales de consentimiento y restricciones.",
-            "El área de extracción, nombres y previsualizaciones está configurada para enmascararse en Clarity. Esto no desactiva todos los análisis. No hay cuentas ni almacenamiento de preferencia de idioma. Declaración de Microsoft: https://www.microsoft.com/en-us/privacy/privacystatement. Las opciones publicitarias descritas aquí no controlan por sí mismas Clarity."
+            "Las áreas de extracción, combinación y conversión, incluidos nombres y previsualizaciones, están configurada para enmascararse en Clarity. Esto no desactiva todos los análisis. No hay cuentas ni almacenamiento de preferencia de idioma. Declaración de Microsoft: https://www.microsoft.com/en-us/privacy/privacystatement. Las opciones publicitarias descritas aquí no controlan por sí mismas Clarity. Las áreas de edición de GIF, incluidos nombres y vistas previas, también están configuradas para el enmascaramiento."
           ]
         },
         {
@@ -652,7 +656,7 @@
         {
           "heading": "1. Servicio y operador",
           "paragraphs": [
-            "GIF Splitter es el nombre utilizado para operar esta herramienta gratuita de navegador. Lee un GIF elegido en tu dispositivo y entrega PNG compuestos o archivos ZIP. El contacto público para dudas, problemas y solicitudes de privacidad es contact@gifsplitter.com.",
+            "GIF Splitter es el nombre utilizado para operar esta herramienta gratuita de navegador. Lee un GIF elegido en tu dispositivo y entrega PNG compuestos o archivos ZIP. El contacto público para dudas, problemas y solicitudes de privacidad es contact@gifsplitter.com. Una herramienta GIF Merger en inglés combina varios GIF localmente. Los conversores de JPG y WebP en inglés también exportan fotogramas GIF estáticos. Las herramientas de redimensionar y recortar GIF, disponibles en inglés, editan GIF animados localmente.",
             "No necesitas una cuenta. El servicio está pensado para inspeccionar y extraer imágenes, no para almacenar archivos, publicarlos ni asegurar su idoneidad para cualquier propósito. Comprueba los resultados antes de utilizarlos en trabajos importantes."
           ]
         },

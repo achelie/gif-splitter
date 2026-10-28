@@ -120,6 +120,19 @@ test('extracts every known pixel of the independently encoded interlaced fixture
   assert.deepEqual(new Uint8Array(await result.frames[0].blob.arrayBuffer()), expected);
 });
 
+test('matches independently decoded transparent animation with mixed disposal methods', async () => {
+  const gif = await readFile(new URL('./fixtures/pillow-composite.gif', import.meta.url));
+  const expected = await readFile(new URL('./fixtures/pillow-composite.rgba', import.meta.url));
+  const result = await extractGif(new Blob([gif], { type: 'image/gif' }));
+  assert.deepEqual([result.width, result.height, result.frames.length], [12, 10, 4]);
+  assert.deepEqual(result.frames.map(frame => frame.delay), [40, 50, 60, 70]);
+  const frameBytes = 12 * 10 * 4;
+  for (const [index, frame] of result.frames.entries()) {
+    assert.deepEqual(new Uint8Array(await frame.blob.arrayBuffer()),
+      new Uint8Array(expected.subarray(index * frameBytes, (index + 1) * frameBytes)), `frame ${index + 1}`);
+  }
+});
+
 test('composites transparent pixels over earlier frames and preserves raw delays', async () => {
   const progress = [];
   const result = await extractGif(makeGif({ frames: [
@@ -196,6 +209,24 @@ test('rejects oversized files, dimensions, frame counts and total pixel budgets'
   await assert.rejects(extractGif(makeGif({ width: 1, frames: tooMany })), /1,000 frames/);
   const huge = Array.from({ length: 6 }, () => ({ width: 1, height: 1, pixels: [1] }));
   await assert.rejects(extractGif(makeGif({ width: 4000, height: 4000, frames: huge })), /browser memory/);
+});
+
+test('accepts the exact file-size and frame-count limits during validation', async () => {
+  const oneFrame = await makeGif({ width: 1, frames: [{ pixels: [1] }] }).arrayBuffer();
+  // Trailing padding keeps the encoded image unchanged while exercising the real file-size check.
+  const atSizeLimit = new Blob([oneFrame, new Uint8Array(GIF_LIMITS.maxBytes - oneFrame.byteLength)]);
+  assert.equal(atSizeLimit.size, GIF_LIMITS.maxBytes);
+  assert.equal((await extractGif(atSizeLimit)).frames.length, 1);
+  await assert.rejects(extractGif(new Blob([atSizeLimit, Uint8Array.of(0)])), { code: 'FILE_SIZE' });
+
+  const thousand = makeGif({ width: 1, frames: Array.from({ length: GIF_LIMITS.maxFrames }, () => ({ pixels: [1] })) });
+  const controller = new AbortController();
+  let inspectedTotal;
+  await assert.rejects(extractGif(thousand, {
+    signal: controller.signal,
+    onProgress({ total }) { inspectedTotal = total; controller.abort(); },
+  }), { name: 'AbortError' });
+  assert.equal(inspectedTotal, GIF_LIMITS.maxFrames);
 });
 
 test('supports cancellation before loading and between frames', async () => {

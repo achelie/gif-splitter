@@ -27,6 +27,10 @@ jobs:
       - run: npm run check:site -- --production-domain
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - run: npm run test:merger
+      - run: npm run test:converter
+      - run: npm run test:editor
+      - run: npm run test:localized-tools
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@v7.0.1
@@ -37,5 +41,9 @@ jobs:
             output/playwright/*.zip
             output/playwright/*.json
             output/playwright/*.log
+            output/merger-browser/*.gif
+            output/converter-browser/*.jpg
+            output/converter-browser/*.webp
+            output/editor-browser/*.gif
           if-no-files-found: ignore
           retention-days: 7

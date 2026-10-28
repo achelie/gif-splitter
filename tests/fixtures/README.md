@@ -5,6 +5,12 @@ with a 256-color palette. It was generated with Python 3.13 and Pillow 12.2.0.
 The test checks every decoded pixel against the procedural source image,
 without relying on another LZW decoder or the implementation under test.
 
+`pillow-composite.gif` is a four-frame transparent animation independently
+encoded with Pillow, with partial-frame changes and disposal methods 1, 2 and 3.
+`pillow-composite.rgba` contains its full composited frames as decoded by Pillow.
+The extraction test compares every pixel and frame delay. Regenerate both with
+`python scripts/make-pillow-composite-fixture.py` (Pillow 12.2.0).
+
 To reproduce the fixture (Pillow is only needed for regeneration):
 
 ```python
